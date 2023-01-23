@@ -1,0 +1,83 @@
+#=============PARTE INICIAL===============
+<bloco> ::= <declaracao-variavel>
+            | "if" "(" <expressao> ")" "{" <bloco> "}" <else>
+            | <comando-enquanto>
+            | <declaracao-funcao>
+            | <declaracao-procedimento>
+            | <identificador-procedimento> "(" <lista-parametros> ")" ";" #chamada de procedimento 
+            | <comando-impressao>
+
+
+#=============COMANDOS===============
+<comando-enquanto> ::= "while" "(" <expressao> ")" "{" <bloco> <desvio-incondicional>"}"
+<comando-impressao> ::= "print" (<constante> | <identificador-variavel>) ";"
+
+
+#=============DESVIOS===============
+<else> ::= "else" "{" <bloco> "}" | ε
+
+<desvio-incondicional> ::= "break" ";" | "continue" ";"  | ε
+
+
+#=============VARIAVEIS===============
+<especificador-tipo> ::= "int" | "boolean"
+
+<atribuicao-variavel> ::= "=" <expressao>
+
+<identificador-variavel> ::= "v"(<letra-maiuscula> | <letra-minuscula> |  <numero>)+
+
+<declaracao-variavel> ::= <variavel> ";"
+
+<variavel> ::= <especificador-tipo> <identificador-variavel> <atribuicao-variavel>
+
+
+#=============TERMINAIS===============
+<letra-maiuscula> ::=| "A" | "B" | "C" | "D" | "E" | "F" | "G" | "H" | "I" | "J" | "K" | "L" | "M" | "N" | "O" | "P" | "Q" | "R" | "S" | "T" | "U" | "V" | "W" | "X" | "Y" | "Z"
+
+<letra-minuscula> ::=  "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
+
+<digito> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" 
+
+<boolean> ::= "true" | "false"
+
+
+#=============EXPRESSOES===============
+<expressao> ::= <expressao-logica>
+                | <expressao-aritmetica>
+                | <boolean>
+                | <identificador-funcao> "(" <lista-parametros> ")"
+                | <digito>
+
+<expressao-logica> ::= <termo> <operador-logico> <termo>
+
+<termo> ::= <identificador-variavel> | <digito>
+
+<expressao-aritmetica> ::= <termo> <operador-aritmetico> <termo>
+
+
+#=============OPERADORES===============
+<operador-aritmetico> ::= "+" | "-" | "*" | "/"
+
+<operador-logico> ::= "==" | "!=" | ">" | ">=" | "<" | "<="
+
+
+#=============PROCEDIMENTOS===============
+<identificador-procedimento> ::= "p"(<letra-maiuscula> | <letra-minuscula> |  <numero>)+
+
+<declaracao-procedimento> ::= "proc" <identificador-procedimento> "(" <lista-parametros> ")" "{" <bloco> "}"
+
+
+#=============FUNÇOES===============
+<identificador-funcao> ::= "f"(<letra-maiuscula> | <letra-minuscula> |  <numero>)+ 
+
+<declaracao-funcao> ::= "func" <especificador-tipo> <identificador-funcao> "(" <bloco-funcao>
+
+<bloco-funcao> ::= <lista-parametros> ")" "{" <bloco> "return " <identificador-variavel> ";" "}"
+
+
+#=============PARAMETROS===============
+<lista-parametros> ::= <declaracao-parametro> <outros-parametros>
+
+<declaracao-parametro> ::= <especificador-tipo> <identificador-variavel>
+
+<outros-parametros> ::= "," <lista-parametros> | ε
