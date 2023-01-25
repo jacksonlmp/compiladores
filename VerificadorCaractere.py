@@ -34,3 +34,11 @@ def operadoresAritmeticosAtribuicao(lexema):
 def operadoresLogicos(lexema):
     if lexema in operadoresLogicos:
         return "Operador Logico"
+
+# Verifica se o caractere encontrado eh um espaco ou uma quebra de linha
+def ehEspacoOuQuebraDeLinha(caractere):
+    return (caractere == " ") or (caractere == "\n")
+
+# Verifica se a linguagem aceita o caractere informado
+def ehCaractereValido(caractere):
+    return caractere in caracteres
