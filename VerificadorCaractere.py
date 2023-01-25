@@ -23,22 +23,37 @@ operadoresAritmeticos = ["+", "-", "*", "/"]
 #################### Funcoes de verificacao de caracteres ####################
 
 
-# Verifica se o lexema e um operador aritmetico ou uma atribuicao
+# Identifica se o lexema e um operador aritmetico ou uma atribuicao
 def operadoresAritmeticosAtribuicao(lexema):
     if lexema in operadoresAritmeticos:
         return "Operador Aritmetico"
     elif lexema == "=":
         return "Atribuicao"
 
-# Verifica se o lexema e um operador logico    
+# Identifica se o lexema e um operador logico    
 def operadoresLogicos(lexema):
     if lexema in operadoresLogicos:
         return "Operador Logico"
 
-# Verifica se o caractere encontrado eh um espaco ou uma quebra de linha
+# Identifica se o caractere encontrado eh um espaco ou uma quebra de linha
 def ehEspacoOuQuebraDeLinha(caractere):
     return (caractere == " ") or (caractere == "\n")
 
-# Verifica se a linguagem aceita o caractere informado
+# Indica se a linguagem aceita o caractere informado
 def ehCaractereValido(caractere):
     return caractere in caracteres
+
+# Identifica se eh parentese, chave ou ponto e virgula
+def EhParentesChavesPontoEVirgula(caractere):
+    return caractere in set("(){};")
+
+# Converte o caractere parentese, chave ou ponto em virgula em uma string
+def traduzParenteseChaveOuPontoEVirgula(caractere):
+    caracteres = {
+        "(": "abreParentese",
+        ")": "fechaParentese",
+        "{": "abreChave",
+        "}": "fechaChave",
+        ";": "pontoVirgula"
+    }
+    return caracteres.get(caractere)
