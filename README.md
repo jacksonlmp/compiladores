@@ -4,7 +4,7 @@ Disciplina de Compiladores, ministrada pela professora Maria Sibaldo na UFAPE, r
 ## Sobre o projeto 📑
 Implementação de um compilador, com linguagem de livre escolha, com uso de gramática preditiva.
 
-A linguagem escolhida para desenvolvimento foi python.
+A linguagem escolhida para desenvolvimento foi python, na versão 3.9.5.
 
 ## Objetivo ✅
 Seu intuito é a prática dos conhecimentos teóricos vistos em aula, para a verificação de aprendizagem.
