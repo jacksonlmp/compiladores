@@ -1,4 +1,3 @@
-
 # Tipos de variáveis
 laco = ['while']
 boolean = ['true', 'false']
@@ -19,9 +18,30 @@ caracteres = [
 # Variáveis auxiliares
 lexema = ""
 
+# Lista para armazenas Tokens
+tokens = []
 
-# def analiseLexica(code):
+
+def analiseLexica(code):
+    #Implementar
+    return
+
+
+# Verifica se o lexema é um operador aritmético ou uma atribuiçaõ    
+def operadoresAritmeticosAtribuicao(lexema):
+    if lexema == "+":
+        return "Operador Aritmetico"
+    elif lexema == "-":
+        return "Operador Aritmetico"
+    elif lexema == "*":
+        return "Operador Aritmetico"
+    elif lexema == "/":
+        return "Operador Aritmetico"
+    elif lexema == "=":
+        return "Atribuicao"
+
     
+# Verifica se o lexema é um operador lógico    
 def operadoresLogicos(lexema):
     if lexema == ">=":
         return "Operador Logico"
