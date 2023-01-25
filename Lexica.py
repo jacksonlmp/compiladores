@@ -15,6 +15,10 @@ caracteres = [
     "=", "!", "+", "-", "*", "/", ","
 ]
 
+listaOperadoresLogicos = [">=", ">", "<", "<=", "!=", "=="]
+
+listaOperadoresAritmeticos = ["+", "-", "*", "/"]
+
 # Variáveis auxiliares
 lexema = ""
 
@@ -29,13 +33,7 @@ def analiseLexica(code):
 
 # Verifica se o lexema é um operador aritmético ou uma atribuiçaõ    
 def operadoresAritmeticosAtribuicao(lexema):
-    if lexema == "+":
-        return "Operador Aritmetico"
-    elif lexema == "-":
-        return "Operador Aritmetico"
-    elif lexema == "*":
-        return "Operador Aritmetico"
-    elif lexema == "/":
+    if lexema in listaOperadoresAritmeticos:
         return "Operador Aritmetico"
     elif lexema == "=":
         return "Atribuicao"
@@ -43,15 +41,5 @@ def operadoresAritmeticosAtribuicao(lexema):
     
 # Verifica se o lexema é um operador lógico    
 def operadoresLogicos(lexema):
-    if lexema == ">=":
-        return "Operador Logico"
-    elif lexema == ">":
-        return "Operador Logico"
-    elif lexema == "<":
-        return "Operador Logico"
-    elif lexema == "<=":
-        return "Operador Logico"
-    elif lexema == "!=":
-        return "Operador Logico"
-    elif lexema == "==":
+    if lexema in listaOperadoresLogicos:
         return "Operador Logico"
