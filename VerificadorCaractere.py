@@ -23,10 +23,14 @@ operadoresAritmeticos = ["+", "-", "*", "/"]
 #################### Funcoes de verificacao de caracteres ####################
 
 
-# Identifica se o lexema e um operador aritmetico ou uma atribuicao
-def operadoresAritmeticosAtribuicao(lexema):
+# Identifica se o lexema e um operador aritmetico, uma atribuicao ou uma virgula
+def identificaAritmeticoAtribuicaoOuVirgula(lexema):
     if lexema == "=":
         return "Atribuicao"
+    elif lexema == ";":
+        return "pontoVirgula"
+    elif lexema == ",":
+        return "virgula"
     elif lexema in operadoresAritmeticos:
         return "Operador Aritmetico"
 
