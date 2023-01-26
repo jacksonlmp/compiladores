@@ -22,7 +22,7 @@ operadoresAritmeticos = ["+", "-", "*", "/"]
 
 #################### Funcoes de verificacao de caracteres ####################
 
-def verificaToken(lexema, numero_linha):
+def verificaToken(lexema, numeroLinha):
     tokens = {
         'laco': ['while'],
         'condicional': ['if', 'else'],
@@ -47,7 +47,7 @@ def verificaToken(lexema, numero_linha):
             int(lexema)
             return "constante"
         except ValueError:
-            print(f"ERRO LEXICO - Linha {numero_linha} - Lexema '{lexema}' invalido.")
+            print(f"ERRO LEXICO - Linha {numeroLinha} - Lexema '{lexema}' invalido.")
             exit()
 
 # lexema = 'for'
