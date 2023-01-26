@@ -60,7 +60,6 @@ def insereToken(lexema, tabelaTokens, numeroLinha, token=None):
     if lexema:
         tabelaTokens.loc[len(tabelaTokens)] = [token, lexema, numeroLinha]
     lexema = ""
-    return lexema
 
 
 # Identifica se o lexema e um operador aritmetico, uma atribuicao ou uma virgula
