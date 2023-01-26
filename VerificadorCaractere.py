@@ -24,6 +24,13 @@ def getOperadoresAritmeticos():
 
 #################### Funcoes de verificacao de caracteres ####################
 
+# Indica se a linguagem aceita o caractere informado
+def ehCaractereValido(caractere):
+    return caractere in caracteres
+
+# Identifica se o caractere encontrado eh um espaco ou uma quebra de linha
+def ehEspacoOuQuebraDeLinha(caractere):
+    return (caractere == " ") or (caractere == "\n")
 
 # Identifica se o lexema e um operador aritmetico, uma atribuicao ou uma virgula
 def identificarTipoAritmeticoAtribuicaoOuVirgula(lexema):
@@ -41,18 +48,6 @@ def identificarTipoOperadorLogico(lexema):
     if lexema in getOperadoresLogicos():
         return "Operador Logico"
 
-# Identifica se o caractere encontrado eh um espaco ou uma quebra de linha
-def ehEspacoOuQuebraDeLinha(caractere):
-    return (caractere == " ") or (caractere == "\n")
-
-# Indica se a linguagem aceita o caractere informado
-def ehCaractereValido(caractere):
-    return caractere in caracteres
-
-# Identifica se eh parentese, chave ou ponto e virgula
-def ehParenteseChavePontoEVirgula(caractere):
-    return caractere in set("(){};")
-
 def ehAritmeticoAtribuicaoOuVirgula(caractere):
     if caractere == "=":
         return True
@@ -62,6 +57,10 @@ def ehAritmeticoAtribuicaoOuVirgula(caractere):
         return True
 
     return False
+
+# Identifica se eh parentese, chave ou ponto e virgula
+def ehParenteseChavePontoEVirgula(caractere):
+    return caractere in set("(){};")
 
 # Converte o caractere parentese, chave ou ponto em virgula em uma string
 def traduzParenteseChaveOuPontoEVirgula(caractere):
@@ -73,3 +72,14 @@ def traduzParenteseChaveOuPontoEVirgula(caractere):
         ";": "pontoVirgula"
     }
     return caracteres.get(caractere)
+
+# Identifica se eh uma atribuicao ou um operador logico aritmetico
+def identificarAritmeticoOuAtribuicao(caractere, proximoCaractere, indice):
+    if (caractere == ">") or (caractere == "<"):
+        return (indice + 1 if proximoCaractere == '=' else indice)
+
+    elif ((caractere == "=" or caractere == "!") and proximoCaractere == '='):
+            return indice + 1
+    
+    else:
+        return -1 # Nao reconheceu
