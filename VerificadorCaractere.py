@@ -15,9 +15,11 @@ caracteres = [
     "=", "!", "+", "-", "*", "/", ","
 ]
 
-operadoresLogicos = [">=", ">", "<", "<=", "!=", "=="]
+def getOperadoresLogicos():
+    return [">=", ">", "<", "<=", "!=", "=="]
 
-operadoresAritmeticos = ["+", "-", "*", "/"]
+def getOperadoresAritmeticos():
+    return ["+", "-", "*", "/"]
 
 
 #################### Funcoes de verificacao de caracteres ####################
@@ -31,12 +33,12 @@ def identificaAritmeticoAtribuicaoOuVirgula(lexema):
         return "pontoVirgula"
     elif lexema == ",":
         return "virgula"
-    elif lexema in operadoresAritmeticos:
+    elif lexema in getOperadoresAritmeticos():
         return "Operador Aritmetico"
 
 # Identifica se o lexema e um operador logico    
 def operadoresLogicos(lexema):
-    if lexema in operadoresLogicos:
+    if lexema in getOperadoresLogicos():
         return "Operador Logico"
 
 # Identifica se o caractere encontrado eh um espaco ou uma quebra de linha
@@ -56,7 +58,7 @@ def ehAritmeticoAtribuicaoOuVirgula(caractere):
         return True
     elif caractere == ";" or caractere == ",":
         return True
-    elif caractere in operadoresAritmeticos:
+    elif caractere in getOperadoresAritmeticos():
         return True
 
     return False
