@@ -25,10 +25,10 @@ operadoresAritmeticos = ["+", "-", "*", "/"]
 
 # Identifica se o lexema e um operador aritmetico ou uma atribuicao
 def operadoresAritmeticosAtribuicao(lexema):
-    if lexema in operadoresAritmeticos:
-        return "Operador Aritmetico"
-    elif lexema == "=":
+    if lexema == "=":
         return "Atribuicao"
+    elif lexema in operadoresAritmeticos:
+        return "Operador Aritmetico"
 
 # Identifica se o lexema e um operador logico    
 def operadoresLogicos(lexema):
