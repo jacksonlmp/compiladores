@@ -1,7 +1,7 @@
 import VerificadorCaractere as verificador
 import pandas as pd
 
-lexema = ""
+lexema = "" # Forma os tokens, a partir da leitura da linha
 numeroDaLinhaAtual = 0
 tabelaDeTokens = pd.DataFrame(columns=['Token', 'Lexema', 'Linha'])
 
@@ -11,8 +11,21 @@ tokens = []
 
 
 def analiseLexica(code):
-    #Implementar
-    return True
+    for linha in codigo:
+        numeroDaLinhaAtual = numeroDaLinhaAtual + 1
+
+        i = 0
+        qtdCaracteres = len(linha)
+        while(i < qtdCaracteres):
+            print("Implementar")
+            # Chamar metodos de verificacao de caracteres
+
+        # Verifica se chegou ao fim da linha e nao possui mais caracteres
+        if(len(lexema) != 0):
+            insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual)
+            lexema = ""
+
+    return tabelaDeTokens
 
 
 #################### Funcoes da tabela de tokens ####################
