@@ -26,7 +26,7 @@ def getOperadoresAritmeticos():
 
 
 # Identifica se o lexema e um operador aritmetico, uma atribuicao ou uma virgula
-def identificaAritmeticoAtribuicaoOuVirgula(lexema):
+def identificarTipoAritmeticoAtribuicaoOuVirgula(lexema):
     if lexema == "=":
         return "Atribuicao"
     elif lexema == ";":
@@ -37,7 +37,7 @@ def identificaAritmeticoAtribuicaoOuVirgula(lexema):
         return "Operador Aritmetico"
 
 # Identifica se o lexema e um operador logico    
-def operadoresLogicos(lexema):
+def identificarTipoOperadorLogico(lexema):
     if lexema in getOperadoresLogicos():
         return "Operador Logico"
 
@@ -50,7 +50,7 @@ def ehCaractereValido(caractere):
     return caractere in caracteres
 
 # Identifica se eh parentese, chave ou ponto e virgula
-def ehParentesChavesPontoEVirgula(caractere):
+def ehParenteseChavePontoEVirgula(caractere):
     return caractere in set("(){};")
 
 def ehAritmeticoAtribuicaoOuVirgula(caractere):
