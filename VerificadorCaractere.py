@@ -22,6 +22,46 @@ operadoresAritmeticos = ["+", "-", "*", "/"]
 
 #################### Funcoes de verificacao de caracteres ####################
 
+def verificaToken(lexema, numero_linha):
+    tokens = {
+        'laco': ['while'],
+        'condicional': ['if', 'else'],
+        'tipo': ['int', 'float', 'string'],
+        'booleano': ['True', 'False'],
+        'funcao': ['func'],
+        'return': ['return'],
+        'print': ['print'],
+        'procedimento': ['proc'],
+        'id_funcao': ['f'],
+        'id_variavel': ['v'],
+        'id_procedimento': ['p'],
+        'aux_laco': ['break', 'continue'],
+    }
+    if(lexema == ''):
+        return ''
+    else:
+        for tokens, lexemas in tokens.items():
+            if lexema in lexemas:
+                return tokens
+        try:
+            int(lexema)
+            return "constante"
+        except ValueError:
+            print(f"ERRO LEXICO - Linha {numero_linha} - Lexema '{lexema}' invalido.")
+            exit()
+
+# lexema = 'for'
+# numeroLinha = '2'
+# print(verificaToken(lexema, numeroLinha))
+
+def insereToken(lexema, tabelaTokens, numeroLinha, token=None):
+    if not token:
+        token = verificaToken(lexema, numeroLinha)
+    if lexema:
+        tabelaTokens.loc[len(tabelaTokens)] = [token, lexema, numeroLinha]
+    lexema = ""
+    return lexema
+
 
 # Identifica se o lexema e um operador aritmetico ou uma atribuicao
 def operadoresAritmeticosAtribuicao(lexema):
