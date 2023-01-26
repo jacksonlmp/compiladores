@@ -51,6 +51,16 @@ def ehCaractereValido(caractere):
 def EhParentesChavesPontoEVirgula(caractere):
     return caractere in set("(){};")
 
+def ehAritmeticoAtribuicaoOuVirgula(caractere):
+    if caractere == "=":
+        return True
+    elif caractere == ";" or caractere == ",":
+        return True
+    elif caractere in operadoresAritmeticos:
+        return True
+
+    return False
+
 # Converte o caractere parentese, chave ou ponto em virgula em uma string
 def traduzParenteseChaveOuPontoEVirgula(caractere):
     caracteres = {
