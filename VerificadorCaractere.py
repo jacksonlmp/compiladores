@@ -48,7 +48,7 @@ def ehCaractereValido(caractere):
     return caractere in caracteres
 
 # Identifica se eh parentese, chave ou ponto e virgula
-def EhParentesChavesPontoEVirgula(caractere):
+def ehParentesChavesPontoEVirgula(caractere):
     return caractere in set("(){};")
 
 def ehAritmeticoAtribuicaoOuVirgula(caractere):

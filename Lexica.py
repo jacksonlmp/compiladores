@@ -10,7 +10,7 @@ tabelaDeTokens = pd.DataFrame(columns=['Token', 'Lexema', 'Linha'])
 tokens = []
 
 
-def analiseLexica(code):
+def realizarAnaliseLexica(codigo):
     for linha in codigo:
         numeroDaLinhaAtual = numeroDaLinhaAtual + 1
 
@@ -55,7 +55,7 @@ def verificaToken(lexema, numeroDaLinhaAtual):
             int(lexema)
             return "constante"
         except ValueError:
-            print(f"ERRO LEXICO - Linha {numeroDaLinhaAtual} - Lexema '{lexema}' invalido.")
+            print(f"Erro lexico na linha {numeroDaLinhaAtual}. Lexema '{lexema}' invalido.")
             exit()
 
 # Salva o token na tabela
