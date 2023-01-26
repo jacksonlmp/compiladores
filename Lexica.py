@@ -12,12 +12,36 @@ tokens = []
 
 def realizarAnaliseLexica(codigo):
     for linha in codigo:
-        numeroDaLinhaAtual = numeroDaLinhaAtual + 1
+        numeroDaLinhaAtual += 1
 
         i = 0
         qtdCaracteres = len(linha)
         while(i < qtdCaracteres):
-            print("Implementar")
+            caractere = linha[i]
+
+            if(verificador.ehCaractereValido(caractere) == False):
+                print(f"Erro lexico na linha {numeroDaLinhaAtual}. Caractere '{caractere}' nao foi definido.")
+                exit()
+
+            elif verificador.ehEspacoOuQuebraDeLinha(caractere):
+                insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual)
+                i = i + 1
+                lexema = ""
+                continue
+
+            elif verificador.ehParenteseChavePontoEVirgula(caractere):
+                if lexema != "": # Possui token para salvar
+                     insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual) # Guardou na tabela o token que estava lendo
+                
+                lexema = caractere 
+                token = verificador.traduzParenteseChaveOuPontoEVirgula(lexema)
+                insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual, token) # Guardou chave, ponto e virgula ou parentese
+                i = i + 1
+                lexema = ""
+                continue
+            
+            #################### Verificar os operadores ####################
+
             # Chamar metodos de verificacao de caracteres
 
         # Verifica se chegou ao fim da linha e nao possui mais caracteres
