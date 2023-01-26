@@ -55,9 +55,9 @@ def verificaToken(lexema, numeroLinha):
 # print(verificaToken(lexema, numeroLinha))
 
 def insereToken(lexema, tabelaTokens, numeroLinha, token=None):
-    if not token:
-        token = verificaToken(lexema, numeroLinha)
     if lexema:
+        if not token:
+            token = verificaToken(lexema, numeroLinha)
         tabelaTokens.loc[len(tabelaTokens)] = [token, lexema, numeroLinha]
     lexema = ""
 
