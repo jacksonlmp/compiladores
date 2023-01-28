@@ -5,11 +5,6 @@ lexema = "" # Forma os tokens, a partir da leitura da linha
 numeroDaLinhaAtual = 0
 tabelaDeTokens = pd.DataFrame(columns=['Token', 'Lexema', 'Linha'])
 
-
-# Lista para armazenar Tokens
-tokens = []
-
-
 def realizarAnaliseLexica(codigo):
     for linha in codigo:
         numeroDaLinhaAtual += 1
