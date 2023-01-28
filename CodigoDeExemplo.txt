@@ -1,0 +1,6 @@
+int vX = 0;
+int vY = 1;
+
+if(vX < vY){
+    int vZ = vX + vY;
+}
