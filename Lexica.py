@@ -20,7 +20,7 @@ def realizarAnaliseLexica(codigo):
             caractere = linha[i]
 
             if(verificador.ehCaractereValido(caractere) == False):
-                print(f"Erro lexico na linha {numeroDaLinhaAtual}. Caractere '{caractere}' nao foi definido.")
+                print(f"Ocorreu um erro lexico na linha {numeroDaLinhaAtual}. Caractere '{caractere}' nao foi definido.")
                 exit()
 
             elif verificador.ehEspacoOuQuebraDeLinha(caractere):
@@ -79,7 +79,7 @@ def verificaToken(lexema, numeroDaLinhaAtual):
             int(lexema)
             return "constante"
         except ValueError:
-            print(f"Erro lexico na linha {numeroDaLinhaAtual}. Lexema '{lexema}' invalido.")
+            print(f"Ocorreu um erro lexico na linha {numeroDaLinhaAtual}. Lexema '{lexema}' invalido.")
             exit()
 
 # Salva o token na tabela
