@@ -40,9 +40,34 @@ def realizarAnaliseLexica(codigo):
                 lexema = ""
                 continue
             
-            #################### Verificar os operadores ####################
+            #################### Verificar os operadores logicos ####################
 
-            # Chamar metodos de verificacao de caracteres
+            elif (i+1) < qtdCaracteres and verificador.identificarAritmeticoOuAtribuicao(caractere, linha[i+1], i) != -1:  
+                novoIndice = verificador.identificarAritmeticoOuAtribuicao(caractere, linha[i+1], i)
+                
+                if lexema == "": # Nao tem token a ser salvo no momento
+                    if(novoIndice != i): # 2 tokens juntos
+                        lexema = caractere + linha[i+1]
+                        token = verificador.identificarTipoOperadorLogico(lexema)
+                        insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual, token)
+                        i+=2 # Inserimos um operador logico com mais de um caractere ('>=' ou '<='), logo, foram lidos dois caracteres
+                    else: # Apenas um token
+                        lexema = caractere 
+                        token = verificador.identificarTipoOperadorLogico(lexema)
+                        insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual, token)
+                        i+=1
+                    lexema = ""
+                    continue
+                else: 
+                    insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual) # Guarda o token que estava sendo lido no momento
+                    lexema = caractere 
+                    token = verificador.identificarTipoOperadorLogico(lexema)
+                    insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual, token) # Salva o operador
+                    lexema = ""
+                    i+=1
+                    continue
+
+                #################### Verificar os operadores aritmeticos ####################
 
         # Verifica se chegou ao fim da linha e nao possui mais caracteres
         if(len(lexema) != 0):
