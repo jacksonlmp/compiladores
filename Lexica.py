@@ -62,9 +62,25 @@ def realizarAnaliseLexica(codigo):
                     i+=1
                     continue
 
-                #################### Verificar os operadores aritmeticos ####################
+            #################### Verificar os operadores aritmeticos ####################
 
-        # Verifica se chegou ao fim da linha e nao possui mais caracteres
+            elif verificador.ehAritmeticoAtribuicaoOuVirgula(caractere):
+                if lexema != "":
+                    insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual)
+                
+                lexema = caractere 
+                token = verificador.identificarTipoAritmeticoAtribuicaoOuVirgula(lexema)
+                insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual, token)
+                lexema = ""
+                i+=1
+                continue
+
+            else:
+                lexema = lexema + caractere # O caractere nao formou token ainda, entao incrementa o lexema com o que foi lido
+
+            i+=1
+
+        # Verifica se chegou ao fim da linha (nao possui mais caracteres)
         if(len(lexema) != 0):
             insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual)
             lexema = ""
