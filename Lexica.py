@@ -19,18 +19,18 @@ def realizarAnaliseLexica(codigo):
                 exit()
 
             elif verificador.ehEspacoOuQuebraDeLinha(caractere):
-                insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual)
+                inserirToken(lexema, tabelaDeTokens, numeroDaLinhaAtual)
                 i = i + 1
                 lexema = ""
                 continue
 
             elif verificador.ehParenteseChavePontoEVirgula(caractere):
                 if lexema != "": # Possui token para salvar
-                     insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual) # Guardou na tabela o token que estava lendo
+                     inserirToken(lexema, tabelaDeTokens, numeroDaLinhaAtual) # Guardou na tabela o token que estava lendo
                 
                 lexema = caractere 
                 token = verificador.traduzParenteseChaveOuPontoEVirgula(lexema)
-                insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual, token) # Guardou chave, ponto e virgula ou parentese
+                inserirToken(lexema, tabelaDeTokens, numeroDaLinhaAtual, token) # Guardou chave, ponto e virgula ou parentese
                 i = i + 1
                 lexema = ""
                 continue
@@ -44,20 +44,20 @@ def realizarAnaliseLexica(codigo):
                     if(novoIndice != i): # 2 tokens juntos
                         lexema = caractere + linha[i+1]
                         token = verificador.identificarTipoOperadorLogico(lexema)
-                        insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual, token)
+                        inserirToken(lexema, tabelaDeTokens, numeroDaLinhaAtual, token)
                         i+=2 # Inserimos um operador logico com mais de um caractere ('>=' ou '<='), logo, foram lidos dois caracteres
                     else: # Apenas um token
                         lexema = caractere 
                         token = verificador.identificarTipoOperadorLogico(lexema)
-                        insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual, token)
+                        inserirToken(lexema, tabelaDeTokens, numeroDaLinhaAtual, token)
                         i+=1
                     lexema = ""
                     continue
                 else: 
-                    insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual) # Guarda o token que estava sendo lido no momento
+                    inserirToken(lexema, tabelaDeTokens, numeroDaLinhaAtual) # Guarda o token que estava sendo lido no momento
                     lexema = caractere 
                     token = verificador.identificarTipoOperadorLogico(lexema)
-                    insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual, token) # Salva o operador
+                    inserirToken(lexema, tabelaDeTokens, numeroDaLinhaAtual, token) # Salva o operador
                     lexema = ""
                     i+=1
                     continue
@@ -66,11 +66,11 @@ def realizarAnaliseLexica(codigo):
 
             elif verificador.ehAritmeticoAtribuicaoOuVirgula(caractere):
                 if lexema != "":
-                    insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual)
+                    inserirToken(lexema, tabelaDeTokens, numeroDaLinhaAtual)
                 
                 lexema = caractere 
                 token = verificador.identificarTipoAritmeticoAtribuicaoOuVirgula(lexema)
-                insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual, token)
+                inserirToken(lexema, tabelaDeTokens, numeroDaLinhaAtual, token)
                 lexema = ""
                 i+=1
                 continue
@@ -82,7 +82,7 @@ def realizarAnaliseLexica(codigo):
 
         # Verifica se chegou ao fim da linha (nao possui mais caracteres)
         if(len(lexema) != 0):
-            insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual)
+            inserirToken(lexema, tabelaDeTokens, numeroDaLinhaAtual)
             lexema = ""
 
     return tabelaDeTokens
@@ -119,7 +119,7 @@ def verificaToken(lexema, numeroDaLinhaAtual):
             exit()
 
 # Salva o token na tabela
-def insereToken(lexema, tabelaDeTokens, numeroDaLinhaAtual, token=None):
+def inserirToken(lexema, tabelaDeTokens, numeroDaLinhaAtual, token=None):
     if lexema:
         if not token:
             token = verificaToken(lexema, numeroDaLinhaAtual)
