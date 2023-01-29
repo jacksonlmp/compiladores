@@ -14,7 +14,7 @@ palavrasReservadas = {
     "continue": "auxLaco"
 }
 
-def verificarToken(lexema, numero_linha):
+def verificarToken(lexema, numeroLinha):
     if(lexema == ''):
         return ''
     else:
@@ -33,7 +33,7 @@ def verificarToken(lexema, numero_linha):
                 return "constante"
             except:
                 print("="*25)
-                print("Erro lexico na linha "+ str(numero_linha))
+                print("Erro lexico na linha "+ str(numeroLinha))
                 print("Lexema '"+ lexema +"' invalido.")
                 print("="*25)
                 exit()
