@@ -35,18 +35,18 @@ def ehEspacoOuQuebraDeLinha(caractere):
 # Identifica se o lexema e um operador aritmetico, uma atribuicao ou uma virgula
 def identificarTipoAritmeticoAtribuicaoOuVirgula(lexema):
     if lexema == "=":
-        return "Atribuicao"
+        return "atribuicao"
     elif lexema == ";":
         return "pontoVirgula"
     elif lexema == ",":
         return "virgula"
     elif lexema in getOperadoresAritmeticos():
-        return "Operador Aritmetico"
+        return "operadorAritmetico"
 
 # Identifica se o lexema e um operador logico    
 def identificarTipoOperadorLogico(lexema):
     if lexema in getOperadoresLogicos():
-        return "Operador Logico"
+        return "operadorLogico"
 
 def ehAritmeticoAtribuicaoOuVirgula(caractere):
     if caractere == "=":
@@ -69,7 +69,7 @@ def traduzParenteseChaveOuPontoEVirgula(caractere):
         ")": "fechaParentese",
         "{": "abreChave",
         "}": "fechaChave",
-        ";": "pontoVirgula"
+        ";": "pontoEVirgula"
     }
     return caracteres.get(caractere)
 

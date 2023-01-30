@@ -22,11 +22,11 @@ def verificarToken(lexema, numeroLinha):
         if tokens:
             return tokens
         elif lexema[0] == 'v':
-            return 'IdVariavel'
+            return 'idVariavel'
         elif lexema[0] == 'f':
-            return 'IdFuncao'
+            return 'idFuncao'
         elif lexema[0] == 'p':
-            return 'IdProcedimento'
+            return 'idProcedimento'
         else:
             try:
                 constante = int(lexema)
