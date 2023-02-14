@@ -36,7 +36,9 @@ A linguagem deve cobrir os seguintes aspectos:
 
 ## Para rodar 🎡
 + Utilize o Python na versão 3.9.5 ou superior.
-+ Instale o pandas (para criar as tabelas) e também o tabulate (estilização dos dataframes):
++ Instale o pandas (para criar os dataframes) e também o tabulate (formatação das tabelas):
     - pip install pandas
     - pip install tabulate
-+ Execute o arquivo Main.py alterando o conteúdo do CodigoDeExemplo.txt
++ Execute o arquivo Main.py.
+
+* Caso queira, pode-se executar em um Jupyter Notebook ou no VS Code utilizando a extensão e executando na janela interativa. Para isso, basta executar o arquivo MainJupyterNotebook.py em vez do Main.py.
