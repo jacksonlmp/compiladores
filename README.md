@@ -35,7 +35,7 @@ A linguagem deve cobrir os seguintes aspectos:
 +   [Thiago Cavalcanti](https://github.com/ThiagoCavalcantiSilva)
 
 ## Para rodar 🎡
-+ Utilize o python na versão 3.9.5 ou superior.
++ Utilize o Python na versão 3.9.5 ou superior.
 + Instale o pandas (para criar as tabelas) e também o tabulate (estilização dos dataframes):
     - pip install pandas
     - pip install tabulate
