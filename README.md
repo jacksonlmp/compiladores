@@ -41,4 +41,4 @@ A linguagem deve cobrir os seguintes aspectos:
     - pip install tabulate
 + Execute o arquivo Main.py.
 
-* Caso queira, pode-se executar em um Jupyter Notebook ou no VS Code utilizando a extensão e executando na janela interativa. Para isso, basta executar o arquivo MainJupyterNotebook.py em vez do Main.py.
++ Caso queira, pode-se executar em um Jupyter Notebook ou no VS Code utilizando a extensão e executando na janela interativa. Para isso, basta executar o arquivo MainJupyterNotebook.py em vez do Main.py.
