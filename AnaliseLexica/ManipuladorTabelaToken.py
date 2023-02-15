@@ -1,7 +1,7 @@
 import pandas as pd
 
 palavrasReservadas = {
-    "while": "laço",
+    "while": "laco",
     "if": "if",
     "else": "else",
     "int" : "tipo",
