@@ -190,3 +190,32 @@ def verificarDeclaracaoDeProcedimento(posicao, tokens, lexemas, numeroLinhas):
     else:
         exit("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao ]) 
             + ". Lexema" + str(lexemas[posicao ]) + " invalido.")
+
+def verificarParametros(posicao, tokens, lexemas, numeroLinhas):
+    if tokens[posicao] == "tipo":
+        posicao = lookAhead(posicao)
+
+        if tokens[posicao] == "idVariavel":
+            posicao = lookAhead(posicao) # Obtendo parametro
+
+            # Apenas um parametro eh obrigatorio, logo, pode ter virgula para verificar outros ou finaliza a assinatura do metodo
+            if tokens[posicao] == "virgula":
+                    #É virgula, então temos mais parametros para verificar
+                    posicao = lookAhead(posicao)
+                    posicao = verificarParametros(posicao, tokens, lexemas, numeroLinhas)
+                    return posicao
+
+            elif tokens[posicao] == "fechaParentese":
+                posicao = lookAhead(posicao)
+                return posicao
+
+            else:
+                exit("Ocorreu um erro sintatico nos parametros do metodo, era esperado uma virgula ou fechamento de parentese na linha " 
+                + str(numeroLinhas[posicao]) + ". Lexema " + str(lexemas[posicao]) + " invalido.")
+        else:
+            exit("Ocorreu um erro sintatico nos parametros do metodo, era esperado o identificador da variavel na linha " 
+                + str(numeroLinhas[posicao]) + ". Lexema " + str(lexemas[posicao]) + " invalido.")
+
+    else:
+        exit("Ocorreu um erro sintatico nos parametros do metodo, era esperado o tipo do parametro na linha " 
+            + str(numeroLinhas[posicao]) + ". Lexema " + str(lexemas[posicao]) + " invalido.")
