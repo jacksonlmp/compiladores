@@ -130,3 +130,22 @@ def verificarIf(posicao, tokens, lexemas, numeroLinhas):
     except IndexError:
         exit("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao - 1]) 
             + ". Lexema" + str(lexemas[posicao - 1]) + " invalido.")
+
+# Verifica parte contraria da estrutura condicional
+def verificarElse(posicao, tokens, lexemas, numeroLinha):
+    try:    
+        if tokens[posicao] == "abreChave":
+            posicao = lookAhead(posicao) 
+            while(tokens[posicao] != "fechaChave"): 
+                posicao = verificarBloco(posicao, tokens, lexemas, numeroLinhas)
+                posicao = lookAhead(posicao)
+            
+            # Finalizou a execucao. Ou terminou o else ou aconteceu erro
+            return posicao    
+            
+        else:
+            exit("Ocorreu um erro sintatico na estrutura condicional. Linha " + str(numeroLinhas[posicao]) 
+                        + ". Lexema " + str(lexemas[posicao]) + " invalido. Era esperado uma abertura de chaves.")
+    except IndexError:
+        exit("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao - 1]) 
+            + ". Lexema" + str(lexemas[posicao - 1]) + " invalido.") 
