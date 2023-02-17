@@ -59,7 +59,7 @@ def verificarBloco(posicao, tokens, lexemas, numeroLinhas):
 
         elif tokens[posicao] == "print":
             posicao = lookAhead(posicao)
-            # return verificarPrint(posicao, tokens, lexemas, numeroLinhas)
+            return verificarPrint(posicao, tokens, lexemas, numeroLinhas)
 
         else:
             exit("Ocorreu um erro sintatico na linha "+ str(numeroLinhas[posicao]) + ". Lexema "+ lexemas[posicao]
@@ -149,3 +149,15 @@ def verificarElse(posicao, tokens, lexemas, numeroLinha):
     except IndexError:
         exit("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao - 1]) 
             + ". Lexema" + str(lexemas[posicao - 1]) + " invalido.") 
+
+def verificarPrint(posicao, tokens, lexemas, numeroLinhas):
+    if (tokens[posicao] == "idVariavel") or (tokens[posicao] == "constante"):
+        posicao = lookAhead(posicao)
+        if tokens[posicao] == "pontoEVirgula":
+            return posicao
+        else:
+            exit("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao]) 
+                + ". Lexema " + str(lexemas[posicao]) + " invalido. Verifique a separacao das linhas com ;")
+    else:
+        exit("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao]) 
+                + ". Lexema " + str(lexemas[posicao]) + " invalido. Verifique o parametro informado na impressao")
