@@ -17,7 +17,7 @@ def analisarSintaxe(tokens, lexemas, numeroLinhas, quantidadeDeTokens):
     regras.verificarBalanceamentoChaveEParentese(tokens)
 
     # Verifica se a sequencia de tokens esta correta
-    ultimoIndiceLido = -1 # Para a primeira iteracao, indiceAtual (zero) deve estar na frente
-    for indiceAtual in range(quantidadeDeTokens):
-        if indiceAtual > ultimoIndiceLido:
-            ultimoIndiceLido = regras.verificarBloco(indiceAtual, tokens, lexemas, numeroLinhas)
+    ultimaPosicaoLida = -1 # Para a primeira iteracao, posicaoAtual (zero) deve estar na frente
+    for posicaoAtual in range(quantidadeDeTokens):
+        if posicaoAtual > ultimaPosicaoLida:
+            ultimaPosicaoLida = regras.verificarBloco(posicaoAtual, tokens, lexemas, numeroLinhas)

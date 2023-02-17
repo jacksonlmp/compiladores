@@ -37,7 +37,7 @@ def identificarTipoAritmeticoAtribuicaoOuVirgula(lexema):
     if lexema == "=":
         return "atribuicao"
     elif lexema == ";":
-        return "pontoVirgula"
+        return "pontoEVirgula"
     elif lexema == ",":
         return "virgula"
     elif lexema in getOperadoresAritmeticos():
