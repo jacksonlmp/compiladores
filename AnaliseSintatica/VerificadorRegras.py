@@ -51,7 +51,7 @@ def verificarBloco(posicao, tokens, lexemas, numeroLinhas):
         
         elif tokens[posicao] == "procedimento":
             posicao = lookAhead(posicao)
-            # return verificarDeclaracaoDeProcedimento(posicao, tokens, lexemas, numeroLinhas)
+            return verificarDeclaracaoDeProcedimento(posicao, tokens, lexemas, numeroLinhas)
 
         elif tokens[posicao] == "idProcedimento":
             posicao = lookAhead(posicao)
@@ -161,3 +161,32 @@ def verificarPrint(posicao, tokens, lexemas, numeroLinhas):
     else:
         exit("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao]) 
                 + ". Lexema " + str(lexemas[posicao]) + " invalido. Verifique o parametro informado na impressao")
+
+def verificarDeclaracaoDeProcedimento(posicao, tokens, lexemas, numeroLinhas):
+    if tokens[posicao] == "idProcedimento":
+        posicao = lookAhead(posicao)
+
+        if tokens[posicao] == "abreParentese":
+            posicao = lookAhead(posicao)
+            
+            posicao = verificarParametros(posicao, tokens, lexemas, numeroLinhas)
+            
+            if tokens[posicao] == "abreChave":
+                
+                while(tokens[posicao] != "fechaChave"):
+                    posicao = lookAhead(posicao) 
+                                  
+                    if tokens[posicao] != "fechaChave":
+                        posicao = verificarBloco(posicao, tokens, lexemas, numeroLinhas)
+                
+                return posicao
+
+            else:
+                exit("Ocorreu um erro sintatico na estrutura condicional. Linha " + str(numeroLinhas[posicao]) 
+                    + ". Lexema " + str(lexemas[posicao]) + " invalido. Era esperado uma abertura de chaves.")
+        else:
+            exit("Ocorreu um erro sintatico na estrutura condicional. Linha " + str(numeroLinhas[posicao]) 
+                + ". Lexema " + str(lexemas[posicao]) + " invalido. Era esperado uma abertura de parenteses.")
+    else:
+        exit("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao ]) 
+            + ". Lexema" + str(lexemas[posicao ]) + " invalido.")
