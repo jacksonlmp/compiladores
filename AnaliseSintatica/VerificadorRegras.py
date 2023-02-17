@@ -1,6 +1,6 @@
 # Adianta o ponteiro para ler uma casa a frente
-def lookAhead(x):
-    return x + 1
+def lookAhead(posicao):
+    return posicao + 1
 
 # Verifica se as chaves e os parenteses estao duplamente balanceados e retorna o erro caso haja
 def verificarBalanceamentoChaveEParentese(listaDeTokens):
@@ -33,57 +33,100 @@ def verificarBalanceamentoChaveEParentese(listaDeTokens):
 # Verifica se o codigo esta de acordo com a gramatica
 def verificarBloco(posicao, tokens, lexemas, numeroLinhas):
     try:
-        if (tokens[posicao] == "tipo"):
+        if tokens[posicao] == "tipo":
             posicao = lookAhead(posicao)
-            return verificarDeclaracaoDeVariavel(tokens, lexemas, numeroLinhas, posicao)
+            return verificarDeclaracaoDeVariavel(posicao, tokens, lexemas, numeroLinhas)
 
         elif tokens[posicao] == "if":
             posicao = lookAhead(posicao)
-            # return verificarIf(tokens, lexemas, numeroLinhas, posicao)
+            return verificarIf(posicao, tokens, lexemas, numeroLinhas)
         
         elif tokens[posicao] == "laco":
             posicao = lookAhead(posicao)
-            # return verificarLaco(tokens, lexemas, numeroLinhas, posicao)
+            # return verificarLaco(posicao, tokens, lexemas, numeroLinhas)
 
         elif tokens[posicao] == "funcao":
             posicao = lookAhead(posicao)
-            # return verificarDeclaracaoDeFuncao(tokens, lexemas, numeroLinhas, posicao)
+            # return verificarDeclaracaoDeFuncao(posicao, tokens, lexemas, numeroLinhas)
         
         elif tokens[posicao] == "procedimento":
             posicao = lookAhead(posicao)
-            # return verificarDeclaracaoDeProcedimento(tokens, lexemas, numeroLinhas, posicao)
+            # return verificarDeclaracaoDeProcedimento(posicao, tokens, lexemas, numeroLinhas)
 
         elif tokens[posicao] == "idProcedimento":
             posicao = lookAhead(posicao)
-            # return verificarChamadaDeProcedimento(tokens, lexemas, numeroLinhas, posicao)
+            # return verificarChamadaDeProcedimento(posicao, tokens, lexemas, numeroLinhas)
 
         elif tokens[posicao] == "print":
             posicao = lookAhead(posicao)
-            # return verificarPrint(tokens, lexemas, numeroLinhas, posicao)
+            # return verificarPrint(posicao, tokens, lexemas, numeroLinhas)
 
         else:
-            exit("Ocorreu um erro sintatico na linha "+ str(numeroLinhas[posicao]) + ". Lexema "+ lexemas[posicao] + " invalido.")
+            exit("Ocorreu um erro sintatico na linha "+ str(numeroLinhas[posicao]) + ". Lexema "+ lexemas[posicao]
+                + " invalido. Linguagem nao reconhecida.")
 
     except IndexError:
-        exit("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao - 1]) + ". Lexema " + str(lexemas[posicao - 1]) + " invalido.")
+        exit("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao - 1]) + ". Lexema " + str(lexemas[posicao - 1]) 
+            + " invalido. Linguagem nao reconhecida.")
 
-def verificarDeclaracaoDeVariavel(tokens, lexemas, numeroLinhas, posicao):
+def verificarDeclaracaoDeVariavel(posicao, tokens, lexemas, numeroLinhas):
     if tokens[posicao] == "idVariavel":
         posicao = lookAhead(posicao)
         if tokens[posicao] == "atribuicao":
             posicao = lookAhead(posicao)
             # Analisa se apos a igualdade, ha uma expressao atribuindo valor a variavel
-            posicao = verificarExpressao(tokens, lexemas, numeroLinhas, posicao)
+            posicao = verificarExpressao(posicao, tokens, lexemas, numeroLinhas)
             
             # Chegou ao fim. Caso nao indique termino, ocorreu erro sintatico
             if tokens[posicao] == "pontoEVirgula":
                 return posicao
             else:
                 exit("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao]) 
-                + ". Lexema " + str(tokens[posicao]) + " invalido. Verifique a separacao das linhas com ;")
+                    + ". Lexema " + str(tokens[posicao]) + " invalido. Verifique a separacao das linhas com ;")
         else:
             exit("Ocorreu um erro sintatico na atribuicao de variavel. Linha " + str(numeroLinhas[posicao]) 
                 + ". Lexema " + str(tokens[posicao]) + " invalido.")
     else:
         exit("Ocorreu um erro sintatico na declaracao de variavel. Linha " + str(numeroLinhas[posicao]) 
                 + ". Lexema " + str(tokens[posicao]) + " invalido.")
+
+# Verifica a estrutura condicional
+def verificarIf(posicao, tokens, lexemas, numeroLinhas):
+    try:
+        if tokens[posicao] == "abreParentese":
+            posicao = lookAhead(posicao)
+
+            # Analisar expressao dentro da estrutura condicional
+            posicao = verificarExpressao(posicao, tokens, lexemas, numeroLinhas)
+
+            # Continuacao da condicao apos a expressao
+            if tokens[posicao] == "fechaParentese":
+                posicao = lookAhead(posicao)
+                
+                if tokens[posicao] == "abreChave":
+                    posicao = lookAhead(posicao)
+                    while(tokens[posicao] != "fechaChave"):
+                        posicao = verificarBloco(posicao, tokens, lexemas, numeroLinhas)
+                        posicao = lookAhead(posicao)
+                    
+                    # Finalizou a execucao. Ou terminou o if ou aconteceu erro (analisamos proximo caractere para verificar)
+                    posicao = lookAhead(posicao)
+                    if posicao < (len(tokens) - 1):
+                        if tokens[posicao] == "else":
+                            posicao = lookAhead(posicao)
+                            posicao = verificarElse(posicao, tokens, lexemas, numeroLinhas)
+                        else:
+                            return posicao - 1
+                    return posicao
+                else:
+                    exit("Ocorreu um erro sintatico na estrutura condicional. Linha " + str(numeroLinhas[posicao]) 
+                        + ". Lexema " + str(lexemas[posicao]) + " invalido. Era esperado uma abertura de chaves.")
+            else:
+                exit("Ocorreu um erro sintatico na estrutura condicional. Linha " + str(numeroLinhas[posicao]) 
+                    + ". Lexema " + str(lexemas[posicao]) + " invalido. Era esperado um fechamento de parenteses.")
+        else:
+                exit("Ocorreu um erro sintatico na estrutura condicional. Linha " + str(numeroLinhas[posicao]) 
+                    + ". Lexema " + str(lexemas[posicao]) + " invalido. Era esperado uma abertura de parenteses.")
+    except IndexError:
+        exit("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao - 1]) 
+            + ". Lexema" + str(lexemas[posicao - 1]) + " invalido.")
