@@ -219,3 +219,61 @@ def verificarParametros(posicao, tokens, lexemas, numeroLinhas):
     else:
         exit("Ocorreu um erro sintatico nos parametros do metodo, era esperado o tipo do parametro na linha " 
             + str(numeroLinhas[posicao]) + ". Lexema " + str(lexemas[posicao]) + " invalido.")
+
+
+def verificarExpressao(tokens, lexemas, numeroLinhas, posicao):
+    #verificaExpressao para IF e While
+    #Vamos considerar só expressao Logica e Boolean
+    #Tem que fazer outra função que abranja a Expressao Aritmetica
+    #A próxima leitura tem que ser um termo
+    try:    
+        if tokens[posicao] == "IdFuncao":
+            posicao += 1
+            
+            # posição para fazer a verificação se a função foi declarada antes de ser chamada
+            posicaoAux = posicao
+                        
+            if tokens[posicao] == "abreParentese":
+                posicao += 1
+                posicao = verificarParametros(tokens, lexemas, numeroLinhas, posicao)
+                
+                # verifica se a função já foi declarada antes da chamada 
+                ehFuncaoJaDeclaradaEAtribuicaoRetorno(tokens, lexemas, numeroLinhas, posicaoAux)
+                return posicao
+            else:
+                mensagemErro("ERRO SINTÁTICO - Linha", numeroLinhas[posicao], lexemas[posicao])
+                
+        elif tokens[posicao] in ['IdVariavel', 'booleano', 'constante']:
+            if tokens[posicao] == 'booleano':
+                # já finalizou, retorna para onde estava
+                return posicao + 1
+
+            elif tokens[posicao] == "constante" and tokens[posicao + 1] == "pontoVirgula":
+                return posicao + 1
+                
+            else:
+                # o token é 'IdVariavel' ou 'Constante'
+                posicao += 1
+                
+                if tokens[posicao] in ['operadorLogico', 'operadorAritmetico']:
+                    posicao += 1
+                    
+                    if tokens[posicao] in ['constante', 'IdVariavel']:
+                        # sucesso -> expressão correta
+                        return posicao + 1  # já manda o próximo caractere a ser lido
+                        
+                    else:
+                        mensagemErro("ERRO SINTÁTICO - Linha", numeroLinhas[posicao], lexemas[posicao])
+
+                else:
+                    mensagemErro("ERRO SINTÁTICO - Linha", numeroLinhas[posicao], lexemas[posicao])
+                        
+        else:
+            mensagemErro("ERRO SINTÁTICO - Linha", numeroLinhas[posicao], lexemas[posicao])
+            
+    except IndexError:
+        mensagemErro("ERRO SINTATICO - Linha", numeroLinhas[posicao - 1], lexemas[posicao - 1])
+        
+def mensagemErro(mensagem, linha, lexema):
+    print(f"{mensagem} {linha} - '{lexema}' incorreto.")
+    exit()
