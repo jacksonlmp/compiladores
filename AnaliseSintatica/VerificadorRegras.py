@@ -132,7 +132,7 @@ def verificarIf(posicao, tokens, lexemas, numeroLinhas):
             + ". Lexema" + str(lexemas[posicao - 1]) + " invalido.")
 
 # Verifica parte contraria da estrutura condicional
-def verificarElse(posicao, tokens, lexemas, numeroLinha):
+def verificarElse(posicao, tokens, lexemas, numeroLinhas):
     try:    
         if tokens[posicao] == "abreChave":
             posicao = lookAhead(posicao) 
