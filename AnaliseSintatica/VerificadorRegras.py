@@ -238,7 +238,7 @@ def verificarExpressao(tokens, lexemas, numeroLinhas, posicao):
                 posicao = verificarParametros(tokens, lexemas, numeroLinhas, posicao)
                 
                 # verifica se a função já foi declarada antes da chamada 
-                ehFuncaoJaDeclaradaEAtribuicaoRetorno(tokens, lexemas, numeroLinhas, posicaoAux)
+                ehFuncaoDeclaradaEAtribuicaoRetorno(lexemas, numeroLinhas, posicaoAux)
                 return posicao
             else:
                 mensagemErro("ERRO SINTÁTICO - Linha", numeroLinhas[posicao], lexemas[posicao])
@@ -263,17 +263,41 @@ def verificarExpressao(tokens, lexemas, numeroLinhas, posicao):
                         return posicao + 1  # já manda o próximo caractere a ser lido
                         
                     else:
-                        mensagemErro("ERRO SINTÁTICO - Linha", numeroLinhas[posicao], lexemas[posicao])
+                        mensagemErro("ERRO SINTÁTICO - Linha ", numeroLinhas[posicao], lexemas[posicao])
 
                 else:
-                    mensagemErro("ERRO SINTÁTICO - Linha", numeroLinhas[posicao], lexemas[posicao])
+                    mensagemErro("ERRO SINTÁTICO - Linha ", numeroLinhas[posicao], lexemas[posicao])
                         
         else:
-            mensagemErro("ERRO SINTÁTICO - Linha", numeroLinhas[posicao], lexemas[posicao])
+            mensagemErro("ERRO SINTÁTICO - Linha ", numeroLinhas[posicao], lexemas[posicao])
             
     except IndexError:
-        mensagemErro("ERRO SINTATICO - Linha", numeroLinhas[posicao - 1], lexemas[posicao - 1])
-        
+        mensagemErro("ERRO SINTATICO - Linha ", numeroLinhas[posicao - 1], lexemas[posicao - 1])
+
+def ehFuncaoDeclaradaEAtribuicaoRetorno(lexemas, numeroLinhas, posicao):
+    # Verifica se a função foi declarada antes de ser chamada
+    # E se a variável de atribuição da função é do mesmo tipo do retorno da função
+
+    ehDeclarada = False
+    tipoFuncao = ''
+    nomeFuncao = lexemas[posicao-1]
+    tipoVariavel = lexemas[posicao-4]
+
+    for i in range(posicao-1):
+        if nomeFuncao == lexemas[i]:
+            # Achei o mesmo nome: pode ser uma declaração ou uma chamada
+            # Vamos confirmar se é declaração
+            if lexemas[i-2] == 'func':
+                # É declaração. Ok
+                ehDeclarada = True
+                tipoFuncao = lexemas[i-1]
+                
+    if not ehDeclarada:
+        mensagemErro("ERRO SEMÂNTICO - Linha ", numeroLinhas[posicao], lexemas[posicao-1] + " função não declarada anteriormente.")         
+    
+    if tipoFuncao != tipoVariavel:
+        mensagemErro("ERRO SEMÂNTICO - Linha ", numeroLinhas[posicao], lexemas[posicao-3] + " tipo de variável diferente do retorno da função.")
+
 def mensagemErro(mensagem, linha, lexema):
-    print(f"{mensagem} {linha} - '{lexema}' incorreto.")
+    print(f"{mensagem} {linha} - '{lexema}'")
     exit()
