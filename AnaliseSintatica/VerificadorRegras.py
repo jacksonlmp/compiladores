@@ -274,61 +274,6 @@ def verificarExpressao(tokens, lexemas, numeroLinhas, posicao):
     except IndexError:
         mensagemErro("ERRO SINTATICO - Linha ", numeroLinhas[posicao - 1], lexemas[posicao - 1])
 
-def ehFuncaoDeclaradaEAtribuicaoRetorno(lexemas, numeroLinhas, posicao):
-    # Verifica se a função foi declarada antes de ser chamada
-    # E se a variável de atribuição da função é do mesmo tipo do retorno da função
-
-    ehDeclarada = False
-    tipoFuncao = ''
-    nomeFuncao = lexemas[posicao-1]
-    tipoVariavel = lexemas[posicao-4]
-
-    for i in range(posicao-1):
-        if nomeFuncao == lexemas[i]:
-            # Achei o mesmo nome: pode ser uma declaração ou uma chamada
-            # Vamos confirmar se é declaração
-            if lexemas[i-2] == 'func':
-                # É declaração. Ok
-                ehDeclarada = True
-                tipoFuncao = lexemas[i-1]
-                
-    if not ehDeclarada:
-        mensagemErro("ERRO SEMÂNTICO - Linha ", numeroLinhas[posicao], lexemas[posicao-1] + " função não declarada anteriormente.")         
-    
-    if tipoFuncao != tipoVariavel:
-        mensagemErro("ERRO SEMÂNTICO - Linha ", numeroLinhas[posicao], lexemas[posicao-3] + " tipo de variável diferente do retorno da função.")
-
-def ehProcedimentoDeclarado(lexemas, numeroLinhas, posicao):
-    nomeProcedimento = lexemas[posicao-1]
-    
-    #set() para criar um conjunto a partir da lista de lexemas
-    #discard() para remover a string "proc" do conjunto.
-    nomesProcedimentosDeclarados = set(lexemas[:posicao-1])
-    nomesProcedimentosDeclarados.discard('proc')
-
-    if nomeProcedimento in nomesProcedimentosDeclarados:
-        return True
-
-    mensagemErro("ERRO SEMANTICO - Linha ", numeroLinhas, nomeProcedimento + " procedimento nao declarado anteriormente.")
-
-def verificaChamadaProcedimento(tokens, lexemas, numeroLinhas, posicao):
-    if tokens[posicao] != "abreParentese":
-        mensagemErro("ERRO SINTÁTICO - Linha ", numeroLinhas[posicao], lexemas[posicao] + " incorreto.")
-
-    #avança o índice do analisador em uma posição
-    posicao += 1
-    posicao = verificarParametros(tokens, lexemas, numeroLinhas, posicao)
-
-    if tokens[posicao] != "pontoVirgula":
-        mensagemErro("ERRO SINTÁTICO - Linha ", numeroLinhas[posicao], lexemas[posicao] + " incorreto.")
-
-    nomeProcedimento = lexemas[posicao-2]
-
-    #verifica se o procedimento foi declarado antes da chamada
-    if not ehProcedimentoDeclarado(tokens, lexemas, numeroLinhas, posicao-2):
-        mensagemErro("ERRO SEMÂNTICO - Linha ", numeroLinhas[posicao-2], nomeProcedimento + " procedimento não declarado anteriormente.")
-
-    return posicao
 
 def mensagemErro(mensagem, linha, lexema):
     print(f"{mensagem} {linha} - '{lexema}'")
