@@ -298,6 +298,19 @@ def ehFuncaoDeclaradaEAtribuicaoRetorno(lexemas, numeroLinhas, posicao):
     if tipoFuncao != tipoVariavel:
         mensagemErro("ERRO SEMÂNTICO - Linha ", numeroLinhas[posicao], lexemas[posicao-3] + " tipo de variável diferente do retorno da função.")
 
+def ehProcedimentoDeclarado(lexemas, numeroLinhas, indice):
+    nomeProcedimento = lexemas[indice-1]
+    
+    #set() para criar um conjunto a partir da lista de lexemas
+    #discard() para remover a string "proc" do conjunto.
+    nomesProcedimentosDeclarados = set(lexemas[:indice-1])
+    nomesProcedimentosDeclarados.discard('proc')
+
+    if nomeProcedimento in nomesProcedimentosDeclarados:
+        return True
+
+    mensagemErro("ERRO SEMANTICO - Linha ", numeroLinhas, nomeProcedimento + " procedimento nao declarado anteriormente.")
+
 def mensagemErro(mensagem, linha, lexema):
     print(f"{mensagem} {linha} - '{lexema}'")
     exit()
