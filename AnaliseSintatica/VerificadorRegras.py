@@ -2,6 +2,10 @@
 def lookAhead(posicao):
     return posicao + 1
 
+def mensagemErro(mensagem, linha, lexema):
+    print(f"{mensagem} {linha} - '{lexema}'")
+    exit()
+
 # Verifica se as chaves e os parenteses estao duplamente balanceados e retorna o erro caso haja
 def verificarBalanceamentoChaveEParentese(listaDeTokens):
     chavesAbertas = 0
@@ -43,7 +47,7 @@ def verificarBloco(posicao, tokens, lexemas, numeroLinhas):
         
         elif tokens[posicao] == "laco":
             posicao = lookAhead(posicao)
-            # return verificarLaco(posicao, tokens, lexemas, numeroLinhas)
+            return verificarLaco(posicao, tokens, lexemas, numeroLinhas)
 
         elif tokens[posicao] == "funcao":
             posicao = lookAhead(posicao)
@@ -228,17 +232,16 @@ def verificarExpressao(tokens, lexemas, numeroLinhas, posicao):
     #A próxima leitura tem que ser um termo
     try:    
         if tokens[posicao] == "IdFuncao":
-            posicao += 1
+            posicao = lookAhead(posicao)
             
             # posição para fazer a verificação se a função foi declarada antes de ser chamada
             posicaoAux = posicao
                         
             if tokens[posicao] == "abreParentese":
-                posicao += 1
+                posicao = lookAhead(posicao)
                 posicao = verificarParametros(tokens, lexemas, numeroLinhas, posicao)
                 
                 # verifica se a função já foi declarada antes da chamada 
-                ehFuncaoDeclaradaEAtribuicaoRetorno(lexemas, numeroLinhas, posicaoAux)
                 return posicao
             else:
                 mensagemErro("ERRO SINTÁTICO - Linha", numeroLinhas[posicao], lexemas[posicao])
@@ -253,10 +256,10 @@ def verificarExpressao(tokens, lexemas, numeroLinhas, posicao):
                 
             else:
                 # o token é 'IdVariavel' ou 'Constante'
-                posicao += 1
+                posicao = lookAhead(posicao)
                 
                 if tokens[posicao] in ['operadorLogico', 'operadorAritmetico']:
-                    posicao += 1
+                    posicao = lookAhead(posicao)
                     
                     if tokens[posicao] in ['constante', 'IdVariavel']:
                         # sucesso -> expressão correta
@@ -275,22 +278,61 @@ def verificarExpressao(tokens, lexemas, numeroLinhas, posicao):
         mensagemErro("ERRO SINTATICO - Linha ", numeroLinhas[posicao - 1], lexemas[posicao - 1])
 
 def verificarChamadaDeProcedimento(tokens, lexemas, numeroLinhas, posicao):
-    posicaoAux = posicao
-
     if tokens[posicao] != "abreParentese":
         mensagemErro("ERRO SINTATICO - Linha ", numeroLinhas[posicao], lexemas[posicao] + " incorreto.")
     
-    posicao += 1
+    posicao = lookAhead(posicao)
     posicao = verificarParametros(tokens, lexemas, numeroLinhas, posicao)
     
     if tokens[posicao] != "pontoVirgula":
         mensagemErro("ERRO SINTATICO - Linha ", numeroLinhas[posicao], lexemas[posicao] + " incorreto.")
-    
-    #Verifica se o procedimento foi declarado antes de ser chamado
-    #ehProcedimentoDeclarado(tokens, lexemas, numeroLinhas, posicaoAux)
-    
+        
     return posicao
 
-def mensagemErro(mensagem, linha, lexema):
-    print(f"{mensagem} {linha} - '{lexema}'")
-    exit()
+def verificarLaco(tokens, lexemas, numeroLinhas, posicao):
+    if tokens[posicao] != "abreParentese":
+        mensagemErro("ERRO SINTÁTICO - Linha ", numeroLinhas[posicao], tokens[posicao] + " incorreto.")
+
+    posicao = lookAhead(posicao)
+    posicao = verificarExpressao(tokens, lexemas, numeroLinhas, posicao)
+
+    if tokens[posicao] != "fechaParentese":
+        mensagemErro("ERRO SINTÁTICO - Linha ", numeroLinhas[posicao], tokens[posicao] + " incorreto.")
+
+    posicao = lookAhead(posicao)
+
+    if tokens[posicao] != "abreChave":
+        mensagemErro("ERRO SINTÁTICO - Linha ", numeroLinhas[posicao], tokens[posicao] + " incorreto.")
+
+    posicao = lookAhead(posicao)
+
+    while tokens[posicao] != "fechaChave":
+        posicao = verificarBloco(tokens, lexemas, numeroLinhas, posicao)
+        posicao = lookAhead(posicao)
+
+        if tokens[posicao] != "auxLaco":
+            mensagemErro("ERRO SINTÁTICO - Linha ", numeroLinhas[posicao], tokens[posicao] + " incorreto.")
+
+        posicao = lookAhead(posicao)
+
+        if tokens[posicao] != "pontoVirgula":
+            mensagemErro("ERRO SINTÁTICO - Linha ", numeroLinhas[posicao], tokens[posicao] + " incorreto.")
+
+        posicao = lookAhead(posicao)
+
+        if posicao > len(tokens)-1:
+            mensagemErro("ERRO SINTÁTICO - Falta um '}' depois da última linha")
+
+    return posicao
+
+def verificaReturn(tokens, numeroLinhas, posicao):
+    if tokens[posicao] != 'IdVariavel':
+        mensagemErro("ERRO SINTÁTICO - Linha ", numeroLinhas[posicao], tokens[posicao] + " incorreto.")
+
+    posicao = lookAhead(posicao)
+
+    if tokens[posicao] != 'pontoVirgula':
+        mensagemErro("ERRO SINTÁTICO - Linha ", numeroLinhas[posicao], tokens[posicao] + " incorreto.")
+
+    posicao = lookAhead(posicao)
+    return posicao 
