@@ -55,7 +55,7 @@ def verificarBloco(posicao, tokens, lexemas, numeroLinhas):
 
         elif tokens[posicao] == "idProcedimento":
             posicao = lookAhead(posicao)
-            # return verificarChamadaDeProcedimento(posicao, tokens, lexemas, numeroLinhas)
+            return verificarChamadaDeProcedimento(posicao, tokens, lexemas, numeroLinhas)
 
         elif tokens[posicao] == "print":
             posicao = lookAhead(posicao)
@@ -274,6 +274,22 @@ def verificarExpressao(tokens, lexemas, numeroLinhas, posicao):
     except IndexError:
         mensagemErro("ERRO SINTATICO - Linha ", numeroLinhas[posicao - 1], lexemas[posicao - 1])
 
+def verificarChamadaDeProcedimento(tokens, lexemas, numeroLinhas, posicao):
+    posicaoAux = posicao
+
+    if tokens[posicao] != "abreParentese":
+        mensagemErro("ERRO SINTATICO - Linha ", numeroLinhas[posicao], lexemas[posicao] + " incorreto.")
+    
+    posicao += 1
+    posicao = verificarParametros(tokens, lexemas, numeroLinhas, posicao)
+    
+    if tokens[posicao] != "pontoVirgula":
+        mensagemErro("ERRO SINTATICO - Linha ", numeroLinhas[posicao], lexemas[posicao] + " incorreto.")
+    
+    #Verifica se o procedimento foi declarado antes de ser chamado
+    #ehProcedimentoDeclarado(tokens, lexemas, numeroLinhas, posicaoAux)
+    
+    return posicao
 
 def mensagemErro(mensagem, linha, lexema):
     print(f"{mensagem} {linha} - '{lexema}'")
