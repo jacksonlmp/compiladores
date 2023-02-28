@@ -195,8 +195,44 @@ def verificarLaco(posicao, tokens, lexemas, numeroLinhas):
 
     return posicao
 
+#TESTAR E MODIFICAR PRINTS PARA EXITS
 def verificarDeclaracaoDeFuncao(posicao, tokens, lexemas, numeroLinhas):
-    return 0
+    try:
+        if tokens[posicao] != 'tipo':
+            print(f"ERRO SINTÁTICO - Linha {numeroLinhas[posicao]} - '{lexemas[posicao]}' incorreto.")
+            exit()
+
+        posicao += 1
+        if tokens[posicao] != 'IdFuncao':
+            print(f"ERRO SINTÁTICO - Linha {numeroLinhas[posicao]} - '{lexemas[posicao]}' incorreto.")
+            exit()
+
+        posicao += 1
+        if tokens[posicao] != 'abreParentese':
+            print(f"ERRO SINTÁTICO - Linha {numeroLinhas[posicao]} - '{lexemas[posicao]}' incorreto.")
+            exit()
+
+        posicao = verificarParametros(tokens, lexemas, numeroLinhas, posicao)
+
+        if tokens[posicao] != 'abreChave':
+            print(f"ERRO SINTÁTICO - Linha {numeroLinhas[posicao]} - '{lexemas[posicao]}' incorreto.")
+            exit()
+
+        while not (tokens[posicao] == 'fechaChave' and tokens[posicao-3] == 'return'):
+            if tokens[posicao] != 'return':
+                posicao += 1
+            elif(tokens[posicao] == 'return'):
+                posicao += 1
+                posicao = verificarReturn(tokens, lexemas, numeroLinhas, posicao)
+                # verificamos o token seguinte ao return
+            else:
+                posicao = verificarBloco(tokens, lexemas, numeroLinhas, posicao)
+
+        return posicao
+
+    except IndexError:
+        print(f"ERRO SINTÁTICO - Linha {numeroLinhas[posicao - 1]} - {lexemas[posicao-1]} incorreto.")
+        exit()
 
 def verificarDeclaracaoDeProcedimento(posicao, tokens, lexemas, numeroLinhas):
     if tokens[posicao] == "idProcedimento":
