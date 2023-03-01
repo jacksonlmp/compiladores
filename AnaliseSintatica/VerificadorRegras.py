@@ -217,7 +217,7 @@ def verificarDeclaracaoDeFuncao(posicao, tokens, lexemas, numeroLinhas):
             exit("Ocorreu um erro sintatico em declaracao de funcao. Linha " + str(numeroLinhas[posicao]) 
                 + ". Lexema " + str(lexemas[posicao]) + " invalido. Era esperado uma abertura de chave.")
 
-        # Para verificar que chegamos ao fim da funcao, analisamos se tera o retorno e a chave. Ex: " ... return resultado; }"
+        # Para verificar que chegamos ao fim da funcao, analisamos se tera o retorno e a chave. Ex: " ... return vResultado; }"
         while (tokens[posicao] != "fechaChave" and tokens[posicao - 3] != "return"):
             if tokens[posicao] != "return":
                 posicao = lookAhead(posicao)

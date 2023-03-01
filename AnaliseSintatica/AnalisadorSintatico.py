@@ -1,6 +1,8 @@
 import pandas as pd
 import VerificadorRegras as regras
+import ManipuladorTabelaSimbolos as manipuladorTabela
 
+# Faz a analise sintatica e retorna a tabela de simbolos
 def realizarAnaliseSintatica(tabelaDeTokens):
     tokens = (tabelaDeTokens[tabelaDeTokens.columns[0:1:]]).values
     lexemas = (tabelaDeTokens[tabelaDeTokens.columns[1:2:]]).values
@@ -8,8 +10,9 @@ def realizarAnaliseSintatica(tabelaDeTokens):
 
     analisarSintaxe(tokens, lexemas, numeroLinhas, len(tabelaDeTokens))
 
-    # Criar tabela de simbolos
-    return "Tabela de simbolos"
+    tabelaDeSimbolos = manipuladorTabela.criarTabela(tabelaDeTokens)
+
+    return tabelaDeSimbolos
 
 # Verifica o balanceamento dos parenteses e chaves e se o codigo esta conforme especificado na gramatica
 # Em caso de erro, imprime no console e encerra e execucao
