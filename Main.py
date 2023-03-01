@@ -13,11 +13,13 @@ tabelaDeTokens = lex.realizarAnaliseLexica(codigo)
 
 codigo.close()
 
-# Imprimindo toda a tabela no console de execucao
 with pd.option_context('display.max_rows', None,
                         'display.max_columns', None,
                        'display.precision', 3,
                        ): print(tabulate(tabelaDeTokens, headers='keys', tablefmt='pretty'))
 
 tabelaDeSimbolos = sint.realizarAnaliseSintatica(tabelaDeTokens)
-print(tabelaDeSimbolos)
+with pd.option_context('display.max_rows', None,
+                        'display.max_columns', None,
+                       'display.precision', 3,
+                       ): print(tabulate(tabelaDeSimbolos, headers='keys', tablefmt='pretty'))
