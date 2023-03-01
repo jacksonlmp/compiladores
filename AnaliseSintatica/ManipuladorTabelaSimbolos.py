@@ -19,7 +19,7 @@ def criarTabela(tabelaDeTokens):
                     valor += tabelaDeTokens["Lexema"][posicaoLexema]
                     posicaoLexema += 1
 
-                    tabelaDeSimbolos.loc[len(tabelaDeSimbolos)] = ["idVariavel", tabelaDeTokens["Lexema"][posicaoToken], tabelaDeTokens["Lexema"][posicaoToken - 1], tabelaDeTokens["Linha"][posicaoToken], valor, "NA","NA","NA"]
+                tabelaDeSimbolos.loc[len(tabelaDeSimbolos)] = ["idVariavel", tabelaDeTokens["Lexema"][posicaoToken], tabelaDeTokens["Lexema"][posicaoToken - 1], tabelaDeTokens["Linha"][posicaoToken], valor, "NA","NA","NA"]
             else:
                 continue
         
