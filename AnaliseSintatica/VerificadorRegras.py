@@ -212,8 +212,8 @@ def verificarDeclaracaoDeFuncao(posicao, tokens, lexemas, numeroLinhas):
         if tokens[posicao]  != "abreParentese":
             mensagemErro("Ocorreu um erro sintatico em declaracao de funcao. Linha " + str(numeroLinhas[posicao]) 
                 + ". Lexema " + lexemas[posicao] + " invalido. Era esperado uma abertura de parentese.")
-
-        posicao = verificarParametros(posicao, tokens, lexemas, numeroLinhas)
+        
+        posicao = verificarParametros(lookAhead(posicao), tokens, lexemas, numeroLinhas)
 
         if tokens[posicao]  != "abreChave":
             mensagemErro("Ocorreu um erro sintatico em declaracao de funcao. Linha " + str(numeroLinhas[posicao]) 
