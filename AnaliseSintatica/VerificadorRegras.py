@@ -157,45 +157,43 @@ def verificarElse(posicao, tokens, lexemas, numeroLinhas):
             + ". Lexema " + lexemas[posicao - 1] + " invalido.") 
 
 def verificarLaco(posicao, tokens, lexemas, numeroLinhas):
-    if tokens[posicao]  != "abreParentese":
+    if tokens[posicao]  == "abreParentese":
+        posicao = verificarExpressao(lookAhead(posicao), tokens, lexemas, numeroLinhas)
+
+        if tokens[posicao] == "fechaParentese":
+            posicao = lookAhead(posicao)
+
+            if tokens[posicao] == "abreChave":
+                posicao = lookAhead(posicao)
+                while tokens[posicao] != "fechaChave":
+                    posicao = verificarBloco(posicao, tokens, lexemas, numeroLinhas)
+                    posicao = lookAhead(posicao)
+
+                    if tokens[posicao] == "auxLaco":
+                        posicao = lookAhead(posicao)
+                        if tokens[posicao] == "pontoEVirgula":
+                            posicao = lookAhead(posicao)
+                        else:
+                            mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao]) 
+                                + ". Token " + tokens[posicao] + " invalido. Era esperado um ;")
+
+                    if posicao > len(tokens)-1:
+                        mensagemErro("Ocorreu um erro sintatico. Faltou fechar chaves apos ultima linha")
+                
+                if tokens[posicao] == "fechaChave":
+                    return posicao
+                else:
+                    mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao])
+                        + ". Token " + tokens[posicao] + " invalido. Era esperado um fechamento de chave.")
+            else:
+                mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao]) 
+                + ". Token " + tokens[posicao] + " invalido. Era esperado uma abertura de chave.")
+        else:
+            mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao])
+                + ". Token " + tokens[posicao] + " invalido. Era esperado um fechamento de parentese.")
+    else:
         mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao]) 
             + ". Token " + tokens[posicao] + " invalido. Era esperado uma abertura de parentese.")
-
-    posicao = lookAhead(posicao)
-    posicao = verificarExpressao(posicao, tokens, lexemas, numeroLinhas)
-
-    if tokens[posicao]  != "fechaParentese":
-        mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao]) 
-            + ". Token " + tokens[posicao] + " invalido. Era esperado um fechamento de parentese.")
-
-    posicao = lookAhead(posicao)
-
-    if tokens[posicao]  != "abreChave":
-        mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao]) 
-            + ". Token " + tokens[posicao] + " invalido. Era esperado uma abertura de chave.")
-
-    posicao = lookAhead(posicao)
-
-    while tokens[posicao] != "fechaChave":
-        posicao = verificarBloco(posicao, tokens, lexemas, numeroLinhas)
-        posicao = lookAhead(posicao)
-
-        if tokens[posicao] != "auxLaco":
-            mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao]) 
-                + ". Token " + tokens[posicao] + " invalido. Era esperado um break ou continue")
-
-        posicao = lookAhead(posicao)
-
-        if tokens[posicao] != "pontoEVirgula":
-            mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao]) 
-                + ". Token " + tokens[posicao] + " invalido. Era esperado um ;")
-
-        posicao = lookAhead(posicao)
-
-        if posicao > len(tokens)-1:
-            mensagemErro("Ocorreu um erro sintatico. Faltou fechar chaves apos ultima linha")
-
-    return posicao
 
 def verificarDeclaracaoDeFuncao(posicao, tokens, lexemas, numeroLinhas):
     try:
