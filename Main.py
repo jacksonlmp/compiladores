@@ -19,7 +19,4 @@ with pd.option_context('display.max_rows', None,
                        ): print(tabulate(tabelaDeTokens, headers='keys', tablefmt='pretty'))
 
 tabelaDeSimbolos = sint.realizarAnaliseSintatica(tabelaDeTokens)
-with pd.option_context('display.max_rows', None,
-                        'display.max_columns', None,
-                       'display.precision', 3,
-                       ): print(tabulate(tabelaDeSimbolos, headers='keys', tablefmt='pretty'))
+print(tabulate(tabelaDeSimbolos, headers='keys', tablefmt='pretty'))
