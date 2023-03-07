@@ -198,35 +198,40 @@ def verificarLaco(posicao, tokens, lexemas, numeroLinhas):
     return posicao
 
 def verificarDeclaracaoDeFuncao(posicao, tokens, lexemas, numeroLinhas):
-    if tokens[posicao] != 'tipo':
-        mensagemErro("ERRO SINTÁTICO - Linha" + str(numeroLinhas[posicao]) + ". Lexema " + lexemas[posicao] + " Invalido. Era esperado o tipo de dado de retorno da funcao." )
+    try:
+        if tokens[posicao] != 'tipo':
+            mensagemErro("ERRO SINTÁTICO - Linha" + str(numeroLinhas[posicao]) + ". Lexema " + lexemas[posicao] + " Invalido. Era esperado o tipo de dado de retorno da funcao." )
 
-    posicao = lookAhead(posicao)
+        posicao = lookAhead(posicao)
 
-    if tokens[posicao] != 'IdFuncao':
-        mensagemErro("ERRO SINTÁTICO - Linha" + str(numeroLinhas[posicao]) + ". Lexema " + lexemas[posicao] + " Invalido. Era esperado o identificador da funcao.")
+        if tokens[posicao] != 'IdFuncao':
+            mensagemErro("ERRO SINTÁTICO - Linha" + str(numeroLinhas[posicao]) + ". Lexema " + lexemas[posicao] + " Invalido. Era esperado o identificador da funcao.")
 
-    posicao = lookAhead(posicao)
+        posicao = lookAhead(posicao)
 
-    if tokens[posicao] != 'abreParentese':
-        mensagemErro("ERRO SINTÁTICO - Linha" + str(numeroLinhas[posicao]) + ". Lexema" + lexemas[posicao] + " Invalido. Era esperado uma abertura de parentese.")
+        if tokens[posicao] != 'abreParentese':
+            mensagemErro("ERRO SINTÁTICO - Linha" + str(numeroLinhas[posicao]) + ". Lexema" + lexemas[posicao] + " Invalido. Era esperado uma abertura de parentese.")
 
-    posicao = lookAhead(posicao)
-    posicao = verificarParametros(tokens, lexemas, numeroLinhas, posicao)
+        posicao = lookAhead(posicao)
+        posicao = verificarParametros(tokens, lexemas, numeroLinhas, posicao)
 
-    if tokens[posicao] != 'abreChave':
-        mensagemErro("ERRO SINTÁTICO - Linha" + str(numeroLinhas[posicao]) + ". Lexema" + lexemas[posicao] + " Invalido. Era esperado uma abertura de chave.")
+        if tokens[posicao] != 'abreChave':
+            mensagemErro("ERRO SINTÁTICO - Linha" + str(numeroLinhas[posicao]) + ". Lexema" + lexemas[posicao] + " Invalido. Era esperado uma abertura de chave.")
 
-    while not (tokens[posicao] == 'fechaChave' and tokens[posicao-3] == 'return'):
-        if tokens[posicao] == 'return':
-            posicao = lookAhead(posicao)
-            posicao = verificarReturn(tokens, lexemas, numeroLinhas, posicao)
-        elif tokens[posicao] != 'fechaChave':
-            posicao = verificarBloco(tokens, lexemas, numeroLinhas, posicao)
-        else:
-            break
+        while not (tokens[posicao] == 'fechaChave' and tokens[posicao-3] == 'return'):
+            if tokens[posicao] == 'return':
+                posicao = lookAhead(posicao)
+                posicao = verificarReturn(tokens, lexemas, numeroLinhas, posicao)
+            elif tokens[posicao] != 'fechaChave':
+                posicao = verificarBloco(tokens, lexemas, numeroLinhas, posicao)
+            else:
+                break
 
-    return posicao
+        return posicao
+    
+    except IndexError:
+        mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao - 1]) 
+            + ". Lexema" + lexemas[posicao - 1] + " invalido.")
 
 def verificarDeclaracaoDeProcedimento(posicao, tokens, lexemas, numeroLinhas):
     if tokens[posicao]  == "idProcedimento":
