@@ -1,6 +1,23 @@
-int vX = 0;
-int vY = 1;
-
-if(vX < vY){
-    int vZ = vX + vY;
+if(vA < vB){
+    int vA = 2;
+    int vB = 7;
 }
+int vgggg = vA + vB;
+
+proc pteste(int vA){
+    int vx = 7;
+}
+
+func int fCalcMath(int vAba, int vAhn, boolean vAsjk){
+    int vGhhs = 4;
+    int vD = 4;
+    if(vD > 5){
+        while(vd < 5){
+            int vK = 6;
+        }
+        int vH = 9;
+    }    
+    return vGhhs;
+}
+
+int vA = fCalcMath(int vAba, int vAhn, boolean vAsjk);

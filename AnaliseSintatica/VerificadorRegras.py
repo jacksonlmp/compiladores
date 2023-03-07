@@ -135,7 +135,7 @@ def verificarIf(posicao, tokens, lexemas, numeroLinhas):
                     + ". Lexema " + lexemas[posicao] + " invalido. Era esperado uma abertura de parenteses.")
     except IndexError:
         mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao - 1]) 
-            + ". Lexema" + lexemas[posicao - 1] + " invalido.")
+            + ". Lexema " + lexemas[posicao - 1] + " invalido.")
 
 # Verifica parte contraria da estrutura condicional
 def verificarElse(posicao, tokens, lexemas, numeroLinhas):
@@ -154,7 +154,7 @@ def verificarElse(posicao, tokens, lexemas, numeroLinhas):
                         + ". Lexema " + lexemas[posicao] + " invalido. Era esperado uma abertura de chaves.")
     except IndexError:
         mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao - 1]) 
-            + ". Lexema" + lexemas[posicao - 1] + " invalido.") 
+            + ". Lexema " + lexemas[posicao - 1] + " invalido.") 
 
 def verificarLaco(posicao, tokens, lexemas, numeroLinhas):
     if tokens[posicao]  != "abreParentese":
@@ -216,7 +216,7 @@ def verificarDeclaracaoDeFuncao(posicao, tokens, lexemas, numeroLinhas):
         posicao = verificarParametros(tokens, lexemas, numeroLinhas, posicao)
 
         if tokens[posicao] != 'abreChave':
-            mensagemErro("ERRO SINTÁTICO - Linha" + str(numeroLinhas[posicao]) + ". Lexema" + lexemas[posicao] + " Invalido. Era esperado uma abertura de chave.")
+            mensagemErro("ERRO SINTÁTICO - Linha" + str(numeroLinhas[posicao]) + ". Lexema " + lexemas[posicao] + " Invalido. Era esperado uma abertura de chave.")
 
         while not (tokens[posicao] == 'fechaChave' and tokens[posicao-3] == 'return'):
             if tokens[posicao] == 'return':
@@ -231,7 +231,7 @@ def verificarDeclaracaoDeFuncao(posicao, tokens, lexemas, numeroLinhas):
     
     except IndexError:
         mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao - 1]) 
-            + ". Lexema" + lexemas[posicao - 1] + " invalido.")
+            + ". Lexema " + lexemas[posicao - 1] + " invalido.")
 
 def verificarDeclaracaoDeProcedimento(posicao, tokens, lexemas, numeroLinhas):
     if tokens[posicao]  == "idProcedimento":
@@ -260,7 +260,7 @@ def verificarDeclaracaoDeProcedimento(posicao, tokens, lexemas, numeroLinhas):
                 + ". Lexema " + lexemas[posicao] + " invalido. Era esperado uma abertura de parenteses.")
     else:
         mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao ]) 
-            + ". Lexema" + lexemas[posicao] + " invalido.")
+            + ". Lexema " + lexemas[posicao] + " invalido.")
 
 def verificarChamadaDeProcedimento(posicao, tokens, lexemas, numeroLinhas):
     if tokens[posicao]  != "abreParentese":
