@@ -195,42 +195,45 @@ def verificarLaco(posicao, tokens, lexemas, numeroLinhas):
 
 def verificarDeclaracaoDeFuncao(posicao, tokens, lexemas, numeroLinhas):
     try:
-        if tokens[posicao] == 'tipo':
+        if(tokens[posicao] == 'tipo'):
             posicao = lookAhead(posicao)
 
-            if tokens[posicao] == 'idFuncao':
+            if(tokens[posicao] == 'idFuncao'):
                 posicao = lookAhead(posicao)
 
-                if tokens[posicao] == 'abreParentese':
-                    posicao = verificarParametros(lookAhead(posicao), tokens, lexemas, numeroLinhas)
+                if(tokens[posicao] == 'abreParentese'):
+                    posicao = lookAhead(posicao)
+                    posicao = verificarParametros(posicao, tokens, lexemas, numeroLinhas)
                     
-                    if tokens[posicao] == 'abreChave':
-                        while not (tokens[posicao] == 'fechaChave' and tokens[posicao-3] == 'return'):
-                            if tokens[posicao] == 'return':
-                                posicao = verificarReturn(lookAhead(posicao), tokens, numeroLinhas)
-                            elif tokens[posicao] != 'fechaChave':
-                                posicao = verificarBloco(posicao, tokens, lexemas, numeroLinhas)
-                            else:
-                                break
-                            posicao = lookAhead(posicao)
+                    if(tokens[posicao] == 'abreChave'):
+                        while( not (tokens[posicao] == 'fechaChave' and tokens[posicao-3] == 'return') ):
+                            if(tokens[posicao] != 'return'):
+                                posicao = lookAhead(posicao)
 
+                            elif(tokens[posicao] == 'return'):
+                                posicao = lookAhead(posicao)
+                                posicao = verificarReturn(posicao, tokens, numeroLinhas)  
+
+                            else: 
+                                posicao = verificarBloco(tokens, lexemas, numeroLinhas, posicao)                   
                         return posicao
                     else:
-                        mensagemErro("Ocorreu um erro sintatico na declaracao de funcao. Linha" + str(numeroLinhas[posicao]) 
-                            + ". Lexema " + lexemas[posicao] + " nao esperado. Era esperado uma abertura de chave.")
+                        mensagemErro("Ocorreu um erro sintatico na declaracao de funcao. Linha "+ str(numeroLinhas[posicao])
+                                      +" - '"+ lexemas[posicao] + "' nao esperado. Era esperado uma abertura de chave.")
                 else:
-                    mensagemErro("Ocorreu um erro sintatico na declaracao de funcao. Linha " + str(numeroLinhas[posicao])
-                        + ". Lexema" + lexemas[posicao] + " nao esperado. Era esperado uma abertura de parentese.")
-            else :
-                mensagemErro("Ocorreu um erro sintatico na declaracao de funcao. Linha " + str(numeroLinhas[posicao]) 
-                + ". Lexema " + lexemas[posicao] + " nao esperado. Era esperado o identificador da funcao.")    
+                    mensagemErro("Ocorreu um erro sintatico na declaracao de funcao. Linha "+ str(numeroLinhas[posicao])
+                                  +" - '"+ lexemas[posicao] + "' nao esperado. Era esperado uma abertura de parentese.")
+            else:
+                mensagemErro("Ocorreu um erro sintatico na declaracao de funcao. Linha "+ str(numeroLinhas[posicao])
+                              +" - '"+ lexemas[posicao] + "' Era esperado o identificador da funcao.")
+
         else:
-            mensagemErro("Ocorreu um erro sintatico na declaracao de funcao. Linha " + str(numeroLinhas[posicao]) 
-            + ". Lexema " + lexemas[posicao] + " nao esperado. Era esperado o tipo de dado de retorno da funcao." )
-    
+            mensagemErro("Ocorreu um erro sintatico na declaracao de funcao. Linha "+ str(numeroLinhas[posicao])
+                          +" - '"+ lexemas[posicao] + "' nao esperado. Era esperado o tipo de dado de retorno da funcao.")
+
     except IndexError:
-        mensagemErro("Excecao: ocorreu um erro sintatico na declaracao de funcao. Linha " + str(numeroLinhas[posicao - 1]) 
-            + ". Lexema " + lexemas[posicao - 1] + " nao esperado.")
+        mensagemErro("Excecao: ocorreu um erro sintatico na declaracao de funcao. Linha " + str(numeroLinhas[posicao -1])
+                      + " - " + str(lexemas[posicao-1]) + " incorreto.")    
 
 def verificarDeclaracaoDeProcedimento(posicao, tokens, lexemas, numeroLinhas):
     if tokens[posicao]  == "idProcedimento":
@@ -373,4 +376,4 @@ def verificarReturn(posicao, tokens, numeroLinhas):
         mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao]) 
             + ". Token " + tokens[posicao] + " nao esperado. Era esperado um ;")
 
-    return lookAhead(posicao)
+    return lookAhead(posicao) 
