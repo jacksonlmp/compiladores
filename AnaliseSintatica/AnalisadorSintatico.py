@@ -17,10 +17,10 @@ def realizarAnaliseSintatica(tabelaDeTokens):
 # Verifica o balanceamento dos parenteses e chaves e se o codigo esta conforme especificado na gramatica
 # Em caso de erro, imprime no console e encerra e execucao
 def analisarSintaxe(tokens, lexemas, numeroLinhas, quantidadeDeTokens):
-    regras.verificarBalanceamentoChaveEParentese(tokens)
-
     # Verifica se a sequencia de tokens esta correta
     ultimaPosicaoLida = -1 # Para a primeira iteracao, posicaoAtual (zero) deve estar na frente
     for posicaoAtual in range(quantidadeDeTokens):
         if posicaoAtual > ultimaPosicaoLida:
             ultimaPosicaoLida = regras.verificarBloco(posicaoAtual, tokens, lexemas, numeroLinhas)
+
+    regras.verificarBalanceamentoChaveEParentese(tokens)
