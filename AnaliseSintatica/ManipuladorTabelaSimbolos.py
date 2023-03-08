@@ -49,11 +49,11 @@ def criarTabela(tabelaDeTokens):
                 if tabelaDeTokens["Token"][posicaoAux] == "idVariavel":
                     qtdParametros += 1
                     variaveis.append(tabelaDeTokens["Lexema"][posicaoAux])
-                elif tabela_tokens["Token"][j] == "tipo":
+                elif tabelaDeTokens["Token"][posicaoToken] == "tipo":
                     tiposVariaveis.append(tabelaDeTokens["Lexema"][posicaoAux])
 
                 posicaoAux += 1
 
-            tabelaDeSimbolos.loc[len(tabelaDeSimbolos)] = ["funcao", tabelaDeTokens["Lexema"][posicaoTokeni + 2], tabelaDeTokens["Lexema"][posicaoToken + 1], tabelaDeTokens["Linha"][posicaoToken], "NA", qtdParametros, variaveis, tiposVariaveis]
+            tabelaDeSimbolos.loc[len(tabelaDeSimbolos)] = ["funcao", tabelaDeTokens["Lexema"][posicaoToken + 2], tabelaDeTokens["Lexema"][posicaoToken + 1], tabelaDeTokens["Linha"][posicaoToken], "NA", qtdParametros, variaveis, tiposVariaveis]
 
     return tabelaDeSimbolos
