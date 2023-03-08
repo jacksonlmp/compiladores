@@ -1,6 +1,33 @@
-int vX = 0;
-int vY = 1;
+int vA = 10;
+int vB = 2;
 
-if(vX < vY){
-    int vZ = vX + vY;
+func int fPegarValor(int vAux){
+    return vAux;
 }
+
+if(vA > vB){
+    int vA = fPegarValor(int vB);
+} else{
+    int vB = fPegarValor(int vA);
+}
+
+int vSoma = vA + vB;
+
+proc pImprimirDobro(int vA){
+    int vDobro = vA * 2;
+    print vDobro; 
+}
+
+boolean vPrintar = true;
+
+pImprimirDobro(int vSoma);
+
+func int fCalcular(int v1, int v2){
+    int vResultado = v1 + 1 * 10 / 2;
+    while(v1 < v2){
+        int vResultado = 1 + vResultado * 3;
+    }  
+    return vResultado;
+}
+
+int vCalculo = fCalcular(int v1, int v2);

@@ -11,7 +11,9 @@ palavrasReservadas = {
     "print": "print",
     "proc": "procedimento",
     "break": "auxLaco",
-    "continue": "auxLaco"
+    "continue": "auxLaco",
+    "true": "booleano",
+    "false": "booleano"
 }
 
 def verificarToken(lexema, numeroLinha):
