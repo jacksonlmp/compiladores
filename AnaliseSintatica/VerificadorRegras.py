@@ -25,14 +25,14 @@ def verificarBalanceamentoChaveEParentese(listaDeTokens):
             parentesesFechados += 1
 
     if chavesAbertas > chavesFechadas:
-        mensagemErro("Ocorreu um erro sintatico no balanceamento de chaves. Ha mais { do que }.")
+        print("Atencao no balanceamento de chaves. Ha mais { do que }.")
     elif chavesAbertas < chavesFechadas:
-        mensagemErro("Ocorreu um erro sintatico no balanceamento de chaves. Ha mais } do que {.")
+        print("Atencao no balanceamento de chaves. Ha mais } do que {.")
 
     if parentesesAbertos > parentesesFechados:
-        mensagemErro("Ocorreu um erro sintatico na balanceamento de parenteses. Ha mais ( do que ).")
+        print("Atencao no balanceamento de parenteses. Ha mais ( do que ).")
     elif parentesesAbertos < parentesesFechados:
-        mensagemErro("Ocorreu um erro sintatico no balanceamento de parenteses. Ha mais ) do que (.")
+        print("Atencao no balanceamento de parenteses. Ha mais ) do que (.")
 
 # Verifica se o codigo esta de acordo com a gramatica
 def verificarBloco(posicao, tokens, lexemas, numeroLinhas):
