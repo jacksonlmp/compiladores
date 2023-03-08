@@ -1,5 +1,3 @@
-import sys
-
 # Adianta o ponteiro para ler uma casa a frente
 def lookAhead(posicao):
     return posicao + 1
@@ -91,7 +89,7 @@ def verificarDeclaracaoDeVariavel(posicao, tokens, lexemas, numeroLinhas):
                     + ". Lexema " + tokens[posicao]  + " invalido. Verifique a separacao das linhas com ;")
         else:
             mensagemErro("Ocorreu um erro sintatico na atribuicao de variavel. Linha " + str(numeroLinhas[posicao]) 
-                + ". Lexema " + tokens[posicao]  + " invalido.")
+                + ". Lexema " + tokens[posicao]  + " invalido. Era esperado um =")
     else:
         mensagemErro("Ocorreu um erro sintatico na declaracao de variavel. Linha " + str(numeroLinhas[posicao]) 
                 + ". Lexema " + tokens[posicao]  + " invalido.")
@@ -134,7 +132,7 @@ def verificarIf(posicao, tokens, lexemas, numeroLinhas):
                 mensagemErro("Ocorreu um erro sintatico na estrutura condicional. Linha " + str(numeroLinhas[posicao]) 
                     + ". Lexema " + lexemas[posicao] + " invalido. Era esperado uma abertura de parenteses.")
     except IndexError:
-        mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao - 1]) 
+        mensagemErro("Ocorreu um erro sintatico na esturuta condicional. Linha " + str(numeroLinhas[posicao - 1]) 
             + ". Lexema " + lexemas[posicao - 1] + " invalido.")
 
 # Verifica parte contraria da estrutura condicional
@@ -153,7 +151,7 @@ def verificarElse(posicao, tokens, lexemas, numeroLinhas):
             mensagemErro("Ocorreu um erro sintatico na estrutura condicional. Linha " + str(numeroLinhas[posicao]) 
                         + ". Lexema " + lexemas[posicao] + " invalido. Era esperado uma abertura de chaves.")
     except IndexError:
-        mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao - 1]) 
+        mensagemErro("Ocorreu um erro sintatico na estrutura condicional. Linha " + str(numeroLinhas[posicao - 1]) 
             + ". Lexema " + lexemas[posicao - 1] + " invalido.") 
 
 def verificarLaco(posicao, tokens, lexemas, numeroLinhas):
@@ -231,7 +229,7 @@ def verificarDeclaracaoDeFuncao(posicao, tokens, lexemas, numeroLinhas):
         return posicao
     
     except IndexError:
-        mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao - 1]) 
+        mensagemErro("Ocorreu um erro sintatico na declaracao de funcao. Linha " + str(numeroLinhas[posicao - 1]) 
             + ". Lexema " + lexemas[posicao - 1] + " invalido.")
 
 def verificarDeclaracaoDeProcedimento(posicao, tokens, lexemas, numeroLinhas):
@@ -260,7 +258,7 @@ def verificarDeclaracaoDeProcedimento(posicao, tokens, lexemas, numeroLinhas):
             mensagemErro("Ocorreu um erro sintatico na declaracao de procedimento. Linha " + str(numeroLinhas[posicao]) 
                 + ". Lexema " + lexemas[posicao] + " invalido. Era esperado uma abertura de parenteses.")
     else:
-        mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao ]) 
+        mensagemErro("Ocorreu um erro sintatico na declaracao de procedimento. Linha " + str(numeroLinhas[posicao ]) 
             + ". Lexema " + lexemas[posicao] + " invalido.")
 
 def verificarChamadaDeProcedimento(posicao, tokens, lexemas, numeroLinhas):
@@ -357,11 +355,11 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
                         + ". Lexema " + lexemas[posicao] + " invalido. Era esperado um operador logico ou aritmetico.")
                         
         else:
-            mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao]) 
+            mensagemErro("Ocorreu um erro sintatico na expressao. Linha " + str(numeroLinhas[posicao]) 
                 + ". Lexema " + lexemas[posicao] + " invalido.")
             
     except IndexError:
-        mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao - 1]) 
+        mensagemErro("Excecao na expressao. Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao - 1]) 
             + ". Lexema " + lexemas[posicao - 1] + " invalido.")
 
 def verificarReturn(posicao, tokens, numeroLinhas):
