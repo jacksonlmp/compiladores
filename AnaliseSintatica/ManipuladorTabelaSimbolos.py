@@ -49,7 +49,7 @@ def criarTabela(tabelaDeTokens):
                 if tabelaDeTokens["Token"][posicaoAux] == "idVariavel":
                     qtdParametros += 1
                     variaveis.append(tabelaDeTokens["Lexema"][posicaoAux])
-                elif tabelaDeTokens["Token"][posicaoToken] == "tipo":
+                elif tabelaDeTokens["Token"][posicaoAux] == "tipo":
                     tiposVariaveis.append(tabelaDeTokens["Lexema"][posicaoAux])
 
                 posicaoAux += 1
