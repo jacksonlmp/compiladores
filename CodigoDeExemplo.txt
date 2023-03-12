@@ -20,7 +20,7 @@ proc pImprimirDobro(int vA){
 
 boolean vPrintar = true;
 
-pImprimirDobro(int vSoma);
+pImprimirDobro(vSoma);
 
 func int fCalcular(int v1, int v2){
     int vResultado = v1 + 1 * 10 / 2;
