@@ -6,9 +6,9 @@ func int fPegarValor(int vAux){
 }
 
 if(vA > vB){
-    int vA = fPegarValor(int vB);
+    int vA = fPegarValor(vB);
 } else{
-    int vB = fPegarValor(int vA);
+    int vB = fPegarValor(vA);
 }
 
 int vSoma = vA + vB;
@@ -30,4 +30,4 @@ func int fCalcular(int v1, int v2){
     return vResultado;
 }
 
-int vCalculo = fCalcular(int v1, int v2);
+int vCalculo = fCalcular(v1, v2);
