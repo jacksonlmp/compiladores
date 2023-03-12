@@ -210,13 +210,26 @@ def verificarDeclaracaoDeFuncao(posicao, tokens, lexemas, numeroLinhas):
                     posicao = verificarParametros(posicao, tokens, lexemas, numeroLinhas)
                     
                     if(tokens[posicao] == 'abreChave'):
-                        while( not (tokens[posicao] == 'fechaChave' and tokens[posicao-3] == 'return') ):
-                            if(tokens[posicao] != 'return'):
-                                posicao = lookAhead(posicao)
+                        achouReturn = False
+                        achouFechaChave = False
+                        while not (achouReturn or achouFechaChave) :
+                            posicao = lookAhead(posicao)
 
-                            else: 
-                                posicao = lookAhead(posicao)
-                                posicao = verificarReturn(posicao, tokens, numeroLinhas)                  
+                            if(tokens[posicao] == 'return'):
+                                achouReturn = True  
+                                posicao = lookAhead(posicao)   
+                                posicao = verificarReturn(posicao, tokens, lexemas)
+                            
+                            elif(tokens[posicao] == "fechaChave"):
+                                achouFechaChave = True
+                                mensagemErro("Ocorreu um erro sintatico na declaracao de funcao. Linha "+ str(numeroLinhas[posicao])
+                                      +" - '"+ lexemas[posicao] + "' nao esperado. Era esperado um retorno da funcao.")
+
+                            else:
+                                posicao = verificarBloco(posicao, tokens, lexemas, numeroLinhas)
+                        if(achouReturn and tokens[posicao] != 'fechaChave'):
+                            mensagemErro("Ocorreu um erro sintatico na declaracao de funcao. Linha "+ str(numeroLinhas[posicao])
+                                      +" - '"+ lexemas[posicao] + "' nao esperado. Era esperado um fechamento de chave apos o retorno da funcao.")
                         return posicao
                     else:
                         mensagemErro("Ocorreu um erro sintatico na declaracao de funcao. Linha "+ str(numeroLinhas[posicao])
