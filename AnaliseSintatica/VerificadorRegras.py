@@ -90,7 +90,7 @@ def verificarDeclaracaoDeVariavel(posicao, tokens, lexemas, numeroLinhas):
                 return posicao
             else:
                 mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
-                    + ". Lexema " + tokens[posicao]  + " nao esperado. Verifique a separacao das linhas com ;")
+                    + ". Lexema " + tokens[posicao]  + " nao esperado.")
         else:
             mensagemErro("Ocorreu um erro sintatico na atribuicao de variavel. Linha " + str(numeroLinhas[posicao][0]) 
                 + ". Lexema " + tokens[posicao]  + " nao esperado. Era esperado um =")
@@ -297,7 +297,7 @@ def verificarPrint(posicao, tokens, lexemas, numeroLinhas):
             return posicao
         else:
             mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
-                + ". Lexema " + lexemas[posicao] + " nao esperado. Verifique a separacao das linhas com ;")
+                + ". Lexema " + lexemas[posicao] + " nao esperado.")
     else:
         mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
                 + ". Lexema " + lexemas[posicao] + " nao esperado. Verifique o parametro informado na impressao")
