@@ -43,4 +43,19 @@ A linguagem deve cobrir os seguintes aspectos:
 
 ## TESTES
 - [ ] - int variavel = false;
-- [x] - boolean booleano = 10;
+- [ ] - boolean booleano = 10;
+- [ ] - Comparar int com booleano
+- [ ] - Utilização de operadores de comparação
+- [ ] - erros de digitação (whle, it, bolean)
+- [ ] - if x > 0 or and y < 10
+- [ ] - if x > y + z:
+- [ ] - Colocar vírgulas aleatórias dentro de funções, procedimentos, while
+- [ ] - Inverter ordem de parâmetros: declaracaoDeFuncao(variavel tipo)
+- [ ] - chamadaDeFuncao(int) -> em vez de chamadaDeFuncao(10 ou idVariavel)
+- [ ] - Adicionar múltiplos ;
+- [ ] - Testar: declaração de boolean sem ponto e vírgula
+
+- [ ] - Verificar int vA = + 10;
+- [ ] - Testar int vA = 2 + * 5;
+- [ ] - Testar int vA = 10 2 +;
+
