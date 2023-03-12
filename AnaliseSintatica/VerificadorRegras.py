@@ -326,12 +326,12 @@ def verificarParametros(posicao, tokens, lexemas, numeroLinhas):
 def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
     # Espera-se que seja encontrado um termo no look ahead
     try:    
-        if tokens[posicao]  == "idFuncao":
+        if tokens[posicao]  == "idFuncao": # Chamada de funcao
             posicao = lookAhead(posicao)
                         
             if tokens[posicao]  == "abreParentese":
                 posicao = lookAhead(posicao)
-                posicao = verificarParametros(posicao, tokens, lexemas, numeroLinhas)
+                posicao = verificarArgumentos(posicao, tokens, lexemas, numeroLinhas)
                 return posicao
             else:
                 mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
