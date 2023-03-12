@@ -42,20 +42,16 @@ A linguagem deve cobrir os seguintes aspectos:
 + Execute o arquivo Main.py.
 
 ## TESTES
-- [ ] - int variavel = false;
-- [ ] - boolean booleano = 10;
-- [ ] - Comparar int com booleano
-- [ ] - Utilização de operadores de comparação
-- [ ] - erros de digitação (whle, it, bolean)
-- [ ] - if x > 0 or and y < 10
-- [ ] - if x > y + z:
-- [ ] - Colocar vírgulas aleatórias dentro de funções, procedimentos, while
-- [ ] - Inverter ordem de parâmetros: declaracaoDeFuncao(variavel tipo)
-- [ ] - chamadaDeFuncao(int) -> em vez de chamadaDeFuncao(10 ou idVariavel)
-- [ ] - Adicionar múltiplos ;
-- [ ] - Testar: declaração de boolean sem ponto e vírgula
-
-- [ ] - Verificar int vA = + 10;
-- [ ] - Testar int vA = 2 + * 5;
-- [ ] - Testar int vA = 10 2 +;
+- [x] - Utilização de operadores de comparação
+- [x] - erros de digitação (whle, it, bolean)
+- [x] - if x > 0 or and y < 10
+- [x] - if x > y + z:
+- [x] - Colocar vírgulas aleatórias dentro de funções, procedimentos, while
+- [x] - Inverter ordem de parâmetros: declaracaoDeFuncao(variavel tipo)
+- [x] - chamadaDeFuncao(int) -> em vez de chamadaDeFuncao(10 ou idVariavel)
+- [x] - Adicionar múltiplos ;
+- [x] - Testar: declaração de boolean sem ponto e vírgula
+- [x] - Verificar int vA = + 10;
+- [x] - Testar int vA = 2 + * 5;
+- [x] - Testar int vA = 10 2 +;
 
