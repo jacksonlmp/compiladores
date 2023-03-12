@@ -90,13 +90,13 @@ def verificarDeclaracaoDeVariavel(posicao, tokens, lexemas, numeroLinhas):
                 return posicao
             else:
                 mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
-                    + ". Lexema " + tokens[posicao]  + " nao esperado.")
+                    + ". Lexema " + lexemas[posicao]  + " nao esperado.")
         else:
             mensagemErro("Ocorreu um erro sintatico na atribuicao de variavel. Linha " + str(numeroLinhas[posicao][0]) 
-                + ". Lexema " + tokens[posicao]  + " nao esperado. Era esperado um =")
+                + ". Lexema " + lexemas[posicao]  + " nao esperado. Era esperado um =")
     else:
         mensagemErro("Ocorreu um erro sintatico na declaracao de variavel. Linha " + str(numeroLinhas[posicao][0]) 
-                + ". Lexema " + tokens[posicao]  + " nao esperado.")
+                + ". Lexema " + lexemas[posicao]  + " nao esperado.")
 
 # Verifica a estrutura condicional
 def verificarIf(posicao, tokens, lexemas, numeroLinhas):
