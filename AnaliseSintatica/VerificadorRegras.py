@@ -214,12 +214,9 @@ def verificarDeclaracaoDeFuncao(posicao, tokens, lexemas, numeroLinhas):
                             if(tokens[posicao] != 'return'):
                                 posicao = lookAhead(posicao)
 
-                            elif(tokens[posicao] == 'return'):
-                                posicao = lookAhead(posicao)
-                                posicao = verificarReturn(posicao, tokens, numeroLinhas)  
-
                             else: 
-                                posicao = verificarBloco(tokens, lexemas, numeroLinhas, posicao)                   
+                                posicao = lookAhead(posicao)
+                                posicao = verificarReturn(posicao, tokens, numeroLinhas)                  
                         return posicao
                     else:
                         mensagemErro("Ocorreu um erro sintatico na declaracao de funcao. Linha "+ str(numeroLinhas[posicao])
