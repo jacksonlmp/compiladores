@@ -36,7 +36,7 @@
 
 <letra-minuscula> ::=  "a" | "b" | "c" | "d" | "e" | "f" | "g" | "h" | "i" | "j" | "k" | "l" | "m" | "n" | "o" | "p" | "q" | "r" | "s" | "t" | "u" | "v" | "w" | "x" | "y" | "z"
 
-<digito> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" 
+<constante> ::= "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9" 
 
 <boolean> ::= "true" | "false"
 
@@ -50,7 +50,7 @@
 
 <expressao-logica> ::= <termo> <operador-logico> <termo>
 
-<termo> ::= <identificador-variavel> | <digito>
+<termo> ::= <identificador-variavel> | <constante>
 
 <expressao-aritmetica> ::= <termo> <operador-aritmetico> <termo>
 
@@ -62,17 +62,17 @@
 
 
 #=============PROCEDIMENTOS===============
-<identificador-procedimento> ::= "p"(<letra-maiuscula> | <letra-minuscula> |  <numero>)+
+<identificador-procedimento> ::= "p"(<letra-maiuscula> | <letra-minuscula> |  <constante>)+
 
 <declaracao-procedimento> ::= "proc" <identificador-procedimento> "(" <lista-parametros> ")" "{" <bloco> "}"
 
 
 #=============FUNÇOES===============
-<identificador-funcao> ::= "f"(<letra-maiuscula> | <letra-minuscula> |  <numero>)+ 
+<identificador-funcao> ::= "f"(<letra-maiuscula> | <letra-minuscula> |  <constante>)+ 
 
 <declaracao-funcao> ::= "func" <especificador-tipo> <identificador-funcao> "(" <bloco-funcao>
 
-<bloco-funcao> ::= <lista-parametros> ")" "{" <bloco> "return " <identificador-variavel> ";" "}"
+<bloco-funcao> ::= <lista-parametros> ")" "{" <bloco> "return " <identificador-variavel> | <constante> | <boolean> ";" "}"
 
 
 #=============PARAMETROS===============

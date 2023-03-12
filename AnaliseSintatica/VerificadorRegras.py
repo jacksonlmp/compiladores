@@ -381,9 +381,10 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
             + ". Lexema " + lexemas[posicao - 1] + " nao esperado.")
 
 def verificarReturn(posicao, tokens, numeroLinhas):
-    if tokens[posicao]  != "idVariavel":
+    token = tokens[posicao]
+    if (token  != "idVariavel") and (token != "constante") and (token != "booleano"):
         mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
-            + ". Token " + tokens[posicao] + " nao esperado. Era esperado um identificador de variavel.")
+            + ". Token " + tokens[posicao] + " nao esperado. Era esperado um dado para retorno da funcao.")
 
     posicao = lookAhead(posicao)
 
