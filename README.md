@@ -40,3 +40,7 @@ A linguagem deve cobrir os seguintes aspectos:
     - pip install pandas
     - pip install tabulate
 + Execute o arquivo Main.py.
+
+## TESTES
+- [ ] - int variavel = false;
+- [x] - boolean booleano = 10;
