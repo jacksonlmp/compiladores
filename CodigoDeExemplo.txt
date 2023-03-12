@@ -23,9 +23,9 @@ boolean vPrintar = true;
 pImprimirDobro(vSoma);
 
 func int fCalcular(int v1, int v2){
-    int vResultado = v1 + 1 * 10 / 2;
+    int vResultado = v1 + 1;
     while(v1 < v2){
-        int vResultado = 1 + vResultado * 3;
+        int vResultado = 1 + vResultado;
     }  
     return vResultado;
 }
