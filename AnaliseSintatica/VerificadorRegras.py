@@ -273,7 +273,7 @@ def verificarChamadaDeProcedimento(posicao, tokens, lexemas, numeroLinhas):
         mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
             + ". Lexema " + lexemas[posicao] + " nao esperado. Era esperado uma abertura de parentese.")
     
-    posicao = verificarParametros(lookAhead(posicao), tokens, lexemas, numeroLinhas)
+    posicao = verificarArgumentos(lookAhead(posicao), tokens, lexemas, numeroLinhas)
     if tokens[posicao]  != "pontoEVirgula":
          mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
             + ". Lexema " + lexemas[posicao] + " nao esperado. Era esperado um ;")
@@ -292,6 +292,7 @@ def verificarPrint(posicao, tokens, lexemas, numeroLinhas):
         mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
                 + ". Lexema " + lexemas[posicao] + " nao esperado. Verifique o parametro informado na impressao")
 
+# Tipos e variaveis nas chamadas de procedimento e funcao
 def verificarParametros(posicao, tokens, lexemas, numeroLinhas):
     if tokens[posicao]  == "tipo":
         posicao = lookAhead(posicao)
@@ -380,4 +381,27 @@ def verificarReturn(posicao, tokens, numeroLinhas):
         mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
             + ". Token " + tokens[posicao] + " nao esperado. Era esperado um ;")
 
-    return lookAhead(posicao) 
+    return lookAhead(posicao)
+
+# Valores/variaveis nas chamadas de procedimento e funcao
+def verificarArgumentos(posicao, tokens, lexemas, numeroLinhas):
+    if tokens[posicao]  == "idVariavel":
+        posicao = lookAhead(posicao)
+
+        # Apenas um parametro eh obrigatorio, logo, pode ter virgula para verificar outros ou finaliza a assinatura do metodo
+        if tokens[posicao]  == "virgula":
+                #É virgula, então temos mais parametros para verificar
+                posicao = lookAhead(posicao)
+                posicao = verificarArgumentos(posicao, tokens, lexemas, numeroLinhas)
+                return posicao
+
+        elif tokens[posicao]  == "fechaParentese":
+            posicao = lookAhead(posicao)
+            return posicao
+
+        else:
+            mensagemErro("Ocorreu um erro sintatico nos argumentos do metodo, era esperado uma virgula ou fechamento de parentese na linha " 
+            + str(numeroLinhas[posicao][0]) + ". Lexema " + lexemas[posicao] + " nao esperado.")
+    else:
+        mensagemErro("Ocorreu um erro sintatico nos argumentos do metodo, era esperado o identificador da variavel na linha " 
+            + str(numeroLinhas[posicao][0]) + ". Lexema " + lexemas[posicao] + " nao esperado.")
