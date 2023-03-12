@@ -89,7 +89,7 @@ def verificarDeclaracaoDeVariavel(posicao, tokens, lexemas, numeroLinhas):
             if tokens[posicao]  == "pontoEVirgula":
                 return posicao
             else:
-                mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
+                mensagemErro("Ocorreu um erro sintatico na declaracao de variavel. Linha " + str(numeroLinhas[posicao][0]) 
                     + ". Lexema " + lexemas[posicao]  + " nao esperado.")
         else:
             mensagemErro("Ocorreu um erro sintatico na atribuicao de variavel. Linha " + str(numeroLinhas[posicao][0]) 
@@ -351,33 +351,29 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
             if tokens[posicao]  == 'booleano':
                 return lookAhead(posicao)
 
-            elif tokens[posicao]  == "constante" and tokens[lookAhead(posicao)] == "pontoEVirgula":
-                return lookAhead(posicao)
-                
             else:
-                posicao = lookAhead(posicao)
-                
-                if tokens[posicao]  in ['operadorLogico', 'operadorAritmetico']:
-                    posicao = lookAhead(posicao)
-                    
-                    if tokens[posicao]  in ['constante', 'idVariavel']:
-                        # Expressao correta
-                        return lookAhead(posicao)
-                        
-                    else:
-                        mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
-                        + ". Lexema " + lexemas[posicao] + " nao esperado. Era esperado uma constante ou variavel.")
+                valores = ['idVariavel', 'constante']
+                operadores = ['operadorAritmetico', 'operadorLogico']
+                token = tokens[posicao]
 
-                else:
-                    mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
-                        + ". Lexema " + lexemas[posicao] + " nao esperado. Era esperado um operador logico ou aritmetico.")
-                        
-        else:
-            mensagemErro("Ocorreu um erro sintatico na expressao. Linha " + str(numeroLinhas[posicao][0]) 
-                + ". Lexema " + lexemas[posicao] + " nao esperado.")
+                ehExpressaoValida = True
+                while (ehExpressaoValida):
+                    posicao = lookAhead(posicao)
+                    token = tokens[posicao]
+                    if(token in operadores and tokens[lookAhead(posicao)] not in valores): # operador sem outro valor na frente (ex: 10 + vA +)
+                        ehExpressaoValida = False
+                        mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
+                        + ". Sentenca do lexema " + lexemas[posicao] + " incompleta. Era esperado outra constante ou variavel.")
+
+                    if(token not in valores and token not in operadores):
+                        ehExpressaoValida = False
+                return posicao
             
+        else:
+             mensagemErro("Ocorreu um erro sintatico na expressao. Linha " + str(numeroLinhas[posicao][0]) 
+                + ". Lexema " + lexemas[posicao] + " invalido. Era esperada um valor, variavel ou chamada de funcao.")
     except IndexError:
-        mensagemErro("Excecao na expressao. Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao - 1][0]) 
+        mensagemErro("Excecao na expressao. Ocorreu um erro sintatico na expressao. Linha " + str(numeroLinhas[posicao - 1][0]) 
             + ". Lexema " + lexemas[posicao - 1] + " nao esperado.")
 
 def verificarReturn(posicao, tokens, numeroLinhas):

@@ -52,7 +52,9 @@
 
 <termo> ::= <identificador-variavel> | <constante>
 
-<expressao-aritmetica> ::= <termo> <operador-aritmetico> <termo>
+<expressao-aritmetica> ::= <termo> <termos-aritmeticos>
+
+<termos-aritmeticos> ::= ε | <operador-aritmetico> <termo>
 
 
 #=============OPERADORES===============
