@@ -49,9 +49,8 @@ A linguagem deve cobrir os seguintes aspectos:
 - [x] - Colocar vírgulas aleatórias dentro de funções, procedimentos, while
 - [x] - Inverter ordem de parâmetros: declaracaoDeFuncao(variavel tipo)
 - [x] - chamadaDeFuncao(int) -> em vez de chamadaDeFuncao(10 ou idVariavel)
-- [x] - Adicionar múltiplos ;
-- [x] - Testar: declaração de boolean sem ponto e vírgula
+- [x] - Adicionar múltiplos ponto e vírgula
+- [x] - Declaração de variável sem ponto e vírgula
 - [x] - Verificar int vA = + 10;
-- [x] - Testar int vA = 2 + * 5;
-- [x] - Testar int vA = 10 2 +;
-
+- [x] - int vA = 2 + * 5;
+- [x] - int vA = 10 2 +;

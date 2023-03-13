@@ -363,7 +363,7 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
                     if(token in operadores and tokens[lookAhead(posicao)] not in valores): # operador sem outro valor na frente (ex: 10 + vA +)
                         ehExpressaoValida = False
                         mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
-                        + ". Sentenca do lexema " + lexemas[posicao] + " incompleta. Era esperado outra constante ou variavel.")
+                        + ". Sentenca do lexema " + lexemas[posicao] + " invalida. Verifique a ordem das constantes, variaveis e operadores.")
 
                     if(token not in valores and token not in operadores):
                         ehExpressaoValida = False
