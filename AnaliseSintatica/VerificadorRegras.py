@@ -312,14 +312,11 @@ def verificarParametros(posicao, tokens, lexemas, numeroLinhas):
 
             # Apenas um parametro eh obrigatorio, logo, pode ter virgula para verificar outros ou finaliza a assinatura do metodo
             if tokens[posicao]  == "virgula":
-                    #É virgula, então temos mais parametros para verificar
-                    posicao = lookAhead(posicao)
-                    posicao = verificarParametros(posicao, tokens, lexemas, numeroLinhas)
-                    return posicao
+                    # Como foi virgula, logo temos mais parametros para verificar
+                    return verificarParametros(lookAhead(posicao), tokens, lexemas, numeroLinhas)
 
             elif tokens[posicao]  == "fechaParentese":
-                posicao = lookAhead(posicao)
-                return posicao
+                return lookAhead(posicao)
 
             else:
                 mensagemErro("Ocorreu um erro sintatico nos parametros do metodo, era esperado uma virgula ou fechamento de parentese na linha " 
@@ -327,6 +324,9 @@ def verificarParametros(posicao, tokens, lexemas, numeroLinhas):
         else:
             mensagemErro("Ocorreu um erro sintatico nos parametros do metodo, era esperado o identificador da variavel na linha " 
                 + str(numeroLinhas[posicao][0]) + ". Lexema " + lexemas[posicao] + " nao esperado.")
+
+    elif tokens[posicao]  == "fechaParentese": # Nao recebe parametros
+                return lookAhead(posicao)
 
     else:
         mensagemErro("Ocorreu um erro sintatico nos parametros do metodo, era esperado o tipo do parametro na linha " 
@@ -397,18 +397,18 @@ def verificarArgumentos(posicao, tokens, lexemas, numeroLinhas):
 
         # Apenas um parametro eh obrigatorio, logo, pode ter virgula para verificar outros ou finaliza a assinatura do metodo
         if tokens[posicao]  == "virgula":
-                #É virgula, então temos mais parametros para verificar
-                posicao = lookAhead(posicao)
-                posicao = verificarArgumentos(posicao, tokens, lexemas, numeroLinhas)
-                return posicao
+                # Como foi virgula, logo temos mais parametros para verificar
+                return verificarArgumentos(lookAhead(posicao), tokens, lexemas, numeroLinhas)
 
         elif tokens[posicao]  == "fechaParentese":
-            posicao = lookAhead(posicao)
-            return posicao
+            return lookAhead(posicao)
 
         else:
             mensagemErro("Ocorreu um erro sintatico nos argumentos do metodo, era esperado uma virgula ou fechamento de parentese na linha " 
             + str(numeroLinhas[posicao][0]) + ". Lexema " + lexemas[posicao] + " nao esperado.")
+    
+    elif tokens[posicao]  == "fechaParentese": # Nao recebe parametros
+            return lookAhead(posicao)
     else:
         mensagemErro("Ocorreu um erro sintatico nos argumentos do metodo, era esperado o identificador da variavel na linha " 
             + str(numeroLinhas[posicao][0]) + ". Lexema " + lexemas[posicao] + " nao esperado.")
