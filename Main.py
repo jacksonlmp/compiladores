@@ -20,3 +20,5 @@ with pd.option_context('display.max_rows', None,
 
 tabelaDeSimbolos = sint.realizarAnaliseSintatica(tabelaDeTokens)
 print(tabulate(tabelaDeSimbolos, headers='keys', tablefmt='pretty'))
+
+print("Codigo compilado com sucesso!")
