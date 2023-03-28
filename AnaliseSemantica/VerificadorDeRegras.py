@@ -1,4 +1,4 @@
-def verificarEscopo():
+def verificarEscopo(tabelaDeTokens, posicaoToken):
     print("Work in progress")
 
 def verificarSeDeclarouProcedimento():

@@ -1,6 +1,7 @@
 import sys
 sys.path.insert(1, './AnaliseLexica')
 sys.path.insert(1, './AnaliseSintatica')
+sys.path.insert(1, './AnaliseSemantica')
 import AnalisadorLexico as lex
 import AnalisadorSintatico as sint
 import pandas as pd
