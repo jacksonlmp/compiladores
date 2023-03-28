@@ -1,7 +1,7 @@
 import pandas as pd
 import sys
 sys.path.insert(1, '../AnaliseSemantica')
-import VerificadorRegrasSemanticas as semantico
+import VerificadorDeRegras as semantico
 
 # Testar substituicao de tabelaDeTokens["Token"][posicao] por tokens[posicao]
 
