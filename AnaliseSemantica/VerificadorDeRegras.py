@@ -50,38 +50,33 @@ def estaDentroDoEscopo(tabelaDeTokens, posicaoDoToken, posicaoDoMetodo):
                 posicaoFimDoMetodo = tokenAtual
                 return (posicaoDoToken > posicaoInicioDoMetodo and posicaoDoToken < posicaoFimDoMetodo)
 
+# Verifica se o procedimento ja foi declarado anteriormente
 def verificarSeDeclarouProcedimento(posicao, lexemas, numeroLinhas):
-    #ehProcedimentoDeclarado
-    ehJaDeclarado = False
+    declaradoAnteriormente = False
     nomeProcedimento = lexemas[posicao-1]
     
     for i in range(posicao-1):
         if(nomeProcedimento == lexemas[i]):
-            #Achei o mesmo nome: pode ser uma declaracao ou uma chamada
-            #Vamos confirmar se eh declaracao
-            if(lexemas[i-1] == 'proc'):
-                #Eh declaracao. Ok
-                ehJaDeclarado = True
+            if(lexemas[i-1] == 'proc'): # Verificando se eh declaracao ou chamada
+                declaradoAnteriormente = True
     
-    if ehJaDeclarado == False:
+    if not declaradoAnteriormente:
         mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao]) + ". Procedimento " + str(lexemas[posicao-1]) + " nao declarado anteriormente.")         
 
-
+# Verifica se a funcao ja foi declarada anteriormente
 def verificarSeDeclarouFuncao(posicao, lexemas, numeroLinhas):
-    #ehFuncaoDeclaradaEAtribuicaoRetorno
-    ehDeclarada = False
+    declaradaAnteriormente = False
     tipoFuncao = ''
     nomeFuncao = lexemas[posicao - 1]
     tipoVariavel = lexemas[posicao - 4]
 
     for i in range(posicao - 1):
         if nomeFuncao == lexemas[i]:
-            if lexemas[i - 2] == 'func':
-                # É declaração. Ok
-                ehDeclarada = True
+            if lexemas[i - 2] == 'func': # Verificando se eh declaracao ou chamada
+                declaradaAnteriormente = True
                 tipoFuncao = lexemas[i - 1]
                 
-    if not ehDeclarada:
+    if not declaradaAnteriormente:
         mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao]) + ". Funcao " + str(lexemas[posicao - 1]) + " nao declarada anteriormente.")         
     
     if tipoFuncao != tipoVariavel:
