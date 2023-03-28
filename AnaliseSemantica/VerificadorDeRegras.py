@@ -11,7 +11,36 @@ def mensagemErro(mensagem):
     exit()
 
 def verificarEscopo(tabelaDeTokens, posicaoToken):
-    print("Work in progress")
+    for i in range(lookAhead(posicaoToken), -1, -1):
+        if tabelaDeTokens["Token"][i] == "funcao":
+            if estaDentroDoEscopo(tabelaDeTokens, i, posicaoToken):
+                return tabelaDeTokens["Lexema"][i+2]
+        elif tabelaDeTokens["Token"][i] == "procedimento":
+            if estaDentroDoEscopo(tabelaDeTokens, i, posicaoToken):
+                return tabelaDeTokens["Lexema"][i+1]
+    return "Global"
+
+def estaDentroDoEscopo(tabelaDeTokens, x, posicaoToken):
+    abreChave = 0
+    fechaChave = 0
+    comeco = 0
+    fim = 0
+   
+    tamanhoDaTabela = len(tabelaDeTokens)
+    for i in range(x, tamanhoDaTabela):
+        if tabelaDeTokens["Token"][i] == "abreChave":
+            comeco = i
+            break
+
+    abreChave = 1
+    for i in range(comeco + 1, tamanhoDaTabela):
+        if tabelaDeTokens["Token"][i] == "abreChave":
+            abreChave += 1
+        elif tabelaDeTokens["Token"][i] == "fechaChave":
+            fechaChave += 1
+            if abreChave == fechaChave:
+                fim = i
+                return (posicaoToken > comeco and posicaoToken < fim)
 
 def verificarSeDeclarouProcedimento(posicao, lexemas, numeroLinhas):
     #ehProcedimentoDeclarado
