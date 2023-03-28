@@ -41,9 +41,9 @@ A linguagem deve cobrir os seguintes aspectos:
     - pip install tabulate
 + Execute o arquivo Main.py.
 
-## TESTES
+## Testes - Léxicos e sintáticos
 - [x] - Utilização de operadores de comparação
-- [x] - erros de digitação (whle, it, bolean)
+- [x] - Erros de digitação (whle, it, bolean)
 - [x] - if x > 0 or and y < 10
 - [x] - if x > y + z:
 - [x] - Colocar vírgulas aleatórias dentro de funções, procedimentos, while
@@ -54,3 +54,14 @@ A linguagem deve cobrir os seguintes aspectos:
 - [x] - Verificar int vA = + 10;
 - [x] - int vA = 2 + * 5;
 - [x] - int vA = 10 2 +;
+
+## Testes - Semânticos
+- [x] - Chamar procedimento/função que não tenha sido declarado ainda;
+- [x] - Chamar procedimento/função inexistente;
+- [x] - Atribuir retorno de função booleana à variável inteira;
+- [x] - Atribuir retorno de função inteira à variável booleano;
+- [x] - Atribuir valor booleano à variável inteira;
+- [x] - Atribuir valor inteiro à variável booleana;
+- [x] - Comparar inteiro com booleano;
+- [x] - Declaração de variável sem ponto e vírgula;
+- [x] - Usar variável de uma função/procedimento fora do seu escopo.
