@@ -42,18 +42,18 @@ A linguagem deve cobrir os seguintes aspectos:
 + Execute o arquivo Main.py.
 
 ## Testes - Léxicos e sintáticos
-- [ ] - Utilização de operadores de comparação
-- [ ] - Erros de digitação (whle, it, bolean)
-- [ ] - if x > 0 or and y < 10
-- [ ] - if x > y + z:
-- [ ] - Colocar vírgulas aleatórias dentro de funções, procedimentos, while
-- [ ] - Inverter ordem de parâmetros: declaracaoDeFuncao(variavel tipo)
-- [ ] - chamadaDeFuncao(int) -> em vez de chamadaDeFuncao(10 ou idVariavel)
-- [ ] - Adicionar múltiplos ponto e vírgula
-- [ ] - Declaração de variável sem ponto e vírgula
-- [ ] - Verificar int vA = + 10;
-- [ ] - int vA = 2 + * 5;
-- [ ] - int vA = 10 2 +;
+- [x] - Utilização de operadores de comparação
+- [x] - Erros de digitação (whle, it, bolean)
+- [x] - if x > 0 or and y < 10
+- [x] - if x > y + z:
+- [x] - Colocar vírgulas aleatórias dentro de funções, procedimentos, while
+- [x] - Inverter ordem de parâmetros: declaracaoDeFuncao(variavel tipo)
+- [x] - chamadaDeFuncao(int) -> em vez de chamadaDeFuncao(10 ou idVariavel)
+- [x] - Adicionar múltiplos ponto e vírgula
+- [x] - Declaração de variável sem ponto e vírgula
+- [x] - Verificar int vA = + 10;
+- [x] - int vA = 2 + * 5;
+- [x] - int vA = 10 2 +;
 
 ## Testes - Semânticos
 - [ ] - Chamar procedimento/função que não tenha sido declarado ainda;
