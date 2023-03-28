@@ -10,37 +10,45 @@ def mensagemErro(mensagem):
         print(mensagem)
     exit()
 
+# Retorna o escopo da variavel (a funcao/procedimento que ela pertence ou se eh global)
 def verificarEscopo(tabelaDeTokens, posicaoToken):
+    # Percorre da posicao atual, ate o inicio do codigo, voltando um token de cada vez
     for i in range(lookAhead(posicaoToken), -1, -1):
         if tabelaDeTokens["Token"][i] == "funcao":
-            if estaDentroDoEscopo(tabelaDeTokens, i, posicaoToken):
-                return tabelaDeTokens["Lexema"][i+2]
+            if estaDentroDoEscopo(tabelaDeTokens, posicaoToken, i):
+                # Retorna o identificador da funcao
+                return tabelaDeTokens["Lexema"][i+2] # (pulando o 'func tipoDeRetorno')
         elif tabelaDeTokens["Token"][i] == "procedimento":
-            if estaDentroDoEscopo(tabelaDeTokens, i, posicaoToken):
-                return tabelaDeTokens["Lexema"][i+1]
+            if estaDentroDoEscopo(tabelaDeTokens, posicaoToken, i):
+                # Retorna o identificador do procedimento
+                return tabelaDeTokens["Lexema"][i+1] # (pulando o 'proc')
     return "Global"
 
-def estaDentroDoEscopo(tabelaDeTokens, x, posicaoToken):
-    abreChave = 0
-    fechaChave = 0
-    comeco = 0
-    fim = 0
-   
+# Retorna se a posicao do token esta dentro do escopo da funcao/procedimento
+def estaDentroDoEscopo(tabelaDeTokens, posicaoDoToken, posicaoDoMetodo):
+    qtdAbreChave = 0
+    qtdFechaChave = 0
+    posicaoInicioDoMetodo = 0
+    posicaoFimDoMetodo = 0
     tamanhoDaTabela = len(tabelaDeTokens)
-    for i in range(x, tamanhoDaTabela):
-        if tabelaDeTokens["Token"][i] == "abreChave":
-            comeco = i
+
+    # Define o inicio do metodo (abertuda de chave)
+    for tokenAtual in range(posicaoDoMetodo, tamanhoDaTabela):
+        if tabelaDeTokens["Token"][tokenAtual] == "abreChave":
+            posicaoInicioDoMetodo = tokenAtual
+            qtdAbreChave += 1
             break
 
-    abreChave = 1
-    for i in range(comeco + 1, tamanhoDaTabela):
-        if tabelaDeTokens["Token"][i] == "abreChave":
-            abreChave += 1
-        elif tabelaDeTokens["Token"][i] == "fechaChave":
-            fechaChave += 1
-            if abreChave == fechaChave:
-                fim = i
-                return (posicaoToken > comeco and posicaoToken < fim)
+    # Percorrer ate o fim do metodo para verificar se o token esta nesse intervalo
+    for tokenAtual in range(posicaoInicioDoMetodo + 1, tamanhoDaTabela):
+        if tabelaDeTokens["Token"][tokenAtual] == "abreChave":
+            qtdAbreChave += 1
+        elif tabelaDeTokens["Token"][tokenAtual] == "fechaChave":
+            qtdFechaChave += 1
+            # Chegou no fim do metodo, verifica se o token esta contido nele
+            if qtdAbreChave == qtdFechaChave:
+                posicaoFimDoMetodo = tokenAtual
+                return (posicaoDoToken > posicaoInicioDoMetodo and posicaoDoToken < posicaoFimDoMetodo)
 
 def verificarSeDeclarouProcedimento(posicao, lexemas, numeroLinhas):
     #ehProcedimentoDeclarado
