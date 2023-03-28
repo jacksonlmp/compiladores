@@ -56,7 +56,7 @@ def verificarSeDeclarouProcedimento(posicao, lexemas, numeroLinhas):
                 ehJaDeclarado = True
     
     if ehJaDeclarado == False:
-        mensagemErro("ERRO SEMANTICO - Linha " + str(numeroLinhas[posicao]) + " - " + str(numeroLinhas[posicao-1]) + " procedimento nao declarado anteriormente.")         
+        mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao]) + ". Procedimento " + str(lexemas[posicao-1]) + " nao declarado anteriormente.")         
 
 
 def verificarSeDeclarouFuncao(posicao, lexemas, numeroLinhas):
@@ -74,7 +74,7 @@ def verificarSeDeclarouFuncao(posicao, lexemas, numeroLinhas):
                 tipoFuncao = lexemas[i - 1]
                 
     if not ehDeclarada:
-        mensagemErro("ERRO SEMÂNTICO - Linha " + str(numeroLinhas[posicao]) + str(lexemas[posicao - 1]) + " função não declarada anteriormente.")         
+        mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao]) + ". Funcao " + str(lexemas[posicao - 1]) + " nao declarada anteriormente.")         
     
     if tipoFuncao != tipoVariavel:
-        mensagemErro("ERRO SEMÂNTICO - Linha " + str(numeroLinhas[posicao]) + str(lexemas[posicao - 3]) + " tipo de variável diferente do retorno da função.")
+        mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao]) + ". Tipo de variavel " + str(lexemas[posicao - 3]) + " diferente do retorno da funcao.")
