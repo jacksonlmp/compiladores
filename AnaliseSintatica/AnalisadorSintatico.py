@@ -1,5 +1,5 @@
 import pandas as pd
-import VerificadorRegras as regras
+import VerificadorRegras as sintatico
 import ManipuladorTabelaSimbolos as manipuladorTabela
 
 # Faz a analise sintatica e retorna a tabela de simbolos
@@ -21,6 +21,6 @@ def analisarSintaxe(tokens, lexemas, numeroLinhas, quantidadeDeTokens):
     ultimaPosicaoLida = -1 # Para a primeira iteracao, posicaoAtual (zero) deve estar na frente
     for posicaoAtual in range(quantidadeDeTokens):
         if posicaoAtual > ultimaPosicaoLida:
-            ultimaPosicaoLida = regras.verificarBloco(posicaoAtual, tokens, lexemas, numeroLinhas)
+            ultimaPosicaoLida = sintatico.verificarBloco(posicaoAtual, tokens, lexemas, numeroLinhas)
 
-    regras.verificarBalanceamentoChaveEParentese(tokens)
+    sintatico.verificarBalanceamentoChaveEParentese(tokens)
