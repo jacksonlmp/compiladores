@@ -15,17 +15,19 @@ def verificarEscopo(tabelaDeTokens, posicaoToken):
 
 def verificarSeDeclarouProcedimento(posicao, lexemas, numeroLinhas):
     #ehProcedimentoDeclarado
+    ehJaDeclarado = False
     nomeProcedimento = lexemas[posicao-1]
     
-    #set() para criar um conjunto a partir da lista de lexemas
-    #discard() para remover a string "proc" do conjunto.
-    nomesProcedimentosDeclarados = set(lexemas[:posicao - 1])
-    nomesProcedimentosDeclarados.discard('proc')
-
-    if nomeProcedimento in nomesProcedimentosDeclarados:
-        return True
-
-    mensagemErro("ERRO SEMANTICO - Linha " +  str(numeroLinhas) + str(nomeProcedimento) + " procedimento nao declarado anteriormente.")
+    for i in range(posicao-1):
+        if(nomeProcedimento == lexemas[i]):
+            #Achei o mesmo nome: pode ser uma declaracao ou uma chamada
+            #Vamos confirmar se eh declaracao
+            if(lexemas[i-1] == 'proc'):
+                #Eh declaracao. Ok
+                ehJaDeclarado = True
+    
+    if ehJaDeclarado == False:
+        mensagemErro("ERRO SEMANTICO - Linha " + str(numeroLinhas[posicao]) + " - " + str(numeroLinhas[posicao-1]) + " procedimento nao declarado anteriormente.")         
 
 
 def verificarSeDeclarouFuncao(posicao, lexemas, numeroLinhas):
@@ -43,7 +45,7 @@ def verificarSeDeclarouFuncao(posicao, lexemas, numeroLinhas):
                 tipoFuncao = lexemas[i - 1]
                 
     if not ehDeclarada:
-        mensagemErro("ERRO SEMÂNTICO - Linha " + str(numeroLinhas[posicao]), str(lexemas[posicao - 1]) + " função não declarada anteriormente.")         
+        mensagemErro("ERRO SEMÂNTICO - Linha " + str(numeroLinhas[posicao]) + str(lexemas[posicao - 1]) + " função não declarada anteriormente.")         
     
     if tipoFuncao != tipoVariavel:
-        mensagemErro("ERRO SEMÂNTICO - Linha " + str(numeroLinhas[posicao]), str(lexemas[posicao - 3]) + " tipo de variável diferente do retorno da função.")
+        mensagemErro("ERRO SEMÂNTICO - Linha " + str(numeroLinhas[posicao]) + str(lexemas[posicao - 3]) + " tipo de variável diferente do retorno da função.")

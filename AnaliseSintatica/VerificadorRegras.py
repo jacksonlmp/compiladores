@@ -283,6 +283,8 @@ def verificarDeclaracaoDeProcedimento(posicao, tokens, lexemas, numeroLinhas):
             + ". Lexema " + lexemas[posicao] + " nao esperado.")
 
 def verificarChamadaDeProcedimento(posicao, tokens, lexemas, numeroLinhas):
+    posicaoAux = posicao
+
     if tokens[posicao]  != "abreParentese":
         mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
             + ". Lexema " + lexemas[posicao] + " nao esperado. Era esperado uma abertura de parentese.")
@@ -291,6 +293,8 @@ def verificarChamadaDeProcedimento(posicao, tokens, lexemas, numeroLinhas):
     if tokens[posicao]  != "pontoEVirgula":
          mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
             + ". Lexema " + lexemas[posicao] + " nao esperado. Era esperado um ;")
+         
+    semantico.verificarSeDeclarouProcedimento(posicaoAux, lexemas, numeroLinhas)
         
     return posicao
 
