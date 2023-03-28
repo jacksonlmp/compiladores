@@ -3,8 +3,6 @@ import sys
 sys.path.insert(1, '../AnaliseSemantica')
 import VerificadorDeRegras as semantico
 
-# Testar substituicao de tabelaDeTokens["Token"][posicao] por tokens[posicao]
-
 def criarTabela(tabelaDeTokens):
     
     tabelaDeSimbolos = pd.DataFrame(columns=['Token', 'Lexema', 'Tipo', 'Linha', 'Valor', 'QtdParametros', 'Variaveis', 'TiposVariaveis', 'Escopo'])
