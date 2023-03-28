@@ -1,4 +1,8 @@
 import numpy as np
+import sys
+sys.path.insert(1, '../AnaliseSemantica')
+import VerificadorRegrasSemanticas as semantico
+
 # Adianta o ponteiro para ler uma casa a frente
 def lookAhead(posicao):
     return posicao + 1
