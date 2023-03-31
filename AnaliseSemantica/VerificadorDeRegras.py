@@ -85,17 +85,33 @@ def verificarTipoRetornoESeDeclarouFuncao(posicao, lexemas, numeroLinhas):
 # Verifica se o boolean recebeu 'true' ou 'false'
 def verificarSeVariavelEhBooleana(posicao, tokens, lexemas, numeroLinhas):
     posicaoDoTipo = posicao - 3
-    if tokens[posicaoDoTipo] != 'boolean':
+    if lexemas[posicaoDoTipo] != 'boolean':
         mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao][0]) + 
             ". Tipo de variavel " + str(lexemas[posicao - 2][0]) + " diferente do tipo da atribuicao (foi informado um booleano).")
 
 # Verifica se o int recebeu uma constante numerica
 def verificarSeVariavelEhInteira(posicao, tokens, lexemas, numeroLinhas):
     posicaoDoTipo = posicao - 3
-    if tokens[posicaoDoTipo] != 'constante':
+    if lexemas[posicaoDoTipo] != 'int':
         mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao][0]) + 
             ". Tipo de variavel " + str(lexemas[posicao - 2][0]) + " diferente do tipo da atribuicao (foi informado um inteiro).")
 
-# Verifica se o int recebeu uma constante numerica
-def verificarSeExisteETiposSaoIguais():
-    print("Work in progress")
+# Na atribuicao, verifica se a variavel existia anteriormente e se os tipos sao iguais
+def verificarSeExisteETiposSaoIguais(posicao, tokens, lexemas, numeroLinhas):
+    declaradaAnteriormente = False
+    nomeVariavel = lexemas[posicao]
+    posicao = posicao - 3 # Voltando para antes da variavel que esta recebendo a atribuicao
+    tipo = lexemas[posicao]
+    
+    for i in range(posicao-1):
+        if(nomeVariavel == lexemas[i]):
+                declaradaAnteriormente = True
+                tipoAtribuido = lexemas[i - 1]
+                break
+
+    
+    if not declaradaAnteriormente:
+        mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao][0]) + ". Variavel " + nomeVariavel + " nao declarada anteriormente.")         
+
+    if tipo != tipoAtribuido:
+        mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao][0]) + ". Variavel " + nomeVariavel + " possui tipo diferente do esperado.")         

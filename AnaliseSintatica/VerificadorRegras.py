@@ -358,15 +358,17 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
 
         elif tokens[posicao]  in ['idVariavel', 'booleano', 'constante']:
             if tokens[posicao]  == 'booleano':
-                semantico.verificarSeVariavelEhBooleana(posicao, tokens, lexemas, numeroLinhas)
+                if tokens[posicao-1] == 'atribuicao':    
+                    semantico.verificarSeVariavelEhBooleana(posicao, tokens, lexemas, numeroLinhas)
                 return lookAhead(posicao)
 
             else:
-                if tokens[posicao] == 'constante':
-                    semantico.verificarSeVariavelEhInteira(posicao, tokens, lexemas, numeroLinhas)
-                else:
-                    # Atribuicao de uma variavel a outra
-                    semantico.verificarSeExisteETiposSaoIguais()
+                if tokens[posicao-1] == 'atribuicao':
+                    if tokens[posicao] == 'constante':
+                        semantico.verificarSeVariavelEhInteira(posicao, tokens, lexemas, numeroLinhas)
+                    else:
+                        # Atribuicao de uma variavel a outra
+                        semantico.verificarSeExisteETiposSaoIguais(posicao, tokens, lexemas, numeroLinhas)
 
                 valores = ['idVariavel', 'constante']
                 operadores = ['operadorAritmetico', 'operadorLogico']

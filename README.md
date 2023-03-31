@@ -57,15 +57,14 @@ A linguagem deve cobrir os seguintes aspectos:
 
 ## Testes - Semânticos
 - [X] - Chamar procedimento/função que não tenha sido declarado ainda;
-- [X] - Chamar procedimento/função inexistente;
 - [X] - Atribuir retorno de função booleana à variável inteira;
 - [X] - Atribuir retorno de função inteira à variável booleano;
 - [X] - Atribuir valor booleano à variável inteira (valores literais);
 - [X] - Atribuir valor inteiro à variável booleana (valores literais);
-- [ ] - Atribuir variável inexistente à outra variável;
-- [ ] - Atribuir variável que não tenha sido declarada ainda à outra variável;
-- [ ] - Atribuir variável à outra variável de tipo diferente;
+- [X] - Atribuir variável à outra variável de tipo diferente;
+- [X] - Atribuir variável que não tenha sido declarada ainda à outra variável;
 - [ ] - Passar valor inteiro como argumento em vez de booleano - tanto literais quanto variáveis;
 - [ ] - Passar valor booleano como argumento em vez de inteiro - tanto literais quanto variáveis;
 - [ ] - Comparar inteiro com booleano;
+- [ ] - Variável não declarada ainda sendo utilizada em expressão (em um if ou while, por exemplo);
 - [ ] - Usar variável de uma função/procedimento fora do seu escopo.
