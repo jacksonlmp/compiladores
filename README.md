@@ -56,12 +56,13 @@ A linguagem deve cobrir os seguintes aspectos:
 - [x] - int vA = 10 2 +;
 
 ## Testes - Semânticos
-- [ ] - Chamar procedimento/função que não tenha sido declarado ainda;
-- [ ] - Chamar procedimento/função inexistente;
+- [X] - Chamar procedimento/função que não tenha sido declarado ainda;
+- [X] - Chamar procedimento/função inexistente;
 - [ ] - Atribuir retorno de função booleana à variável inteira;
 - [ ] - Atribuir retorno de função inteira à variável booleano;
 - [ ] - Atribuir valor booleano à variável inteira;
 - [ ] - Atribuir valor inteiro à variável booleana;
+- [ ] - Passar valor inteiro como argumento em vez de booleano;
+- [ ] - Passar valor booleano como argumento em vez de inteiro;
 - [ ] - Comparar inteiro com booleano;
-- [ ] - Declaração de variável sem ponto e vírgula;
 - [ ] - Usar variável de uma função/procedimento fora do seu escopo.
