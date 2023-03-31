@@ -346,7 +346,7 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
     try:    
         if tokens[posicao]  == "idFuncao": # Chamada de funcao
             posicao = lookAhead(posicao)
-            semantico.verificarSeDeclarouFuncao(posicao, lexemas, numeroLinhas)            
+            semantico.verificarTipoRetornoESeDeclarouFuncao(posicao, lexemas, numeroLinhas)            
 
             if tokens[posicao]  == "abreParentese":
                 posicao = lookAhead(posicao)
@@ -358,9 +358,16 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
 
         elif tokens[posicao]  in ['idVariavel', 'booleano', 'constante']:
             if tokens[posicao]  == 'booleano':
+                semantico.verificarSeVariavelEhBooleana(posicao, tokens, lexemas, numeroLinhas)
                 return lookAhead(posicao)
 
             else:
+                if tokens[posicao] == 'constante':
+                    semantico.verificarSeVariavelEhInteira(posicao, tokens, lexemas, numeroLinhas)
+                else:
+                    # Atribuicao de uma variavel a outra
+                    semantico.verificarSeExisteETiposSaoIguais()
+
                 valores = ['idVariavel', 'constante']
                 operadores = ['operadorAritmetico', 'operadorLogico']
                 token = tokens[posicao]

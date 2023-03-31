@@ -64,7 +64,7 @@ def verificarSeDeclarouProcedimento(posicao, lexemas, numeroLinhas):
         mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao]) + ". Procedimento " + str(lexemas[posicao-1][0]) + " nao declarado anteriormente.")         
 
 # Verifica se a funcao ja foi declarada anteriormente
-def verificarSeDeclarouFuncao(posicao, lexemas, numeroLinhas):
+def verificarTipoRetornoESeDeclarouFuncao(posicao, lexemas, numeroLinhas):
     declaradaAnteriormente = False
     tipoFuncao = ''
     nomeFuncao = lexemas[posicao - 1]
@@ -81,3 +81,21 @@ def verificarSeDeclarouFuncao(posicao, lexemas, numeroLinhas):
     
     if tipoFuncao != tipoVariavel:
         mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao]) + ". Tipo de variavel " + str(lexemas[posicao - 3][0]) + " diferente do retorno da funcao.")
+
+# Verifica se o boolean recebeu 'true' ou 'false'
+def verificarSeVariavelEhBooleana(posicao, tokens, lexemas, numeroLinhas):
+    posicaoDoTipo = posicao - 3
+    if tokens[posicaoDoTipo] != 'boolean':
+        mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao][0]) + 
+            ". Tipo de variavel " + str(lexemas[posicao - 2][0]) + " diferente do tipo da atribuicao (foi informado um booleano).")
+
+# Verifica se o int recebeu uma constante numerica
+def verificarSeVariavelEhInteira(posicao, tokens, lexemas, numeroLinhas):
+    posicaoDoTipo = posicao - 3
+    if tokens[posicaoDoTipo] != 'constante':
+        mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao][0]) + 
+            ". Tipo de variavel " + str(lexemas[posicao - 2][0]) + " diferente do tipo da atribuicao (foi informado um inteiro).")
+
+# Verifica se o int recebeu uma constante numerica
+def verificarSeExisteETiposSaoIguais():
+    print("Work in progress")

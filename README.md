@@ -60,8 +60,8 @@ A linguagem deve cobrir os seguintes aspectos:
 - [X] - Chamar procedimento/função inexistente;
 - [X] - Atribuir retorno de função booleana à variável inteira;
 - [X] - Atribuir retorno de função inteira à variável booleano;
-- [ ] - Atribuir valor booleano à variável inteira;
-- [ ] - Atribuir valor inteiro à variável booleana;
+- [X] - Atribuir valor booleano à variável inteira (valores literais);
+- [X] - Atribuir valor inteiro à variável booleana (valores literais);
 - [ ] - Passar valor inteiro como argumento em vez de booleano - tanto literais quanto variáveis;
 - [ ] - Passar valor booleano como argumento em vez de inteiro - tanto literais quanto variáveis;
 - [ ] - Comparar inteiro com booleano;
