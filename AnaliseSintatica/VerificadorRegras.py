@@ -360,8 +360,12 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
             if tokens[posicao]  == 'booleano':
                 if tokens[posicao-1] == 'atribuicao':    
                     semantico.verificarSeVariavelEhBooleana(posicao, tokens, lexemas, numeroLinhas)
-                return lookAhead(posicao)
-
+                posicao = lookAhead(posicao)
+                if tokens[posicao] == '==' or tokens[posicao] == '!=':
+                    # Concatenacao de expresao booleana -> testar: true == true == true != false
+                    # Modificar nome de operadorLogico para operadorRelacional
+                    return lookAhead(posicao)
+                return posicao
             else:
                 if tokens[posicao-1] == 'atribuicao':
                     if tokens[posicao] == 'constante':
@@ -381,7 +385,7 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
                     if(token in operadores and tokens[lookAhead(posicao)] not in valores): # operador sem outro valor na frente (ex: 10 + vA +)
                         ehExpressaoValida = False
                         mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
-                        + ". Sentenca do lexema " + lexemas[posicao] + " invalida. Verifique a ordem das constantes, variaveis e operadores.")
+                        + ". Sentenca do lexema " + lexemas[posicao] + " invalida. Verifique os tipos e a ordem das constantes, variaveis e operadores.")
 
                     if(token not in valores and token not in operadores):
                         ehExpressaoValida = False
