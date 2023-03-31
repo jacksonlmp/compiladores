@@ -346,7 +346,8 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
     try:    
         if tokens[posicao]  == "idFuncao": # Chamada de funcao
             posicao = lookAhead(posicao)
-                        
+            semantico.verificarSeDeclarouFuncao(posicao, lexemas, numeroLinhas)            
+
             if tokens[posicao]  == "abreParentese":
                 posicao = lookAhead(posicao)
                 posicao = verificarArgumentos(posicao, tokens, lexemas, numeroLinhas)
