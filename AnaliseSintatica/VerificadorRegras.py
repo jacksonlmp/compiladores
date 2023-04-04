@@ -367,12 +367,16 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
                     return lookAhead(posicao)
                 return posicao
             else:
-                if tokens[posicao-1] == 'atribuicao':
+                if tokens[posicao-1] == 'atribuicao': # Verificando atribuicao de variaveis
                     if tokens[posicao] == 'constante':
                         semantico.verificarSeVariavelEhInteira(posicao, tokens, lexemas, numeroLinhas)
                     else:
                         # Atribuicao de uma variavel a outra
-                        semantico.verificarSeExisteETiposSaoIguais(posicao, tokens, lexemas, numeroLinhas)
+                        semantico.verificarSeVariavelExisteETiposSaoIguais(posicao, tokens, lexemas, numeroLinhas)
+
+                elif tokens[posicao] == 'idVariavel' and (tokens[posicao-2] == 'if' or tokens[posicao-2] == 'laco'):
+                    # Verificando se variavel usada em if ou while ja foi declarada
+                    semantico.verificarSeVariavelExiste(posicao, tokens, lexemas, numeroLinhas)
 
                 valores = ['idVariavel', 'constante']
                 operadores = ['operadorAritmetico', 'operadorLogico']
@@ -389,6 +393,10 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
 
                     if(token not in valores and token not in operadores):
                         ehExpressaoValida = False
+
+                    if(token == 'idVariavel'):
+                        semantico.verificarSeVariavelExiste(posicao, tokens, lexemas, numeroLinhas)
+
                 return posicao
             
         else:
