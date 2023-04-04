@@ -363,7 +363,6 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
                 posicao = lookAhead(posicao)
                 if tokens[posicao] == '==' or tokens[posicao] == '!=':
                     # Concatenacao de expresao booleana -> testar: true == true == true != false
-                    # Modificar nome de operadorLogico para operadorRelacional
                     return lookAhead(posicao)
                 return posicao
             else:
@@ -379,7 +378,7 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
                     semantico.verificarSeVariavelExiste(posicao, tokens, lexemas, numeroLinhas)
 
                 valores = ['idVariavel', 'constante']
-                operadores = ['operadorAritmetico', 'operadorLogico']
+                operadores = ['operadorAritmetico', 'operadorRelacional']
                 token = tokens[posicao]
 
                 ehExpressaoValida = True

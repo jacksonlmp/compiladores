@@ -37,7 +37,7 @@ def realizarAnaliseLexica(codigo):
                 lexema = ""
                 continue
             
-            #################### Verificar os operadores logicos ####################
+            #################### Verificar os operadores relacional ####################
 
             elif (i+1) < qtdCaracteres and verificador.identificarAritmeticoOuAtribuicao(caractere, linha[i+1], i) != -1:  
                 novoIndice = verificador.identificarAritmeticoOuAtribuicao(caractere, linha[i+1], i)
@@ -45,12 +45,12 @@ def realizarAnaliseLexica(codigo):
                 if lexema == "": # Nao tem token a ser salvo no momento
                     if(novoIndice != i): # 2 tokens juntos
                         lexema = caractere + linha[i+1]
-                        token = verificador.identificarTipoOperadorLogico(lexema)
+                        token = verificador.identificarTipoOperadorRelacional(lexema)
                         manipuladorTabela.inserirToken(lexema, tabelaDeTokens, numeroDaLinhaAtual, token)
-                        i+=2 # Inserimos um operador logico com mais de um caractere ('>=' ou '<='), logo, foram lidos dois caracteres
+                        i+=2 # Inserimos um operador relacional com mais de um caractere ('>=' ou '<='), logo, foram lidos dois caracteres
                     else: # Apenas um token
                         lexema = caractere 
-                        token = verificador.identificarTipoOperadorLogico(lexema)
+                        token = verificador.identificarTipoOperadorRelacional(lexema)
                         manipuladorTabela.inserirToken(lexema, tabelaDeTokens, numeroDaLinhaAtual, token)
                         i+=1
                     lexema = ""

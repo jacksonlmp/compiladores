@@ -48,7 +48,7 @@
                 | <identificador-funcao> "(" <lista-parametros> ")"
                 | <digito>
 
-<expressao-logica> ::= <termo> <operador-logico> <termo>
+<expressao-logica> ::= <termo> <operador-relacional> <termo>
 
 <termo> ::= <identificador-variavel> | <constante>
 
@@ -60,7 +60,7 @@
 #=============OPERADORES===============
 <operador-aritmetico> ::= "+" | "-" | "*" | "/"
 
-<operador-logico> ::= "==" | "!=" | ">" | ">=" | "<" | "<="
+<operador-relacional> ::= "==" | "!=" | ">" | ">=" | "<" | "<="
 
 
 #=============PROCEDIMENTOS===============

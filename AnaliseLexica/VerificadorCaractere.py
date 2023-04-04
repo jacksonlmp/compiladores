@@ -9,7 +9,7 @@ caracteres = [
     "=", "!", "+", "-", "*", "/", ","
 ]
 
-def getOperadoresLogicos():
+def getOperadoresRelacionais():
     return [">=", ">", "<", "<=", "!=", "=="]
 
 def getOperadoresAritmeticos():
@@ -37,10 +37,10 @@ def identificarTipoAritmeticoAtribuicaoOuVirgula(lexema):
     elif lexema in getOperadoresAritmeticos():
         return "operadorAritmetico"
 
-# Identifica se o lexema e um operador logico    
-def identificarTipoOperadorLogico(lexema):
-    if lexema in getOperadoresLogicos():
-        return "operadorLogico"
+# Identifica se o lexema e um operador relacional    
+def identificarTipoOperadorRelacional(lexema):
+    if lexema in getOperadoresRelacionais():
+        return "operadorRelacional"
 
 def ehAritmeticoAtribuicaoOuVirgula(caractere):
     if caractere == "=":
@@ -67,7 +67,7 @@ def traduzParenteseChaveOuPontoEVirgula(caractere):
     }
     return caracteres.get(caractere)
 
-# Identifica se eh uma atribuicao ou um operador logico aritmetico
+# Identifica se eh uma atribuicao ou um operador relacional
 def identificarAritmeticoOuAtribuicao(caractere, proximoCaractere, indice):
     if (caractere == ">") or (caractere == "<"):
         return (indice + 1 if proximoCaractere == '=' else indice)
