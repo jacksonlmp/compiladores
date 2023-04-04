@@ -12,17 +12,20 @@ def mensagemErro(mensagem):
 
 # Retorna o escopo da variavel (a funcao/procedimento que ela pertence ou se eh global)
 def verificarEscopo(tabelaDeTokens, posicaoToken):
-    # Percorre da posicao atual, ate o inicio do codigo, voltando um token de cada vez
-    for i in range(lookAhead(posicaoToken), -1, -1):
-        if tabelaDeTokens["Token"][i] == "funcao":
-            if estaDentroDoEscopo(tabelaDeTokens, posicaoToken, i):
-                # Retorna o identificador da funcao
-                return tabelaDeTokens["Lexema"][i+2] # (pulando o 'func tipoDeRetorno')
-        elif tabelaDeTokens["Token"][i] == "procedimento":
-            if estaDentroDoEscopo(tabelaDeTokens, posicaoToken, i):
-                # Retorna o identificador do procedimento
-                return tabelaDeTokens["Lexema"][i+1] # (pulando o 'proc')
-    return "Global"
+    try:
+        # Percorre da posicao atual, ate o inicio do codigo, voltando um token de cada vez
+        for i in range(lookAhead(posicaoToken), -1, -1):
+            if tabelaDeTokens["Token"][i] == "funcao":
+                if estaDentroDoEscopo(tabelaDeTokens, posicaoToken, i):
+                    # Retorna o identificador da funcao
+                    return tabelaDeTokens["Lexema"][i+2] # (pulando o 'func tipoDeRetorno')
+            elif tabelaDeTokens["Token"][i] == "procedimento":
+                if estaDentroDoEscopo(tabelaDeTokens, posicaoToken, i):
+                    # Retorna o identificador do procedimento
+                    return tabelaDeTokens["Lexema"][i+1] # (pulando o 'proc')
+        return "Global"
+    except IndexError:
+        mensagemErro("Excecao na verificacao de escopo")
 
 # Retorna se a posicao do token esta dentro do escopo da funcao/procedimento
 def estaDentroDoEscopo(tabelaDeTokens, posicaoDoToken, posicaoDoMetodo):
@@ -50,37 +53,47 @@ def estaDentroDoEscopo(tabelaDeTokens, posicaoDoToken, posicaoDoMetodo):
                 posicaoFimDoMetodo = tokenAtual
                 return (posicaoDoToken > posicaoInicioDoMetodo and posicaoDoToken < posicaoFimDoMetodo)
 
-# Verifica se o procedimento ja foi declarado anteriormente
-def verificarSeDeclarouProcedimento(posicao, lexemas, numeroLinhas):
-    declaradoAnteriormente = False
-    nomeProcedimento = lexemas[posicao-1]
-    
-    for i in range(posicao-1):
-        if(nomeProcedimento == lexemas[i]):
-            if(lexemas[i-1] == 'proc'): # Verificando se eh declaracao ou chamada
-                declaradoAnteriormente = True
-    
-    if not declaradoAnteriormente:
-        mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao]) + ". Procedimento " + str(lexemas[posicao-1][0]) + " nao declarado anteriormente.")         
+# Verifica se o procedimento ja foi declarado anteriormente e se os tipos de argumentos recebidos sao iguais aos tipos de parametro
+def verificarSeDeclarouProcedimentoEArgumentos(posicao, lexemas, numeroLinhas):
+    try:
+        declaradoAnteriormente = False
+        nomeProcedimento = lexemas[posicao-1]
+        
+        for i in range(posicao-1):
+            if(nomeProcedimento == lexemas[i]):
+                if(lexemas[i-1] == 'proc'): # Verificando se eh declaracao ou chamada
+                    declaradoAnteriormente = True
+        
+        if not declaradoAnteriormente:
+            mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao]) + ". Procedimento " + str(lexemas[posicao-1][0]) + " nao declarado anteriormente.")         
 
-# Verifica se a funcao ja foi declarada anteriormente
-def verificarTipoRetornoESeDeclarouFuncao(posicao, lexemas, numeroLinhas):
-    declaradaAnteriormente = False
-    tipoFuncao = ''
-    nomeFuncao = lexemas[posicao - 1]
-    tipoVariavel = lexemas[posicao - 4]
+        if lexemas[posicaoParametro] != ')': # Procedimento possui parametros
+            verificarTipoDeParametroEArgumento(lexemas, posicaoParametro, lookAhead(posicao), numeroLinhas[posicaoParametro])
+    except IndexError:
+        mensagemErro("Excecao na verificacao de procedimento")
 
-    for i in range(posicao - 1):
-        if nomeFuncao == lexemas[i]:
-            if lexemas[i - 2] == 'func': # Verificando se eh declaracao ou chamada
-                declaradaAnteriormente = True
-                tipoFuncao = lexemas[i - 1]
-                
-    if not declaradaAnteriormente:
-        mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao]) + ". Funcao " + str(lexemas[posicao - 1][0]) + " nao declarada anteriormente.")         
-    
-    if tipoFuncao != tipoVariavel:
-        mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao]) + ". Tipo de variavel " + str(lexemas[posicao - 3][0]) + " diferente do retorno da funcao.")
+# Verifica se a funcao ja foi declarada anteriormente, se o tipo de retorno eh o esperado e se os tipos de argumentos recebidos sao iguais aos tipos de parametros
+def verificarSeDeclarouFuncaoTipoRetornoEArgumentos(posicao, lexemas, numeroLinhas):
+    try:
+        declaradaAnteriormente = False
+        tipoFuncao = ''
+        nomeFuncao = lexemas[posicao - 1]
+        tipoVariavel = lexemas[posicao - 4]
+
+        for i in range(posicao - 1):
+            if nomeFuncao == lexemas[i]:
+                if lexemas[i - 2] == 'func': # Verificando se eh declaracao ou chamada
+                    declaradaAnteriormente = True
+                    tipoFuncao = lexemas[i - 1]
+                    
+        if not declaradaAnteriormente:
+            mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao]) + ". Funcao " + str(lexemas[posicao - 1][0]) + " nao declarada anteriormente.")         
+        
+        if tipoFuncao != tipoVariavel:
+            mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao][0]) + ". Tipo de variavel " + str(lexemas[posicao - 3][0]) + " diferente do retorno da funcao.")
+
+    except IndexError:
+        mensagemErro("Excecao na verificacao de funcao")
 
 # Verifica se o boolean recebeu 'true' ou 'false'
 def verificarSeVariavelEhBooleana(posicao, tokens, lexemas, numeroLinhas):
@@ -129,6 +142,9 @@ def verificarSeVariavelExiste(posicao, tokens, lexemas, numeroLinhas):
     if not declaradaAnteriormente:
         mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao][0]) + ". Variavel " + nomeVariavel + " nao declarada anteriormente.")         
 
-# Verifica se os tipos de argumentos recebidos sao iguais aos tipos de parametros da funcao/procedimento
-def verificarTipoDeArgumento(posicao, tokens, lexemas, numeroLinhas):
-    print('teste')
+# Verifica se o tipo de variavel recebida eh igual aos tipo de parametro
+def verificarTipoDeParametroEArgumento(tabelaDeSimbolos, tabelaDeTokens):
+    # Percorre a tabela de simbolos, verificando onde token for igual 'funcao'.
+    # Salva o nome dela (lexema), e analisa onde a coluna Valor contém o nome da função
+    # Obtém os argumentos dela e verifica na tabela de tokens se os tipos batem
+    print('Work in progress')
