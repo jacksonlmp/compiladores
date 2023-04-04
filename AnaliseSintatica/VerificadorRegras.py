@@ -78,8 +78,7 @@ def verificarBloco(posicao, tokens, lexemas, numeroLinhas):
                 + " nao esperado. Linguagem nao reconhecida.")
 
     except IndexError:
-        mensagemErro("Excecao: ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao - 1][0]) + ". Lexema " + lexemas[posicao - 1] 
-            + " nao esperado. Linguagem nao reconhecida.")
+        mensagemErro("Excecao: ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao - 1][0]) + ". Linguagem nao reconhecida.")
 
 def verificarDeclaracaoDeVariavel(posicao, tokens, lexemas, numeroLinhas):
     if tokens[posicao]  == "idVariavel":
@@ -295,13 +294,14 @@ def verificarChamadaDeProcedimento(posicao, tokens, lexemas, numeroLinhas):
             + ". Lexema " + lexemas[posicao] + " nao esperado. Era esperado um ;")
          
     semantico.verificarSeDeclarouProcedimento(posicaoAux, lexemas, numeroLinhas)
-        
+    semantico.verificarTipoDeArgumento(lookAhead(posicaoAux), tokens, lexemas, numeroLinhas)     
     return posicao
 
 def verificarPrint(posicao, tokens, lexemas, numeroLinhas):
     if (tokens[posicao]  == "idVariavel") or (tokens[posicao]  == "constante"):
         posicao = lookAhead(posicao)
         if tokens[posicao]  == "pontoEVirgula":
+            semantico.verificarSeVariavelExiste(posicao-1, tokens, lexemas, numeroLinhas)
             return posicao
         else:
             mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
@@ -346,11 +346,13 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
     try:    
         if tokens[posicao]  == "idFuncao": # Chamada de funcao
             posicao = lookAhead(posicao)
-            semantico.verificarTipoRetornoESeDeclarouFuncao(posicao, lexemas, numeroLinhas)            
+            posicaoDoArgumento = posicao           
 
             if tokens[posicao]  == "abreParentese":
-                posicao = lookAhead(posicao)
-                posicao = verificarArgumentos(posicao, tokens, lexemas, numeroLinhas)
+                posicao = verificarArgumentos(lookAhead(posicao), tokens, lexemas, numeroLinhas)
+                
+                semantico.verificarTipoRetornoESeDeclarouFuncao(posicaoDoArgumento, lexemas, numeroLinhas)
+                semantico.verificarTipoDeArgumento(posicaoDoArgumento, tokens, lexemas, numeroLinhas) 
                 return posicao
             else:
                 mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 

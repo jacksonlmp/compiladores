@@ -66,4 +66,5 @@ A linguagem deve cobrir os seguintes aspectos:
 - [ ] - Passar valor inteiro como argumento em vez de booleano - tanto literais quanto variáveis;
 - [ ] - Passar valor booleano como argumento em vez de inteiro - tanto literais quanto variáveis;
 - [ ] - Comparar inteiro com booleano;
-- [X] - Variável não declarada ainda sendo utilizada em expressão (em um if ou while, por exemplo).
+- [X] - Variável não declarada ainda sendo utilizada em expressão (em um if ou while, por exemplo);
+- [X] - Imprimindo variável não declarada ainda.

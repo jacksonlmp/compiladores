@@ -128,3 +128,7 @@ def verificarSeVariavelExiste(posicao, tokens, lexemas, numeroLinhas):
 
     if not declaradaAnteriormente:
         mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao][0]) + ". Variavel " + nomeVariavel + " nao declarada anteriormente.")         
+
+# Verifica se os tipos de argumentos recebidos sao iguais aos tipos de parametros da funcao/procedimento
+def verificarTipoDeArgumento(posicao, tokens, lexemas, numeroLinhas):
+    print('teste')
