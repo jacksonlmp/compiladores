@@ -140,14 +140,39 @@ def verificarSeVariavelExiste(posicao, tokens, lexemas, numeroLinhas):
     if not declaradaAnteriormente:
         mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao][0]) + ". Variavel " + nomeVariavel + " nao declarada anteriormente.")         
 
-# Verifica se o tipo de variavel recebida eh igual aos tipo de parametro
-def verificarTipoDeParametroEArgumento(posicao, tokens, lexemas, numeroLinhas, tabelaDeSimbolos):
-    # Percorre a tabela de simbolos, verificando onde token for igual 'funcao'.
-    # Salva o nome dela (lexema), e analisa onde a coluna Valor contém o nome da função
-    # Obtém os argumentos dela e verifica na tabela de tokens se os tipos batem
-    print('Work in progress')
-    ### MODIFICAR ESTE TRECHO - Deverá retornar posição final da função
-    return posicao
+# Verifica se o tipo de variavel recebida eh igual ao tipo de parametro em funcoes
+def verificarTipoDeParametroEArgumentoDeFuncao(tabelaDeSimbolos):
+    tamanhoDaTabela = len(tabelaDeSimbolos)
+    for posicao in range(tamanhoDaTabela):
+        if tabelaDeSimbolos['Token'][posicao] == 'funcao':
+            # Para cada funcao, guarda as variaveis e os tipos para comparar logo em seguida onde foi chamada
+            nomeDoMetodo = tabelaDeSimbolos['Lexema'][posicao]
+            variaveis = tabelaDeSimbolos['Variaveis'][posicao]
+            tiposVariaveis = tabelaDeSimbolos['TiposVariaveis'][posicao]
+            
+           # for variavel in variaveis:
+                #print(tabelaDeSimbolos['Lexema'].eq(variavel).idxmax())
+                #print('Tipo ' + tabelaDeSimbolos.loc[tabelaDeSimbolos['Lexema'] == variavel, 'Tipo'].iloc[0])
+                # Buscando o indice da variavel na coluna dos lexemas
+                #indice = tabelaDeSimbolos.loc[tabelaDeSimbolos['Lexema'] == variavel].index[0]
+                #print(variavel + ' no indice ' + indice)
+
+# Verifica se o tipo de variavel recebida eh igual ao tipo de parametro em procedimentos
+def verificarTipoDeParametroEArgumentoDeProcedimento(tabelaDeSimbolos):
+    tamanhoDaTabela = len(tabelaDeSimbolos)
+    for posicao in range(tamanhoDaTabela):
+        if tabelaDeSimbolos['Token'][posicao] == 'idProcedimento':
+            # Para cada  procedimento, guarda as variaveis e os tipos para comparar logo em seguida onde foi chamado
+            nomeDoMetodo = tabelaDeSimbolos['Lexema'][posicao]
+            variaveis = tabelaDeSimbolos['Variaveis'][posicao]
+            tiposVariaveis = tabelaDeSimbolos['TiposVariaveis'][posicao]
+            
+           # for variavel in variaveis:
+                #print(tabelaDeSimbolos['Lexema'].eq(variavel).idxmax())
+                #print('Tipo ' + tabelaDeSimbolos.loc[tabelaDeSimbolos['Lexema'] == variavel, 'Tipo'].iloc[0])
+                # Buscando o indice da variavel na coluna dos lexemas
+                #indice = tabelaDeSimbolos.loc[tabelaDeSimbolos['Lexema'] == variavel].index[0]
+                #print(variavel + ' no indice ' + indice)
 
 def verificarTiposDentroDeIfEWhile(posicao, tokens, lexemas, numeroLinhas, tabelaDeSimbolos):
     # Verifica comparacao de tipos, por exemplo inteiro com booleano

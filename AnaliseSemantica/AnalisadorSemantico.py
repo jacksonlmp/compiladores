@@ -10,6 +10,9 @@ def realizarAnaliseSemantica(tabelaDeTokens, tabelaDeSimbolos):
     lexemas = (tabelaDeTokens[tabelaDeTokens.columns[1:2:]]).values
     numeroLinhas = (tabelaDeTokens[tabelaDeTokens.columns[2:3:]]).values
 
+    semantico.verificarTipoDeParametroEArgumentoDeProcedimento(tabelaDeSimbolos)
+    semantico.verificarTipoDeParametroEArgumentoDeFuncao(tabelaDeSimbolos)
+
     quantidadeDeTokens = len(tokens)
 
     ultimaPosicaoLida = -1 # Para a primeira iteracao, posicaoAtual (zero) deve estar na frente
@@ -19,8 +22,6 @@ def realizarAnaliseSemantica(tabelaDeTokens, tabelaDeSimbolos):
 
 # Verifica se o codigo esta de acordo com a gramatica
 def verificar(posicao, tokens, lexemas, numeroLinhas, tabelaDeSimbolos):
-    if tokens[posicao] == "idFuncao":
-        return semantico.verificarTipoDeParametroEArgumento(lookAhead(posicao+1), tokens, lexemas, numeroLinhas, tabelaDeSimbolos)
-    elif tokens[posicao] == "if" or tokens[posicao] == 'laco':
+    if tokens[posicao] == 'if' or tokens[posicao] == 'laco':
         return semantico.verificarTiposDentroDeIfEWhile(lookAhead(posicao+1), tokens, lexemas, numeroLinhas, tabelaDeSimbolos)
     return posicao
