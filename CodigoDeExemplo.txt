@@ -30,4 +30,4 @@ func int fCalcular(int v1, int v2){
     return vResultado;
 }
 
-int vCalculo = fCalcular(v1, v2);
+int vCalculo = fCalcular(vA, vB);

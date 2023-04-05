@@ -5,7 +5,8 @@ import VerificadorDeRegras as semantico
 
 def criarTabela(tabelaDeTokens):
     
-    tabelaDeSimbolos = pd.DataFrame(columns=['Token', 'Lexema', 'Tipo', 'Linha', 'Valor', 'QtdParametros', 'Variaveis', 'TiposVariaveis', 'Escopo'])
+    tabelaDeSimbolos = pd.DataFrame(columns=['Token', 'Lexema', 'Tipo', 'Linha', 'Valor', 
+    'QtdParametros', 'Variaveis', 'TiposVariaveis', 'Escopo'])
 
     qtdTokens = len(tabelaDeTokens)
     for posicaoToken in range(qtdTokens):
@@ -18,13 +19,33 @@ def criarTabela(tabelaDeTokens):
 
                 escopo = ""
                 escopo = semantico.verificarEscopo(tabelaDeTokens, posicaoToken)
+                
+                qtdParametros = 0
+                variaveis = []
+                ehFuncaoOuProcedimento = False
+                if tabelaDeTokens["Token"][posicaoToken+2] == 'idFuncao' or  tabelaDeTokens["Token"][posicaoToken+2] == 'idProcedimento':
+                    ehFuncaoOuProcedimento = True
 
                 # Avalia toda a expressao apos a atribuicao para salvar o resultado final
                 while tabelaDeTokens["Token"][posicaoLexema] != "pontoEVirgula":
                     valor += tabelaDeTokens["Lexema"][posicaoLexema]
+
+                    if ehFuncaoOuProcedimento:
+                        if tabelaDeTokens["Token"][posicaoLexema] in ["idVariavel", "constante", "booleano"]:
+                            qtdParametros += 1
+                            variaveis.append(tabelaDeTokens["Lexema"][posicaoLexema])
+
                     posicaoLexema += 1
 
-                tabelaDeSimbolos.loc[len(tabelaDeSimbolos)] = ["idVariavel", tabelaDeTokens["Lexema"][posicaoToken], tabelaDeTokens["Lexema"][posicaoToken - 1], tabelaDeTokens["Linha"][posicaoToken], valor, "NA","NA","NA", escopo]
+                if variaveis == []:
+                    variaveis = 'NA'
+                    tiposVariaveis = 'NA'
+                else:
+                    tiposVariaveis = 'Desconhecido'
+
+                tabelaDeSimbolos.loc[len(tabelaDeSimbolos)] = ["idVariavel", tabelaDeTokens["Lexema"][posicaoToken], 
+                    tabelaDeTokens["Lexema"][posicaoToken - 1], tabelaDeTokens["Linha"][posicaoToken], valor, qtdParametros,
+                    variaveis, tiposVariaveis, escopo]
             else:
                 continue
         
@@ -42,7 +63,8 @@ def criarTabela(tabelaDeTokens):
                     tiposVariaveis.append(tabelaDeTokens["Lexema"][posicaoAux])
 
                 posicaoAux += 1
-            tabelaDeSimbolos.loc[len(tabelaDeSimbolos)] = ["procedimento", tabelaDeTokens["Lexema"][posicaoToken + 1], "NA", tabelaDeTokens["Linha"][posicaoToken], "NA", qtdParametros, variaveis, tiposVariaveis, "Global"]
+            tabelaDeSimbolos.loc[len(tabelaDeSimbolos)] = ["procedimento", tabelaDeTokens["Lexema"][posicaoToken + 1], 
+            "NA", tabelaDeTokens["Linha"][posicaoToken], "NA", qtdParametros, variaveis, tiposVariaveis, "Global"]
 
         # Inserir declaracao de funcao ---> Ex: func int fTeste(int vA, int vB) { ... return vResultado; }
         elif tabelaDeTokens["Token"][posicaoToken] == "funcao":
@@ -59,6 +81,8 @@ def criarTabela(tabelaDeTokens):
 
                 posicaoAux += 1
 
-            tabelaDeSimbolos.loc[len(tabelaDeSimbolos)] = ["funcao", tabelaDeTokens["Lexema"][posicaoToken + 2], tabelaDeTokens["Lexema"][posicaoToken + 1], tabelaDeTokens["Linha"][posicaoToken], "NA", qtdParametros, variaveis, tiposVariaveis, "Global"]
+            tabelaDeSimbolos.loc[len(tabelaDeSimbolos)] = ["funcao", tabelaDeTokens["Lexema"][posicaoToken + 2], 
+            tabelaDeTokens["Lexema"][posicaoToken + 1], tabelaDeTokens["Linha"][posicaoToken], "NA", qtdParametros, 
+            variaveis, tiposVariaveis, "Global"]
 
     return tabelaDeSimbolos
