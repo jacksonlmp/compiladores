@@ -22,26 +22,34 @@ def criarTabela(tabelaDeTokens):
                 
                 qtdParametros = 0
                 variaveis = []
+                tiposVariaveis = []
                 ehFuncaoOuProcedimento = False
                 if tabelaDeTokens["Token"][posicaoToken+2] == 'idFuncao' or  tabelaDeTokens["Token"][posicaoToken+2] == 'idProcedimento':
                     ehFuncaoOuProcedimento = True
 
                 # Avalia toda a expressao apos a atribuicao para salvar o resultado final
-                while tabelaDeTokens["Token"][posicaoLexema] != "pontoEVirgula":
+                token = tabelaDeTokens["Token"][posicaoLexema]
+                while token != "pontoEVirgula":
                     valor += tabelaDeTokens["Lexema"][posicaoLexema]
 
                     if ehFuncaoOuProcedimento:
-                        if tabelaDeTokens["Token"][posicaoLexema] in ["idVariavel", "constante", "booleano"]:
+                        if token in ["idVariavel", "constante", "booleano"]:
                             qtdParametros += 1
                             variaveis.append(tabelaDeTokens["Lexema"][posicaoLexema])
 
+                        if token == 'constante':
+                            tiposVariaveis.append('int')
+                        elif token == 'booleano':
+                            tiposVariaveis.append('boolean')
+                        elif token == 'idVariavel':
+                            tiposVariaveis.append('?')
+
                     posicaoLexema += 1
+                    token = tabelaDeTokens["Token"][posicaoLexema]
 
                 if variaveis == []:
                     variaveis = 'NA'
                     tiposVariaveis = 'NA'
-                else:
-                    tiposVariaveis = 'Desconhecido'
 
                 tabelaDeSimbolos.loc[len(tabelaDeSimbolos)] = ["idVariavel", tabelaDeTokens["Lexema"][posicaoToken], 
                     tabelaDeTokens["Lexema"][posicaoToken - 1], tabelaDeTokens["Linha"][posicaoToken], valor, qtdParametros,
@@ -83,6 +91,37 @@ def criarTabela(tabelaDeTokens):
 
             tabelaDeSimbolos.loc[len(tabelaDeSimbolos)] = ["funcao", tabelaDeTokens["Lexema"][posicaoToken + 2], 
             tabelaDeTokens["Lexema"][posicaoToken + 1], tabelaDeTokens["Linha"][posicaoToken], "NA", qtdParametros, 
+            variaveis, tiposVariaveis, "Global"]
+
+        # Inserir chamada de procedimento ---> Ex:pImprimirDobro(vSoma);
+        elif tabelaDeTokens["Token"][posicaoToken] == "idProcedimento" and tabelaDeTokens["Token"][posicaoToken-1] != 'procedimento':
+            posicaoAux = posicaoToken + 1 # Depois da abertura de parentese, para analisar os argumentos
+            qtdParametros = 0
+            variaveis = []
+            tiposVariaveis = []
+            token = tabelaDeTokens["Token"][posicaoAux]
+            while (token != "fechaParentese"):
+                
+                if token in ["idVariavel", "constante", "booleano"]:
+                    qtdParametros += 1
+                    variaveis.append(tabelaDeTokens["Lexema"][posicaoAux])
+
+                    if token == 'constante':
+                        tiposVariaveis.append('int')
+                    elif token == 'booleano':
+                        tiposVariaveis.append('boolean')
+                    elif token == 'idVariavel':
+                        tiposVariaveis.append('?')
+
+                posicaoAux += 1
+                token = tabelaDeTokens["Token"][posicaoAux]
+
+            if variaveis == []:
+                variaveis = 'NA'
+                tiposVariaveis = 'NA'
+
+            tabelaDeSimbolos.loc[len(tabelaDeSimbolos)] = ["idProcedimento", tabelaDeTokens["Lexema"][posicaoToken], 
+            "NA", tabelaDeTokens["Linha"][posicaoToken], "NA", qtdParametros, 
             variaveis, tiposVariaveis, "Global"]
 
     return tabelaDeSimbolos
