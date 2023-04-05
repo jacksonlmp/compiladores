@@ -22,5 +22,5 @@ def verificar(posicao, tokens, lexemas, numeroLinhas, tabelaDeSimbolos):
     if tokens[posicao] == "idFuncao":
         return semantico.verificarTipoDeParametroEArgumento(lookAhead(posicao+1), tokens, lexemas, numeroLinhas, tabelaDeSimbolos)
     elif tokens[posicao] == "if" or tokens[posicao] == 'laco':
-        return semantico.verificarTipoDeParametroEArgumento(lookAhead(posicao+1), tokens, lexemas, numeroLinhas, tabelaDeSimbolos)
+        return semantico.verificarTiposDentroDeIfEWhile(lookAhead(posicao+1), tokens, lexemas, numeroLinhas, tabelaDeSimbolos)
     return posicao
