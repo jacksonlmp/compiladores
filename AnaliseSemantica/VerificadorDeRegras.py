@@ -152,7 +152,7 @@ def verificarTipoDeParametroEArgumento(posicao, tokens, lexemas, numeroLinhas, t
 def verificarTiposDentroDeIfEWhile(posicao, tokens, lexemas, numeroLinhas, tabelaDeSimbolos):
     # Verifica comparacao de tipos, por exemplo inteiro com booleano
     # Analisa se operadores fazem sentido para aquele tipo. Ex: boolean > boolean, deveria dar erro (aceita apenas == ou !=)
-    
+    # Percorre ate achar o fim do if ou while, ou seja, ate encontrar um fecha parentese seguido de abertura de chave
     print('Work in progress')
     ### MODIFICAR ESTE TRECHO - Deverá retornar posição final do if ou while
     return posicao
