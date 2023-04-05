@@ -53,8 +53,8 @@ def estaDentroDoEscopo(tabelaDeTokens, posicaoDoToken, posicaoDoMetodo):
                 posicaoFimDoMetodo = tokenAtual
                 return (posicaoDoToken > posicaoInicioDoMetodo and posicaoDoToken < posicaoFimDoMetodo)
 
-# Verifica se o procedimento ja foi declarado anteriormente e se os tipos de argumentos recebidos sao iguais aos tipos de parametro
-def verificarSeDeclarouProcedimentoEArgumentos(posicao, lexemas, numeroLinhas):
+# Verifica se o procedimento ja foi declarado anteriormente
+def verificarSeDeclarouProcedimento(posicao, lexemas, numeroLinhas):
     try:
         declaradoAnteriormente = False
         nomeProcedimento = lexemas[posicao-1]
@@ -67,13 +67,11 @@ def verificarSeDeclarouProcedimentoEArgumentos(posicao, lexemas, numeroLinhas):
         if not declaradoAnteriormente:
             mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao]) + ". Procedimento " + str(lexemas[posicao-1][0]) + " nao declarado anteriormente.")         
 
-        if lexemas[posicaoParametro] != ')': # Procedimento possui parametros
-            verificarTipoDeParametroEArgumento(lexemas, posicaoParametro, lookAhead(posicao), numeroLinhas[posicaoParametro])
     except IndexError:
         mensagemErro("Excecao na verificacao de procedimento")
 
-# Verifica se a funcao ja foi declarada anteriormente, se o tipo de retorno eh o esperado e se os tipos de argumentos recebidos sao iguais aos tipos de parametros
-def verificarSeDeclarouFuncaoTipoRetornoEArgumentos(posicao, lexemas, numeroLinhas):
+# Verifica se a funcao ja foi declarada anteriormente e se o tipo de retorno eh o esperado
+def verificarTipoRetornoESeDeclarouFuncao(posicao, lexemas, numeroLinhas):
     try:
         declaradaAnteriormente = False
         tipoFuncao = ''
@@ -143,7 +141,7 @@ def verificarSeVariavelExiste(posicao, tokens, lexemas, numeroLinhas):
         mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao][0]) + ". Variavel " + nomeVariavel + " nao declarada anteriormente.")         
 
 # Verifica se o tipo de variavel recebida eh igual aos tipo de parametro
-def verificarTipoDeParametroEArgumento(tabelaDeSimbolos, tabelaDeTokens):
+def verificarTipoDeParametroEArgumento(posicao, tokens, lexemas, numeroLinhas, tabelaDeSimbolos):
     # Percorre a tabela de simbolos, verificando onde token for igual 'funcao'.
     # Salva o nome dela (lexema), e analisa onde a coluna Valor contém o nome da função
     # Obtém os argumentos dela e verifica na tabela de tokens se os tipos batem

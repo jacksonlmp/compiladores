@@ -293,7 +293,7 @@ def verificarChamadaDeProcedimento(posicao, tokens, lexemas, numeroLinhas):
          mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
             + ". Lexema " + lexemas[posicao] + " nao esperado. Era esperado um ;")
          
-    semantico.verificarSeDeclarouProcedimentoEArgumentos(posicaoAux, lexemas, numeroLinhas)    
+    semantico.verificarSeDeclarouProcedimento(posicaoAux, lexemas, numeroLinhas)    
     return posicao
 
 def verificarPrint(posicao, tokens, lexemas, numeroLinhas):
@@ -350,7 +350,7 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
             if tokens[posicao]  == "abreParentese":
                 posicao = verificarArgumentos(lookAhead(posicao), tokens, lexemas, numeroLinhas)
                 
-                semantico.verificarSeDeclarouFuncaoTipoRetornoEArgumentos(posicaoDoArgumento, lexemas, numeroLinhas)
+                semantico.verificarTipoRetornoESeDeclarouFuncao(posicaoDoArgumento, lexemas, numeroLinhas)
                 return posicao
             else:
                 mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
