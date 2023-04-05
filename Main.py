@@ -4,6 +4,7 @@ sys.path.insert(1, './AnaliseSintatica')
 sys.path.insert(1, './AnaliseSemantica')
 import AnalisadorLexico as lex
 import AnalisadorSintatico as sint
+import AnalisadorSemantico as semantico
 import pandas as pd
 from tabulate import tabulate
 
@@ -21,5 +22,7 @@ with pd.option_context('display.max_rows', None,
 
 tabelaDeSimbolos = sint.realizarAnaliseSintatica(tabelaDeTokens)
 print(tabulate(tabelaDeSimbolos, headers='keys', tablefmt='pretty'))
+
+semantico.realizarAnaliseSemantica(tabelaDeTokens, tabelaDeSimbolos)
 
 print("Codigo compilado com sucesso!")

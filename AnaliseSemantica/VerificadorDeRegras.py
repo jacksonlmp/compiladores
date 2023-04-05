@@ -146,3 +146,13 @@ def verificarTipoDeParametroEArgumento(posicao, tokens, lexemas, numeroLinhas, t
     # Salva o nome dela (lexema), e analisa onde a coluna Valor contém o nome da função
     # Obtém os argumentos dela e verifica na tabela de tokens se os tipos batem
     print('Work in progress')
+    ### MODIFICAR ESTE TRECHO - Deverá retornar posição final da função
+    return posicao
+
+def verificarTiposDentroDeIfEWhile(posicao, tokens, lexemas, numeroLinhas, tabelaDeSimbolos):
+    # Verifica comparacao de tipos, por exemplo inteiro com booleano
+    # Analisa se operadores fazem sentido para aquele tipo. Ex: boolean > boolean, deveria dar erro (aceita apenas == ou !=)
+    
+    print('Work in progress')
+    ### MODIFICAR ESTE TRECHO - Deverá retornar posição final do if ou while
+    return posicao
