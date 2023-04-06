@@ -126,7 +126,7 @@ def verificarSeVariavelExisteETiposSaoIguais(posicao, tokens, lexemas, numeroLin
     if tipo != tipoAtribuido:
         mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao][0]) + ". Variavel " + nomeVariavel + " possui tipo diferente do esperado.")         
 
-# Na atribuicao, verifica se a variavel existia anteriormente e se os tipos sao iguais
+# Na atribuicao, verifica se a variavel existia anteriormente
 def verificarSeVariavelExiste(posicao, tokens, lexemas, numeroLinhas):
     declaradaAnteriormente = False
     nomeVariavel = lexemas[posicao]
