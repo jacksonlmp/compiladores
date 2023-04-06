@@ -165,14 +165,19 @@ def verificarTipoDeParametroEArgumentoDeProcedimento(tabelaDeSimbolos):
             # Para cada  procedimento, guarda as variaveis e os tipos para comparar logo em seguida onde foi chamado
             nomeDoMetodo = tabelaDeSimbolos['Lexema'][posicao]
             variaveis = tabelaDeSimbolos['Variaveis'][posicao]
-            tiposVariaveis = tabelaDeSimbolos['TiposVariaveis'][posicao]
+
+            # Obtendo os tipos a partir da declaracao/assinatura do procedimento
+            indiceDeclaracaoProc = tabelaDeSimbolos['Lexema'].eq(nomeDoMetodo).idxmax() # Como a declaracao vem antes do uso, pega a primeira ocorrencia
+            tiposVariaveis = tabelaDeSimbolos['TiposVariaveis'][indiceDeclaracaoProc]
             
-           # for variavel in variaveis:
-                #print(tabelaDeSimbolos['Lexema'].eq(variavel).idxmax())
-                #print('Tipo ' + tabelaDeSimbolos.loc[tabelaDeSimbolos['Lexema'] == variavel, 'Tipo'].iloc[0])
-                # Buscando o indice da variavel na coluna dos lexemas
-                #indice = tabelaDeSimbolos.loc[tabelaDeSimbolos['Lexema'] == variavel].index[0]
-                #print(variavel + ' no indice ' + indice)
+            for indice in range(len(variaveis)):
+                # Para cada variavel, busca seu indice e compara se o tipo da sua declaracao eh diferente do tipo de argumento do procedimento
+                idVariavel = variaveis[indice]
+                indiceLexema = tabelaDeSimbolos['Lexema'].eq(idVariavel).idxmax()
+                if tabelaDeSimbolos['Tipo'][indiceLexema] != tiposVariaveis[indice]:
+                    mensagemErro("Ocorreu um erro semantico na linha " + str(tabelaDeSimbolos['Linha'][posicao]) + 
+                    ". Variavel " + idVariavel + " declarada com um tipo diferente do esperado pelo procedimento " + nomeDoMetodo +
+                    ". Deveria ser um " + tiposVariaveis[indice] + " em vez de um " + tabelaDeSimbolos['Tipo'][indiceLexema])         
 
 def verificarTiposDentroDeIfEWhile(posicao, tokens, lexemas, numeroLinhas, tabelaDeSimbolos):
     # Verifica comparacao de tipos, por exemplo inteiro com booleano

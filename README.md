@@ -63,8 +63,10 @@ A linguagem deve cobrir os seguintes aspectos:
 - [X] - Atribuir valor inteiro à variável booleana (valores literais);
 - [X] - Atribuir variável à outra variável de tipo diferente;
 - [X] - Atribuir variável que não tenha sido declarada ainda à outra variável;
-- [ ] - Passar valor inteiro como argumento em vez de booleano - tanto literais quanto variáveis;
-- [ ] - Passar valor booleano como argumento em vez de inteiro - tanto literais quanto variáveis;
+- [X] - Passar valor inteiro como argumento em vez de booleano - em procedimento;
+- [X] - Passar valor booleano como argumento em vez de inteiro - em procedimento;
+- [ ] - Passar valor inteiro como argumento em vez de booleano - em função;
+- [ ] - Passar valor booleano como argumento em vez de inteiro - em função;
 - [ ] - Utilizar variável não declarada ainda em chamada de função/procedimento;
 - [ ] - Comparar inteiro com booleano (e analisar se operadores fazem sentido. Ex: boolean > boolean);
 - [X] - Variável não declarada ainda sendo utilizada em expressão (em um if ou while, por exemplo);
