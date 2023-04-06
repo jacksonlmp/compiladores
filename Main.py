@@ -21,8 +21,8 @@ with pd.option_context('display.max_rows', None,
                        ): print(tabulate(tabelaDeTokens, headers='keys', tablefmt='pretty'))
 
 tabelaDeSimbolos = sint.realizarAnaliseSintatica(tabelaDeTokens)
-print(tabulate(tabelaDeSimbolos, headers='keys', tablefmt='pretty'))
-
 semantico.realizarAnaliseSemantica(tabelaDeTokens, tabelaDeSimbolos)
+
+print(tabulate(tabelaDeSimbolos, headers='keys', tablefmt='pretty'))
 
 print("Codigo compilado com sucesso!")

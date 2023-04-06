@@ -10,7 +10,7 @@ def realizarAnaliseSemantica(tabelaDeTokens, tabelaDeSimbolos):
     lexemas = (tabelaDeTokens[tabelaDeTokens.columns[1:2:]]).values
     numeroLinhas = (tabelaDeTokens[tabelaDeTokens.columns[2:3:]]).values
 
-    semantico.verificarTipoDeParametroEArgumentoDeProcedimento(tabelaDeSimbolos)
+    tabelaDeSimbolos = semantico.verificarTipoDeParametroEArgumentoDeProcedimento(tabelaDeSimbolos)
     semantico.verificarTipoDeParametroEArgumentoDeFuncao(tabelaDeSimbolos)
 
     quantidadeDeTokens = len(tokens)

@@ -185,6 +185,10 @@ def verificarTipoDeParametroEArgumentoDeProcedimento(tabelaDeSimbolos):
                     ". Variavel " + nomeVariavel + " declarada com um tipo diferente do esperado pelo procedimento " + nomeDoMetodo +
                     ". Deveria ser um " + tiposVariaveis[indice] + " em vez de um " + tabelaDeSimbolos['Tipo'][indiceLexema])         
 
+            # Atualizar valor dos argumentos nos tipos de variaveis da tabela de simbolos
+            tabelaDeSimbolos.at[posicao, 'TiposVariaveis'] = tiposVariaveis
+    return tabelaDeSimbolos
+
 def verificarTiposDentroDeIfEWhile(posicao, tokens, lexemas, numeroLinhas, tabelaDeSimbolos):
     # Verifica comparacao de tipos, por exemplo inteiro com booleano
     # Analisa se operadores fazem sentido para aquele tipo. Ex: boolean > boolean, deveria dar erro (aceita apenas == ou !=)
