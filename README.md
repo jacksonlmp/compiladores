@@ -41,7 +41,7 @@ A linguagem deve cobrir os seguintes aspectos:
     - pip install tabulate
 + Execute o arquivo Main.py.
 
-## Testes - Léxicos e sintáticos
+## Testes léxicos e sintáticos
 - [x] - Utilização de operadores de comparação
 - [x] - Erros de digitação (whle, it, bolean)
 - [x] - if x > 0 or and y < 10
@@ -55,7 +55,7 @@ A linguagem deve cobrir os seguintes aspectos:
 - [x] - int vA = 2 + * 5;
 - [x] - int vA = 10 2 +;
 
-## Testes - Semânticos
+## Testes semânticos
 - [X] - Chamar procedimento/função que não tenha sido declarado ainda;
 - [X] - Atribuir retorno de função booleana à variável inteira;
 - [X] - Atribuir retorno de função inteira à variável booleano;
@@ -65,9 +65,10 @@ A linguagem deve cobrir os seguintes aspectos:
 - [X] - Atribuir variável que não tenha sido declarada ainda à outra variável;
 - [X] - Passar valor inteiro como argumento em vez de booleano - em procedimento;
 - [X] - Passar valor booleano como argumento em vez de inteiro - em procedimento;
+- [X] - Utilizar variável não declarada ainda em chamada de procedimento;
 - [ ] - Passar valor inteiro como argumento em vez de booleano - em função;
 - [ ] - Passar valor booleano como argumento em vez de inteiro - em função;
-- [ ] - Utilizar variável não declarada ainda em chamada de função/procedimento;
+- [ ] - Utilizar variável não declarada ainda em chamada de função;
 - [ ] - Comparar inteiro com booleano (e analisar se operadores fazem sentido. Ex: boolean > boolean);
 - [X] - Variável não declarada ainda sendo utilizada em expressão (em um if ou while, por exemplo);
 - [X] - Imprimindo variável não declarada ainda.

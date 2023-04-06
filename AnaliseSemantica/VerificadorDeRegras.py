@@ -172,11 +172,17 @@ def verificarTipoDeParametroEArgumentoDeProcedimento(tabelaDeSimbolos):
             
             for indice in range(len(variaveis)):
                 # Para cada variavel, busca seu indice e compara se o tipo da sua declaracao eh diferente do tipo de argumento do procedimento
-                idVariavel = variaveis[indice]
-                indiceLexema = tabelaDeSimbolos['Lexema'].eq(idVariavel).idxmax()
+                nomeVariavel = variaveis[indice]
+                indiceLexema = tabelaDeSimbolos['Lexema'].eq(nomeVariavel).idxmax()
+                
+                # Variavel nao existe na tabela de simbolos, logo idxmax retorna zero. 
+                # Como zero eh um numero valido, devemos verificar se realmente nao se trata da variavel esperada
+                if tabelaDeSimbolos['Lexema'][indiceLexema] != nomeVariavel:
+                    mensagemErro("Ocorreu um erro semantico na linha " + str(tabelaDeSimbolos['Linha'][posicao]) + ". Variavel " + nomeVariavel + " nao declarada anteriormente.")
+
                 if tabelaDeSimbolos['Tipo'][indiceLexema] != tiposVariaveis[indice]:
                     mensagemErro("Ocorreu um erro semantico na linha " + str(tabelaDeSimbolos['Linha'][posicao]) + 
-                    ". Variavel " + idVariavel + " declarada com um tipo diferente do esperado pelo procedimento " + nomeDoMetodo +
+                    ". Variavel " + nomeVariavel + " declarada com um tipo diferente do esperado pelo procedimento " + nomeDoMetodo +
                     ". Deveria ser um " + tiposVariaveis[indice] + " em vez de um " + tabelaDeSimbolos['Tipo'][indiceLexema])         
 
 def verificarTiposDentroDeIfEWhile(posicao, tokens, lexemas, numeroLinhas, tabelaDeSimbolos):
