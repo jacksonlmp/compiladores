@@ -144,18 +144,40 @@ def verificarSeVariavelExiste(posicao, tokens, lexemas, numeroLinhas):
 def verificarTipoDeParametroEArgumentoDeFuncao(tabelaDeSimbolos):
     tamanhoDaTabela = len(tabelaDeSimbolos)
     for posicao in range(tamanhoDaTabela):
-        if tabelaDeSimbolos['Token'][posicao] == 'funcao':
+        if tabelaDeSimbolos['Valor'][posicao][0] == 'f': # Toda funcao comeca com f, logo a chamada dela tambem
+
             # Para cada funcao, guarda as variaveis e os tipos para comparar logo em seguida onde foi chamada
-            nomeDoMetodo = tabelaDeSimbolos['Lexema'][posicao]
+            nomeDoMetodo = tabelaDeSimbolos['Valor'][posicao].split("(")[0]
             variaveis = tabelaDeSimbolos['Variaveis'][posicao]
-            tiposVariaveis = tabelaDeSimbolos['TiposVariaveis'][posicao]
+
+            # Obtendo os tipos a partir da declaracao/assinatura da funcao
+            indiceDeclaracaoFuncao = tabelaDeSimbolos['Lexema'].eq(nomeDoMetodo).idxmax() # Como a declaracao vem antes do uso, pega a primeira ocorrencia
+            tiposVariaveis = tabelaDeSimbolos['TiposVariaveis'][indiceDeclaracaoFuncao]
             
-           # for variavel in variaveis:
+            for indice in range(len(variaveis)):
+                # Para cada variavel, busca seu indice e compara se o tipo da sua declaracao eh diferente do tipo de argumento da funcao
+                nomeVariavel = variaveis[indice]
+                indiceLexema = tabelaDeSimbolos['Lexema'].eq(nomeVariavel).idxmax()
+
+                # Se a variavel nao existir na tabela de simbolos, o idxmax retornara zero. 
+                # Como zero eh um numero valido, devemos verificar se realmente nao se trata da variavel esperada
+                if tabelaDeSimbolos['Lexema'][indiceLexema] != nomeVariavel:
+                    mensagemErro("Ocorreu um erro semantico na linha " + str(tabelaDeSimbolos['Linha'][posicao]) + ". Variavel " + nomeVariavel + " nao declarada anteriormente.")
+
+                if tabelaDeSimbolos['Tipo'][indiceLexema] != tiposVariaveis[indice]:
+                    mensagemErro("Ocorreu um erro semantico na linha " + str(tabelaDeSimbolos['Linha'][posicao]) + 
+                    ". Variavel " + nomeVariavel + " declarada com um tipo diferente do esperado pela funcao " + nomeDoMetodo +
+                    ". Deveria ser um " + tiposVariaveis[indice] + " em vez de um " + tabelaDeSimbolos['Tipo'][indiceLexema]) 
+
                 #print(tabelaDeSimbolos['Lexema'].eq(variavel).idxmax())
                 #print('Tipo ' + tabelaDeSimbolos.loc[tabelaDeSimbolos['Lexema'] == variavel, 'Tipo'].iloc[0])
                 # Buscando o indice da variavel na coluna dos lexemas
                 #indice = tabelaDeSimbolos.loc[tabelaDeSimbolos['Lexema'] == variavel].index[0]
                 #print(variavel + ' no indice ' + indice)
+
+            # Atualizar valor dos argumentos nos tipos de variaveis da tabela de simbolos
+            tabelaDeSimbolos.at[posicao, 'TiposVariaveis'] = tiposVariaveis
+    return tabelaDeSimbolos
 
 # Verifica se o tipo de variavel recebida eh igual ao tipo de parametro em procedimentos
 def verificarTipoDeParametroEArgumentoDeProcedimento(tabelaDeSimbolos):
@@ -175,7 +197,7 @@ def verificarTipoDeParametroEArgumentoDeProcedimento(tabelaDeSimbolos):
                 nomeVariavel = variaveis[indice]
                 indiceLexema = tabelaDeSimbolos['Lexema'].eq(nomeVariavel).idxmax()
                 
-                # Variavel nao existe na tabela de simbolos, logo idxmax retorna zero. 
+                # Se a variavel nao existir na tabela de simbolos, o idxmax retornara zero. 
                 # Como zero eh um numero valido, devemos verificar se realmente nao se trata da variavel esperada
                 if tabelaDeSimbolos['Lexema'][indiceLexema] != nomeVariavel:
                     mensagemErro("Ocorreu um erro semantico na linha " + str(tabelaDeSimbolos['Linha'][posicao]) + ". Variavel " + nomeVariavel + " nao declarada anteriormente.")

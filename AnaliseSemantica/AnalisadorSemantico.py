@@ -11,7 +11,7 @@ def realizarAnaliseSemantica(tabelaDeTokens, tabelaDeSimbolos):
     numeroLinhas = (tabelaDeTokens[tabelaDeTokens.columns[2:3:]]).values
 
     tabelaDeSimbolos = semantico.verificarTipoDeParametroEArgumentoDeProcedimento(tabelaDeSimbolos)
-    semantico.verificarTipoDeParametroEArgumentoDeFuncao(tabelaDeSimbolos)
+    tabelaDeSimbolos = semantico.verificarTipoDeParametroEArgumentoDeFuncao(tabelaDeSimbolos)
 
     quantidadeDeTokens = len(tokens)
 
