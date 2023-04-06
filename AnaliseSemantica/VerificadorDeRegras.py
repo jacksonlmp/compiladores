@@ -70,13 +70,13 @@ def verificarSeDeclarouProcedimento(posicao, lexemas, numeroLinhas):
     except IndexError:
         mensagemErro("Excecao na verificacao de procedimento")
 
-# Verifica se a funcao ja foi declarada anteriormente e se o tipo de retorno eh o esperado
+# Verifica se a funcao ja foi declarada anteriormente, se o tipo de retorno eh o esperado
 def verificarTipoRetornoESeDeclarouFuncao(posicao, lexemas, numeroLinhas):
     try:
         declaradaAnteriormente = False
         tipoFuncao = ''
         nomeFuncao = lexemas[posicao - 1]
-        tipoVariavel = lexemas[posicao - 4]
+        tipoVariavel = lexemas[posicao - 4] # Voltando do parentese ate o tipo -> int vAux = fCalcular(...
 
         for i in range(posicao - 1):
             if nomeFuncao == lexemas[i]:
@@ -92,6 +92,39 @@ def verificarTipoRetornoESeDeclarouFuncao(posicao, lexemas, numeroLinhas):
 
     except IndexError:
         mensagemErro("Excecao na verificacao de funcao")
+
+# Verifica se o valor retornado pertence ao tipo de retorno da funcao
+def verificarTipoRetornadoPorFuncao(posicao, tokens, lexemas, numeroLinhas, tipoFuncao):
+    try:
+        token = tokens[posicao]
+        houveErro = False
+        erroSemantico = "Ocorreu um erro semantico no retorno da funcao, na linha " + str(numeroLinhas[posicao][0]) + ". Tipo de retorno deveria ser " + tipoFuncao + ". Porem, o retorno esta sendo de um "
+
+        if token == "constante" and tipoFuncao != 'int':
+            houveErro = True
+
+        elif token == "booleano" and tipoFuncao != 'boolean':
+            houveErro = True
+
+        else: #idVariavel -> VERIFICAR SE ELA EXISTE
+            nomeVariavel = lexemas[posicao]
+            # Obtendo os tipo a partir da declaracao da variavel
+            indiceDeclaracaoVariavel = np.where(lexemas == nomeVariavel)[0][0]
+            
+            if indiceDeclaracaoVariavel == posicao: # Variavel so existe na linha de retorno
+                mensagemErro("Ocorreu um erro semantico no retorno da funcao, na linha " + str(numeroLinhas[posicao][0]) + ". Variavel " + nomeVariavel + " nao declarada anteriormente.")         
+
+
+            tipoRetorno = lexemas[indiceDeclaracaoVariavel - 1]
+            if tipoRetorno != tipoFuncao:
+                houveErro = True
+                token = tipoRetorno # Substituindo valor para printar o erro
+        
+        if houveErro:
+            mensagemErro(erroSemantico + token)
+
+    except IndexError:
+        mensagemErro("Ocorreu uma excecao na verificacao do tipo de retorno da funcao")
 
 # Verifica se o boolean recebeu 'true' ou 'false'
 def verificarSeVariavelEhBooleana(posicao, tokens, lexemas, numeroLinhas):
@@ -143,6 +176,7 @@ def verificarSeVariavelExiste(posicao, tokens, lexemas, numeroLinhas):
 # Verifica se o tipo de variavel recebida eh igual ao tipo de parametro em funcoes
 def verificarTipoDeParametroEArgumentoDeFuncao(tabelaDeSimbolos):
     tamanhoDaTabela = len(tabelaDeSimbolos)
+    # Percorre toda a tabela de simbolos buscando as funcoes na coluna 'Valor'
     for posicao in range(tamanhoDaTabela):
         if tabelaDeSimbolos['Valor'][posicao][0] == 'f': # Toda funcao comeca com f, logo a chamada dela tambem
 
@@ -168,13 +202,7 @@ def verificarTipoDeParametroEArgumentoDeFuncao(tabelaDeSimbolos):
                     mensagemErro("Ocorreu um erro semantico na linha " + str(tabelaDeSimbolos['Linha'][posicao]) + 
                     ". Variavel " + nomeVariavel + " declarada com um tipo diferente do esperado pela funcao " + nomeDoMetodo +
                     ". Deveria ser um " + tiposVariaveis[indice] + " em vez de um " + tabelaDeSimbolos['Tipo'][indiceLexema]) 
-
-                #print(tabelaDeSimbolos['Lexema'].eq(variavel).idxmax())
-                #print('Tipo ' + tabelaDeSimbolos.loc[tabelaDeSimbolos['Lexema'] == variavel, 'Tipo'].iloc[0])
-                # Buscando o indice da variavel na coluna dos lexemas
-                #indice = tabelaDeSimbolos.loc[tabelaDeSimbolos['Lexema'] == variavel].index[0]
-                #print(variavel + ' no indice ' + indice)
-
+                
             # Atualizar valor dos argumentos nos tipos de variaveis da tabela de simbolos
             tabelaDeSimbolos.at[posicao, 'TiposVariaveis'] = tiposVariaveis
     return tabelaDeSimbolos
