@@ -361,6 +361,8 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
             if tokens[posicao]  == 'booleano' or tokens[posicao-1] == 'operadorRelacional': # Verificando operador relacional para expressao booleana
                 if tokens[posicao-1] == 'atribuicao':    
                     semantico.verificarSeVariavelEhBooleana(posicao, lexemas, numeroLinhas)
+                    if lexemas[lookAhead(posicao)] in ['!=', '==']:
+                        posicao = lookAhead(posicao+1)
                 if (tokens[posicao-1] == 'abreParentese' or tokens[posicao-1] == 'operadorRelacional') and (lexemas[lookAhead(posicao)] == '==' or lexemas[lookAhead(posicao)] == '!='):
                     # Concatenacao de expressao booleana -> ex: true == vA == true != false, onde vA eh booleana
                     posicao = lookAhead(posicao)
