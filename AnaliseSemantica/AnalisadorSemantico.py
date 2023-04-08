@@ -22,6 +22,10 @@ def realizarAnaliseSemantica(tabelaDeTokens, tabelaDeSimbolos):
 
 # Verifica se o codigo esta de acordo com a gramatica
 def verificar(posicao, tokens, lexemas, numeroLinhas, tabelaDeSimbolos):
-    if tokens[posicao] == 'if' or tokens[posicao] == 'laco':
-        return semantico.verificarTiposDentroDeIfEWhile(lookAhead(posicao+1), tokens, lexemas, numeroLinhas, tabelaDeSimbolos)
+    #REMOVER SE NECESSÀRIO - IN PROGRESS
+    if tokens[posicao] == "if":
+        return semantico.verificarTiposDentroDeIfEWhile(posicao, tokens, lexemas, numeroLinhas, tabelaDeSimbolos)
+    #REMOVER SE NECESSÀRIO - IN PROGRESS
+    elif tokens[posicao] == 'laco':
+        return semantico.verificarTiposDentroDeWhile(posicao, tokens, lexemas, numeroLinhas, tabelaDeSimbolos)
     return posicao

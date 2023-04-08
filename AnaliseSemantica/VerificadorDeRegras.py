@@ -239,10 +239,31 @@ def verificarTipoDeParametroEArgumentoDeProcedimento(tabelaDeSimbolos):
             tabelaDeSimbolos.at[posicao, 'TiposVariaveis'] = tiposVariaveis
     return tabelaDeSimbolos
 
+#REMOVER SE NECESSÀRIO - IN PROGRESS
 def verificarTiposDentroDeIfEWhile(posicao, tokens, lexemas, numeroLinhas, tabelaDeSimbolos):
-    # Verifica comparacao de tipos, por exemplo inteiro com booleano
-    # Analisa se operadores fazem sentido para aquele tipo. Ex: boolean > boolean, deveria dar erro (aceita apenas == ou !=)
-    # Percorre ate achar o fim do if ou while, ou seja, ate encontrar um fecha parentese seguido de abertura de chave
-    print('Work in progress')
-    ### MODIFICAR ESTE TRECHO - Deverá retornar posição final do if ou while
-    return posicao
+    posicaoDoTipo = posicao - 3
+    tipo = lexemas[posicaoDoTipo]
+    if tipo != 'boolean':
+        print(tipo)
+        mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao][0]) + ". Tipo de variavel [" + str(lexemas[posicao - 2][0]) + "] diferente do tipo da atribuicao (foi informado um "+ tipo +").")
+
+    if tokens[posicao + 1] == "operadorRelacional":
+        proximoToken = tokens[posicao + 2]
+        if tipo == "int" and proximoToken == "boolean" or tipo == "boolean" and proximoToken == "int":
+            mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao][0]) + ". Comparacao invalida. Nao eh possivel comparar um inteiro com um booleano.")
+
+#REMOVER SE NECESSÀRIO - IN PROGRESS       
+def verificarTiposDentroDeWhile(posicao, tokens, lexemas, numeroLinhas, tabelaDeSimbolos):
+    posicaoDoTipo = posicao - 3
+    tipo = lexemas[posicaoDoTipo]
+    if tipo != 'boolean':
+        mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao][0]) + ". Tipo de variavel [" + str(lexemas[posicao - 2][0]) + "] diferente do tipo da atribuicao (foi informado um "+ tipo +").")
+
+    # verifica se a expressão dentro do while é booleana
+    if tokens[posicao + 1] == "operadorRelacional":
+        proximoToken = tokens[posicao + 2]
+        if tipo == "int" and proximoToken == "boolean" or tipo == "boolean" and proximoToken == "int":
+            mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao][0]) + ". Comparacao invalida. Nao eh possivel comparar um inteiro com um booleano.")
+            
+    elif tokens[posicao + 1] == "idVariavel" and tabelaDeSimbolos.temTipo(tokens[posicao + 1]) and tabelaDeSimbolos.getTipo(tokens[posicao + 1]) != "boolean":
+        mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao][0]) + ". A expressao dentro do while deve ser booleana.")
