@@ -358,14 +358,14 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
                 + ". Lexema " + lexemas[posicao] + " nao esperado. Era esperado uma abertura de parentese.")
 
         elif tokens[posicao]  in ['idVariavel', 'booleano', 'constante']:
-            if tokens[posicao]  == 'booleano':
+            if tokens[posicao]  == 'booleano' or tokens[posicao-1] == 'operadorRelacional': # Verificando operador relacional para expressao booleana
                 if tokens[posicao-1] == 'atribuicao':    
-                    semantico.verificarSeVariavelEhBooleana(posicao, tokens, lexemas, numeroLinhas)
-                posicao = lookAhead(posicao)
-                if tokens[posicao] == '==' or tokens[posicao] == '!=':
-                    # Concatenacao de expresao booleana -> testar: true == true == true != false
-                    return lookAhead(posicao)
-                return posicao
+                    semantico.verificarSeVariavelEhBooleana(posicao, lexemas, numeroLinhas)
+                if (tokens[posicao-1] == 'abreParentese' or tokens[posicao-1] == 'operadorRelacional') and (lexemas[lookAhead(posicao)] == '==' or lexemas[lookAhead(posicao)] == '!='):
+                    # Concatenacao de expressao booleana -> ex: true == vA == true != false, onde vA eh booleana
+                    posicao = lookAhead(posicao)
+                    return verificarExpressao(lookAhead(posicao), tokens, lexemas, numeroLinhas)
+                return lookAhead(posicao)
             else:
                 if tokens[posicao-1] == 'atribuicao': # Verificando atribuicao de variaveis
                     if tokens[posicao] == 'constante':
@@ -388,7 +388,7 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
                     token = tokens[posicao]
                     if(token in operadores and tokens[lookAhead(posicao)] not in valores): # operador sem outro valor na frente (ex: 10 + vA +)
                         ehExpressaoValida = False
-                        mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
+                        mensagemErro("Ocorreu um erro na linha " + str(numeroLinhas[posicao][0])
                         + ". Sentenca do lexema " + lexemas[posicao] + " invalida. Verifique os tipos e a ordem das constantes, variaveis e operadores.")
 
                     if(token not in valores and token not in operadores):
