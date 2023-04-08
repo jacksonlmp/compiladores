@@ -127,7 +127,7 @@ def verificarTipoRetornadoPorFuncao(posicao, tokens, lexemas, numeroLinhas, tipo
         mensagemErro("Ocorreu uma excecao na verificacao do tipo de retorno da funcao")
 
 # Verifica se o boolean recebeu 'true' ou 'false'
-def verificarSeVariavelEhBooleana(posicao, tokens, lexemas, numeroLinhas):
+def verificarSeVariavelEhBooleana(posicao, lexemas, numeroLinhas):
     posicaoDoTipo = posicao - 3
     if lexemas[posicaoDoTipo] != 'boolean':
         mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao][0]) + 
