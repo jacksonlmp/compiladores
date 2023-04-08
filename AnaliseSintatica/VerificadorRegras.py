@@ -301,7 +301,7 @@ def verificarPrint(posicao, tokens, lexemas, numeroLinhas):
     if (tokens[posicao]  == "idVariavel") or (tokens[posicao]  == "constante"):
         posicao = lookAhead(posicao)
         if tokens[posicao]  == "pontoEVirgula":
-            semantico.verificarSeVariavelExiste(posicao-1, tokens, lexemas, numeroLinhas)
+            semantico.verificarSeVariavelExiste(posicao-1, tokens, lexemas, str(numeroLinhas[posicao-1][0]))
             return posicao
         else:
             mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
@@ -372,11 +372,11 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
                         semantico.verificarSeVariavelEhInteira(posicao, tokens, lexemas, numeroLinhas)
                     else:
                         # Atribuicao de uma variavel a outra
-                        semantico.verificarSeVariavelExisteETiposSaoIguais(posicao, tokens, lexemas, numeroLinhas)
+                        semantico.verificarSeVariavelExisteETiposSaoIguais(posicao, tokens, lexemas, str(numeroLinhas[posicao][0]))
 
                 elif tokens[posicao] == 'idVariavel' and (tokens[posicao-2] == 'if' or tokens[posicao-2] == 'laco'):
                     # Verificando se variavel usada em if ou while ja foi declarada
-                    semantico.verificarSeVariavelExiste(posicao, tokens, lexemas, numeroLinhas)
+                    semantico.verificarSeVariavelExiste(posicao, tokens, lexemas, str(numeroLinhas[posicao-1][0]))
 
                 valores = ['idVariavel', 'constante']
                 operadores = ['operadorAritmetico', 'operadorRelacional']
@@ -395,7 +395,7 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
                         ehExpressaoValida = False
 
                     if(token == 'idVariavel'):
-                        semantico.verificarSeVariavelExiste(posicao, tokens, lexemas, numeroLinhas)
+                        semantico.verificarSeVariavelExiste(posicao, tokens, lexemas, str(numeroLinhas[posicao][0]))
 
                 return posicao
             

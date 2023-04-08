@@ -160,7 +160,7 @@ def verificarSeVariavelExisteETiposSaoIguais(posicao, tokens, lexemas, numeroLin
         mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao][0]) + ". Variavel " + nomeVariavel + " possui tipo diferente do esperado.")         
 
 # Na atribuicao, verifica se a variavel existia anteriormente
-def verificarSeVariavelExiste(posicao, tokens, lexemas, numeroLinhas):
+def verificarSeVariavelExiste(posicao, tokens, lexemas, numeroLinha):
     declaradaAnteriormente = False
     nomeVariavel = lexemas[posicao]
     posicao = posicao - 3 # Voltando para antes da variavel que esta recebendo a atribuicao
@@ -171,7 +171,7 @@ def verificarSeVariavelExiste(posicao, tokens, lexemas, numeroLinhas):
                 break
 
     if not declaradaAnteriormente:
-        mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinhas[posicao][0]) + ". Variavel " + nomeVariavel + " nao declarada anteriormente.")         
+        mensagemErro("Ocorreu um erro semantico na linha " + numeroLinha + ". Variavel " + nomeVariavel + " nao declarada anteriormente.")         
 
 # Verifica se o tipo de variavel recebida eh igual ao tipo de parametro em funcoes
 def verificarTipoDeParametroEArgumentoDeFuncao(tabelaDeSimbolos):
