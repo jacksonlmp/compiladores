@@ -106,9 +106,9 @@ def verificarTipoRetornadoPorFuncao(posicao, tokens, lexemas, numeroLinhas, tipo
         elif token == "booleano" and tipoFuncao != 'boolean':
             houveErro = True
 
-        else: #idVariavel -> VERIFICAR SE ELA EXISTE
+        else: #idVariavel
             nomeVariavel = lexemas[posicao]
-            # Obtendo os tipo a partir da declaracao da variavel
+            # Obtendo o tipo a partir da declaracao da variavel
             indiceDeclaracaoVariavel = np.where(lexemas == nomeVariavel)[0][0]
             
             if indiceDeclaracaoVariavel == posicao: # Variavel so existe na linha de retorno
@@ -246,3 +246,28 @@ def verificarTiposDentroDeIfEWhile(posicao, tokens, lexemas, numeroLinhas, tabel
     print('Work in progress')
     ### MODIFICAR ESTE TRECHO - Deverá retornar posição final do if ou while
     return posicao
+
+# Verifica os tipos utilizados em comparacoes ou expressoes
+def compararTipos(tokens, lexemas, numeroLinha, posicao, operador, posicao2):
+    tipo1 = obterTipo(tokens, lexemas, posicao)
+    tipo2 = obterTipo(tokens, lexemas, posicao2)
+
+    if tipo1 != tipo2:
+        mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinha[0]) + ". Tipo " + tipo1 + " sendo comparado ou operado com " + tipo2)
+    
+    if tipo1 == 'boolean':
+        if operador not in ['==', '!=']:
+            mensagemErro("Ocorreu um erro semantico na linha " + str(numeroLinha[0]) + ". Operador " + operador + " invalido para tipo booleano")
+
+# Retorna o tipo de determinado lexema
+def obterTipo(tokens, lexemas, posicao):
+    token = tokens[posicao]
+    if token == 'booleano':
+        return 'boolean'
+    elif token == 'constante':
+        return 'int'
+    else:
+        nomeVariavel = lexemas[posicao]
+        # Obtendo o tipo a partir da declaracao da variavel
+        indiceDeclaracaoVariavel = np.where(lexemas == nomeVariavel)[0][0]
+        return lexemas[indiceDeclaracaoVariavel - 1]

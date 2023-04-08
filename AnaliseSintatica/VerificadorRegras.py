@@ -194,8 +194,8 @@ def verificarLaco(posicao, tokens, lexemas, numeroLinhas):
                 mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
                 + ". Token " + tokens[posicao] + " nao esperado. Era esperado uma abertura de chave.")
         else:
-            mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0])
-                + ". Token " + tokens[posicao] + " nao esperado. Era esperado um fechamento de parentese.")
+            mensagemErro("Ocorreu um erro na linha " + str(numeroLinhas[posicao][0])
+                + ". Token " + tokens[posicao] + " nao esperado. Era esperado um fechamento de parentese ou expressao valida.")
     else:
         mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
             + ". Token " + tokens[posicao] + " nao esperado. Era esperado uma abertura de parentese.")
@@ -397,6 +397,13 @@ def verificarExpressao(posicao, tokens, lexemas, numeroLinhas):
                     if(token == 'idVariavel'):
                         semantico.verificarSeVariavelExiste(posicao, tokens, lexemas, str(numeroLinhas[posicao][0]))
 
+                    # Trecho de analise semantica
+                    valorAnterior = tokens[posicao-1]
+                    # Se for o operador, envia o valor anterior e o proximo para analise
+                    if(valorAnterior in operadores):
+                        operador = lexemas[posicao-1]
+                        semantico.compararTipos(tokens, lexemas, numeroLinhas[posicao], posicao, operador, posicao-2)
+                    
                 return posicao
             
         else:

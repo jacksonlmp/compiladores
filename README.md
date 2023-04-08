@@ -71,6 +71,7 @@ A linguagem deve cobrir os seguintes aspectos:
 - [X] - Em chamada de função, utilizar variável não declarada ainda;
 - [X] - Verificar se tipo de variável ou valor literal retornado é igual ao da função;
 - [X] - Em uma função, retornar variável que não foi declarada ainda;
-- [ ] - Comparar inteiro com booleano (e analisar se operadores fazem sentido para o tipo. Ex: boolean > boolean);
+- [X] - Comparar inteiro com booleano (e analisar se operadores fazem sentido para o tipo. Ex: boolean > boolean);
+- [X] - Expressões envolvendo boolean e int (ex: vA > 10 + true);
 - [X] - Variável não declarada ainda sendo utilizada em expressão (em um if ou while, por exemplo);
-- [X] - Imprimindo variável não declarada ainda.
+- [X] - Imprimir variável não declarada ainda.
