@@ -12,16 +12,3 @@ def realizarAnaliseSemantica(tabelaDeTokens, tabelaDeSimbolos):
 
     tabelaDeSimbolos = semantico.verificarTipoDeParametroEArgumentoDeProcedimento(tabelaDeSimbolos)
     tabelaDeSimbolos = semantico.verificarTipoDeParametroEArgumentoDeFuncao(tabelaDeSimbolos)
-
-    quantidadeDeTokens = len(tokens)
-
-    ultimaPosicaoLida = -1 # Para a primeira iteracao, posicaoAtual (zero) deve estar na frente
-    for posicaoAtual in range(quantidadeDeTokens):
-        if posicaoAtual > ultimaPosicaoLida:
-            ultimaPosicaoLida = verificar(posicaoAtual, tokens, lexemas, numeroLinhas, tabelaDeSimbolos)
-
-# Verifica se o codigo esta de acordo com a gramatica
-def verificar(posicao, tokens, lexemas, numeroLinhas, tabelaDeSimbolos):
-    if tokens[posicao] == 'if' or tokens[posicao] == 'laco':
-        return semantico.verificarTiposDentroDeIfEWhile(lookAhead(posicao+1), tokens, lexemas, numeroLinhas, tabelaDeSimbolos)
-    return posicao
