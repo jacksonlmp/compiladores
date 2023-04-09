@@ -11,16 +11,5 @@ def gerarCodigo(tabelaDeTokens, tabelaDeSimbolos):
             expressao = tabelaDeSimbolos['Valor'][posicao]
             if(expressao[0] != 'f'): # Nao eh uma funcao
                 expressoes.append(expressao)
-
-    # Verificar expressoes dentro de if e while
-    lexemas = (tabelaDeTokens[tabelaDeTokens.columns[1:2:]]).values
-    quantidadeDeLexemas = len(lexemas)
-    '''
-    ultimaPosicaoLida = -1 # Para a primeira iteracao, posicaoAtual (zero) deve estar na frente
-    for posicaoAtual in range(quantidadeDeLexemas):
-        if posicaoAtual > ultimaPosicaoLida:
-            if lexemas == 'if' or lexemas == 'while':
-                ultimaPosicaoLida = traduzirExpressao(posicaoAtual)
-    '''
-
+                               
     tradutor.traduzirExpressoes(expressoes)
