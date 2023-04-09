@@ -29,7 +29,7 @@ def imprimirTabelaSimbolos(tabelaDeSimbolos):
 def imprimirCodigoIntermediario(tabelaDeTokens, tabelaDeSimbolos):
     print('\n+-----+--------------------+----------------+-------+')
     print('|              Codigo de 3 enderecos                |')
-    tradutorCodigo3End.gerarCodigo3Enderecos(tabelaDeTokens, tabelaDeSimbolos)
+    tradutorCodigo3End.gerarCodigo(tabelaDeTokens, tabelaDeSimbolos)
     print('+-----+--------------------+----------------+-------+\n')
 
 # Programa a ser analisado
