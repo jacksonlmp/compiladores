@@ -1,7 +1,7 @@
 import pandas as pd
 import Tradutor as tradutor
 
-def gerarCodigo(tabelaDeTokens, tabelaDeSimbolos):    
+def gerarCodigo(tabelaDeSimbolos):    
     expressoes = []
     # Expressoes de atribuicoes de variaveis
     tamanhoDaTabelaDeSimbolos = len(tabelaDeSimbolos)

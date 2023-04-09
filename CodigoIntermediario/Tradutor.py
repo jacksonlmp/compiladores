@@ -50,7 +50,6 @@ def obterExpressaoDoNo(no):
 
 # Retorna o operador de um no
 def obterOperadorDoNo(no):
-    print(no)
     if isinstance(no, ast.Add):
         return "+"
     elif isinstance(no, ast.Sub):
