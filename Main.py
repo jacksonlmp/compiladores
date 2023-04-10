@@ -6,6 +6,7 @@ sys.path.insert(1, './CodigoIntermediario')
 import AnalisadorLexico as lex
 import AnalisadorSintatico as sint
 import AnalisadorSemantico as semantico
+import Gerador as geradorCodigoIntermediario
 import TresEnderecos as tradutorCodigo3End
 import pandas as pd
 from tabulate import tabulate
@@ -45,6 +46,7 @@ tabelaDeSimbolos = sint.realizarAnaliseSintatica(tabelaDeTokens)
 semantico.realizarAnaliseSemantica(tabelaDeTokens, tabelaDeSimbolos)
 imprimirTabelaSimbolos(tabelaDeSimbolos)
 
+geradorCodigoIntermediario.gerarCodigoIntermediario(tabelaDeTokens)
 imprimirCodigoTresEnderecos(tabelaDeSimbolos)
 
 print("Codigo compilado com sucesso!")

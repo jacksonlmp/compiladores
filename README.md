@@ -2,7 +2,7 @@
 Disciplina de Compiladores, ministrada pela professora Maria Sibaldo na UFAPE, referente ao período de 2022.1. 
 
 ## Sobre o projeto 📑
-Implementação de um compilador (até a geração de código intermediário, contendo código de três endereços), com linguagem de livre escolha, com uso de gramática preditiva.
+Implementação de um compilador (até a geração de código intermediário - linguagem de máquina e código de três endereços), com linguagem de livre escolha, com uso de gramática preditiva.
 
 A linguagem escolhida para desenvolvimento foi python, na versão 3.9.5.
 
