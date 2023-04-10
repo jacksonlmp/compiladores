@@ -74,4 +74,5 @@ A linguagem deve cobrir os seguintes aspectos:
 - [X] - Comparar inteiro com booleano (e analisar se operadores fazem sentido para o tipo. Ex: boolean > boolean);
 - [X] - Expressões envolvendo boolean e int (ex: vA > 10 + true);
 - [X] - Variável não declarada ainda sendo utilizada em expressão (em um if ou while, por exemplo);
-- [X] - Imprimir variável não declarada ainda.
+- [X] - Declarar função/procedimento com nome já utilizado;
+- [X] - Declarar variável (no mesmo escopo) com nome já utilizado.

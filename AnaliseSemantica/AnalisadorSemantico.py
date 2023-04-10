@@ -1,5 +1,6 @@
 import pandas as pd
 import VerificadorDeRegras as semantico
+import UnicidadeDeNomes as unicidade
 
 def lookAhead(posicao):
     return posicao + 1
@@ -12,3 +13,5 @@ def realizarAnaliseSemantica(tabelaDeTokens, tabelaDeSimbolos):
 
     tabelaDeSimbolos = semantico.verificarTipoDeParametroEArgumentoDeProcedimento(tabelaDeSimbolos)
     tabelaDeSimbolos = semantico.verificarTipoDeParametroEArgumentoDeFuncao(tabelaDeSimbolos)
+
+    unicidade.verificarUnicidadeDeNomes(tabelaDeSimbolos)

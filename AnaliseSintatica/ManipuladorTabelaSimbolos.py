@@ -17,7 +17,6 @@ def criarTabela(tabelaDeTokens):
                 valor = ""
                 posicaoLexema = posicaoToken + 2 # Depois do sinal de igual da atribuicao
 
-                escopo = ""
                 escopo = semantico.verificarEscopo(tabelaDeTokens, posicaoToken)
                 
                 qtdParametros = 0
@@ -72,7 +71,7 @@ def criarTabela(tabelaDeTokens):
 
                 posicaoAux += 1
             tabelaDeSimbolos.loc[len(tabelaDeSimbolos)] = ["procedimento", tabelaDeTokens["Lexema"][posicaoToken + 1], 
-            "NA", tabelaDeTokens["Linha"][posicaoToken], "NA", qtdParametros, variaveis, tiposVariaveis, "Global"]
+            "NA", tabelaDeTokens["Linha"][posicaoToken], "NA", qtdParametros, variaveis, tiposVariaveis, "NA"]
 
         # Inserir declaracao de funcao ---> Ex: func int fTeste(int vA, int vB) { ... return vResultado; }
         elif tabelaDeTokens["Token"][posicaoToken] == "funcao":
@@ -91,7 +90,7 @@ def criarTabela(tabelaDeTokens):
 
             tabelaDeSimbolos.loc[len(tabelaDeSimbolos)] = ["funcao", tabelaDeTokens["Lexema"][posicaoToken + 2], 
             tabelaDeTokens["Lexema"][posicaoToken + 1], tabelaDeTokens["Linha"][posicaoToken], "NA", qtdParametros, 
-            variaveis, tiposVariaveis, "Global"]
+            variaveis, tiposVariaveis, "NA"]
 
         # Inserir chamada de procedimento ---> Ex:pImprimirDobro(vSoma);
         elif tabelaDeTokens["Token"][posicaoToken] == "idProcedimento" and tabelaDeTokens["Token"][posicaoToken-1] != 'procedimento':
@@ -120,8 +119,9 @@ def criarTabela(tabelaDeTokens):
                 variaveis = 'NA'
                 tiposVariaveis = 'NA'
 
+            escopo = semantico.verificarEscopo(tabelaDeTokens, posicaoToken)
             tabelaDeSimbolos.loc[len(tabelaDeSimbolos)] = ["idProcedimento", tabelaDeTokens["Lexema"][posicaoToken], 
             "NA", tabelaDeTokens["Linha"][posicaoToken], "NA", qtdParametros, 
-            variaveis, tiposVariaveis, "Global"]
+            variaveis, tiposVariaveis, escopo]
 
     return tabelaDeSimbolos
