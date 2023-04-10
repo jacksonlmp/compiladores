@@ -6,9 +6,9 @@ func int fPegarValor(int vAux){
 }
 
 if(vA > vB){
-    int vA = fPegarValor(vB);
+    int vC = fPegarValor(vB);
 } else{
-    int vB = fPegarValor(vA);
+    int vD = fPegarValor(vA);
 }
 
 int vSoma = vA + vB;
@@ -25,7 +25,8 @@ pImprimirDobro(vSoma);
 func int fCalcular(int v1, int v2){
     int vResultado = v1 + 1 * 10 / 2;
     while(v1 < v2){
-        int vResultado = 1 + vResultado * 3;
+        int vCalculo = 1 + vResultado * 3;
+        print vCalculo;
     }  
     return vResultado;
 }
