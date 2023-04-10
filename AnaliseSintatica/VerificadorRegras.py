@@ -263,12 +263,10 @@ def verificarDeclaracaoDeProcedimento(posicao, tokens, lexemas, numeroLinhas):
             posicao = verificarParametros(posicao, tokens, lexemas, numeroLinhas)
             
             if tokens[posicao]  == "abreChave":
-                
-                while(tokens[posicao]  != "fechaChave"):
-                    posicao = lookAhead(posicao) 
-                                  
-                    if tokens[posicao]  != "fechaChave":
-                        posicao = verificarBloco(posicao, tokens, lexemas, numeroLinhas)
+                posicao = lookAhead(posicao)
+                while(not tokens[posicao]  == "fechaChave"):
+                    posicao = verificarBloco(posicao, tokens, lexemas, numeroLinhas)
+                    posicao = lookAhead(posicao)
                 
                 return posicao
 
