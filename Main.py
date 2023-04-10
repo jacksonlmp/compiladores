@@ -26,7 +26,7 @@ def imprimirTabelaSimbolos(tabelaDeSimbolos):
     print(tabulate(tabelaDeSimbolos, headers='keys', tablefmt='pretty'))
 
 
-def imprimirCodigoIntermediario(tabelaDeSimbolos):
+def imprimirCodigoTresEnderecos(tabelaDeSimbolos):
     print('\n+-----+--------------------+----------------+-------+')
     print('|              Codigo de 3 enderecos                |')
     tradutorCodigo3End.gerarCodigo(tabelaDeSimbolos)
@@ -43,8 +43,8 @@ imprimirTabelaDeTokens(tabelaDeTokens)
 
 tabelaDeSimbolos = sint.realizarAnaliseSintatica(tabelaDeTokens)
 semantico.realizarAnaliseSemantica(tabelaDeTokens, tabelaDeSimbolos)
-
 imprimirTabelaSimbolos(tabelaDeSimbolos)
-imprimirCodigoIntermediario(tabelaDeSimbolos)
+
+imprimirCodigoTresEnderecos(tabelaDeSimbolos)
 
 print("Codigo compilado com sucesso!")
