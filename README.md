@@ -2,7 +2,7 @@
 Disciplina de Compiladores, ministrada pela professora Maria Sibaldo na UFAPE, referente ao período de 2022.1. 
 
 ## Sobre o projeto 📑
-Implementação de um compilador, com linguagem de livre escolha, com uso de gramática preditiva.
+Implementação de um compilador (até a geração de código intermediário, contendo código de três endereços), com linguagem de livre escolha, com uso de gramática preditiva.
 
 A linguagem escolhida para desenvolvimento foi python, na versão 3.9.5.
 
@@ -76,4 +76,5 @@ A linguagem deve cobrir os seguintes aspectos:
 - [X] - Expressões envolvendo boolean e int (ex: vA > 10 + true);
 - [X] - Variável não declarada ainda sendo utilizada em expressão (em um if ou while, por exemplo);
 - [X] - Declarar função/procedimento com nome já utilizado;
-- [X] - Declarar variável (no mesmo escopo) com nome já utilizado.
+- [X] - Declarar variável (no mesmo escopo) com nome já utilizado;
+- [ ] - Printar variável fora do seu escopo.
