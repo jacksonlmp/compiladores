@@ -187,8 +187,14 @@ def verificarTipoDeParametroEArgumentoDeFuncao(tabelaDeSimbolos):
             # Obtendo os tipos a partir da declaracao/assinatura da funcao
             indiceDeclaracaoFuncao = tabelaDeSimbolos['Lexema'].eq(nomeDoMetodo).idxmax() # Como a declaracao vem antes do uso, pega a primeira ocorrencia
             tiposVariaveis = tabelaDeSimbolos['TiposVariaveis'][indiceDeclaracaoFuncao]
+
+            qtdArgumentos = len(variaveis)
+            qtdParametros = len(tiposVariaveis)
+            if qtdArgumentos != qtdParametros:
+                mensagemErro("Ocorreu um erro semantico na linha " + str(tabelaDeSimbolos['Linha'][posicao]) + ". Numero de argumentos diferente do esperado pela funcao " + nomeDoMetodo + ". Esperava-se " 
+                + str(qtdParametros) + ", porem ela recebeu " + str(qtdArgumentos))
             
-            for indice in range(len(variaveis)):
+            for indice in range(qtdParametros):
                 # Para cada variavel, busca seu indice e compara se o tipo da sua declaracao eh diferente do tipo de argumento da funcao
                 nomeVariavel = variaveis[indice]
                 indiceLexema = tabelaDeSimbolos['Lexema'].eq(nomeVariavel).idxmax()
@@ -220,7 +226,13 @@ def verificarTipoDeParametroEArgumentoDeProcedimento(tabelaDeSimbolos):
             indiceDeclaracaoProc = tabelaDeSimbolos['Lexema'].eq(nomeDoMetodo).idxmax() # Como a declaracao vem antes do uso, pega a primeira ocorrencia
             tiposVariaveis = tabelaDeSimbolos['TiposVariaveis'][indiceDeclaracaoProc]
             
-            for indice in range(len(variaveis)):
+            qtdArgumentos = len(variaveis)
+            qtdParametros = len(tiposVariaveis)
+            if qtdArgumentos != qtdParametros:
+                mensagemErro("Ocorreu um erro semantico na linha " + str(tabelaDeSimbolos['Linha'][posicao]) + ". Numero de argumentos diferente do esperado pelo procedimento " + nomeDoMetodo + ". Esperava-se " 
+                + str(qtdParametros) + ", porem ela recebeu " + str(qtdArgumentos))
+            
+            for indice in range(qtdParametros):
                 # Para cada variavel, busca seu indice e compara se o tipo da sua declaracao eh diferente do tipo de argumento do procedimento
                 nomeVariavel = variaveis[indice]
                 indiceLexema = tabelaDeSimbolos['Lexema'].eq(nomeVariavel).idxmax()

@@ -47,8 +47,7 @@ def criarTabela(tabelaDeTokens):
                     token = tabelaDeTokens["Token"][posicaoLexema]
 
                 if variaveis == []:
-                    variaveis = 'NA'
-                    tiposVariaveis = 'NA'
+                    tiposVariaveis = []
 
                 tabelaDeSimbolos.loc[len(tabelaDeSimbolos)] = ["idVariavel", tabelaDeTokens["Lexema"][posicaoToken], 
                     tabelaDeTokens["Lexema"][posicaoToken - 1], tabelaDeTokens["Linha"][posicaoToken], valor, qtdParametros,
@@ -116,8 +115,7 @@ def criarTabela(tabelaDeTokens):
                 token = tabelaDeTokens["Token"][posicaoAux]
 
             if variaveis == []:
-                variaveis = 'NA'
-                tiposVariaveis = 'NA'
+                tiposVariaveis = []
 
             escopo = semantico.verificarEscopo(tabelaDeTokens, posicaoToken)
             tabelaDeSimbolos.loc[len(tabelaDeSimbolos)] = ["idProcedimento", tabelaDeTokens["Lexema"][posicaoToken], 
