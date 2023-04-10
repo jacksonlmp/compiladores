@@ -11,8 +11,8 @@ import pandas as pd
 from tabulate import tabulate
 
 def imprimirTabelaDeTokens(tabelaDeTokens):
-    print('+-----+--------------------+----------------+-------+')
-    print('|                 Tabela de tokens                  |')
+    print('+-----+--------------------+----------------+')
+    print('|            Tabela de tokens               |')
     print
     with pd.option_context('display.max_rows', None,
                             'display.max_columns', None,
@@ -21,8 +21,8 @@ def imprimirTabelaDeTokens(tabelaDeTokens):
 
 
 def imprimirTabelaSimbolos(tabelaDeSimbolos):
-    print('\n+----+----------------+----------------+---------+-------+------------------+---------------+--------------+----------------+----------------+')
-    print('|                                                            Tabela de simbolos                                                              |')
+    print('\n+----+----------------+--------+------+-------+----------------+---------------+-----------------------+-----------------------+--------+')
+    print('|                                                            Tabela de simbolos                                                         |')
     print(tabulate(tabelaDeSimbolos, headers='keys', tablefmt='pretty'))
 
 
