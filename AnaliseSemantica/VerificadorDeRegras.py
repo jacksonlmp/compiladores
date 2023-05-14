@@ -275,3 +275,5 @@ def obterTipo(tokens, lexemas, posicao):
         # Obtendo o tipo a partir da declaracao da variavel
         indiceDeclaracaoVariavel = np.where(lexemas == nomeVariavel)[0][0]
         return lexemas[indiceDeclaracaoVariavel - 1]
+
+#def verificarEscopoDoPrint(...)

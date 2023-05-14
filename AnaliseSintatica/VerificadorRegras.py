@@ -300,6 +300,7 @@ def verificarPrint(posicao, tokens, lexemas, numeroLinhas):
         posicao = lookAhead(posicao)
         if tokens[posicao]  == "pontoEVirgula":
             semantico.verificarSeVariavelExiste(posicao-1, tokens, lexemas, str(numeroLinhas[posicao-1][0]))
+            #semantico.verificarEscopoDoPrint(...)
             return posicao
         else:
             mensagemErro("Ocorreu um erro sintatico na linha " + str(numeroLinhas[posicao][0]) 
